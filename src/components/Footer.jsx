@@ -22,54 +22,54 @@ function Footer({ isLoggedIn }) {
   return (
     <Grid2
         container
-        sx={{position: 'fixed', width:'100%', display:'flex', left:0, bottom:30, right:0,  borderTop:'1px solid',}}>
+        sx={{ position: 'fixed', width:'100%', display:'flex', left:0, bottom:30, right:0,  borderTop:'1px solid' }}>
             <Grid2
                 item
                 xsOffset={1}
                 xs={10}
                 sx={{display:'flex'}}>
                 <Typography
-                    sx={{position:'fixed', right:'20%', bottom:0, fontFamily:"'Lato', sans-serif;",}}>
+                    sx={{ position:'fixed', right:'20%', bottom:0, fontFamily:"'Lato', sans-serif;" }}>
                     &#169; 2023 Job Board
                 </Typography>
                 <Grid2
                     item
                     xs={1}>
                     <Stack
-                        sx={{marginTop:1}}
+                        sx={{ marginTop:1 }}
                         spacing={1}>
                         <Link
-                            style={LinkStyling}
+                            style={ LinkStyling }
                             to={'/home'}>
                             <Typography
-                                sx={TextStyling}>
+                                sx={ TextStyling }>
                                 Home
                             </Typography>
                         </Link>
                         <Link
-                            style={LinkStyling}
+                            style={ LinkStyling }
                             to={'/postings'}>
                             <Typography
-                                sx={TextStyling}>
+                                sx={ TextStyling }>
                                 Postings
                             </Typography>
                         </Link>
                         {
                             isLoggedIn ?
                             <Link
-                                style={LinkStyling}
+                                style={ LinkStyling }
                                 to={'/logout'}>
                                 <Typography
-                                    sx={TextStyling}>
+                                    sx={ TextStyling }>
                                     Logout
                                 </Typography>
                             </Link>
                             :
                             <Link
-                                style={LinkStyling}
+                                style={ LinkStyling }
                                 to={'/login'}>
                                 <Typography
-                                    sx={TextStyling}>
+                                    sx={ TextStyling }>
                                     Login
                                 </Typography>
                             </Link>
@@ -81,29 +81,29 @@ function Footer({ isLoggedIn }) {
                 {
                     // Provides logged in features such as creating posting and viewing your postings
                     isLoggedIn &&
-                    <Grid2>
-                        <Stack
-                            sx={{marginTop:1}}
-                            spacing={1}>
-                            <Link
-                                style={LinkStyling}
-                                to={'/createPosting'}>
-                                <Typography
-                                    sx={TextStyling}>
-                                    Create a posting
-                                </Typography>
-                            </Link>
-                            <Link
-                                style={LinkStyling}
-                                to={'/yourPostings'}>
-                                <Typography
-                                    sx={TextStyling}>
-                                    View your postings
-                                </Typography>
-                            </Link>
+                        <Grid2>
+                            <Stack
+                                sx={{ marginTop:1 }}
+                                spacing={1}>
+                                <Link
+                                    style={LinkStyling}
+                                    to={'/createPosting'}>
+                                    <Typography
+                                        sx={TextStyling}>
+                                        Create a posting
+                                    </Typography>
+                                </Link>
+                                <Link
+                                    style={LinkStyling}
+                                    to={'/yourPostings'}>
+                                    <Typography
+                                        sx={TextStyling}>
+                                        View your postings
+                                    </Typography>
+                                </Link>
 
-                        </Stack>
-                    </Grid2>
+                            </Stack>
+                        </Grid2>
                 }
                 
                
