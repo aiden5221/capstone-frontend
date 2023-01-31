@@ -3,6 +3,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import React, { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { NAV_HEADINGS } from '../constants'
 
 
 function MobileNavbar({ isLoggedIn }) {
@@ -28,8 +29,6 @@ function MobileNavbar({ isLoggedIn }) {
         
     }
 
-    const HEADINGS = [ 'Home', 'Postings', 'Login', 'Logout' ]
-
     const checkIfLoggedIn = (heading) => heading == 'Login' && isLoggedIn || heading == 'Logout' && !isLoggedIn
     
     return (
@@ -44,7 +43,7 @@ function MobileNavbar({ isLoggedIn }) {
                     <List
                         sx={{ width:'50vw', height:'100vh', backgroundColor:'#5f4c4c' }}>
                             {
-                                HEADINGS.map((heading) => {
+                                NAV_HEADINGS.map((heading) => {
                                     if(checkIfLoggedIn(heading)) return null
                                     return(
                                     <ListItem
