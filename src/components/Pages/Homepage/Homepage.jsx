@@ -21,7 +21,7 @@ function Homepage() {
         sx={{ display:'flex', height:'70vh', marginTop:'1rem' }}
     >   
         
-    <Box sx={ [{ width:'100%', justifyContent:'center', margin:'auto' }, isSmall ? {  } : { display:'flex' }] }>
+    <Box sx={{ width:'100%', justifyContent:'center', margin:'auto', display:'flex' }}>
         
         <Grid2
             xs={10}
@@ -53,7 +53,7 @@ function Homepage() {
             lgOffset={0}
             item>
             <Button
-                sx={[{ height:'100%' }, isSmall ? { marginTop:'1rem',  } : { marginLeft:'1rem' } ]} 
+                sx={[{ height:'100%' }, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
                 endIcon={<FaSearch />}
                 variant='contained'
             >Search</Button>    
