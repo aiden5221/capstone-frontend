@@ -61,7 +61,7 @@ function Navbar({ isLoggedIn }) {
             >
                 <Link
                     to={ '/home' }
-                    style={{ color:'black', textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
+                    style={{ textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
                     <img src={Logo} alt='Logo img' />
                     <Typography
                         sx={[{ marginLeft:'1.5rem' },  TextStyling, ]}
@@ -74,7 +74,6 @@ function Navbar({ isLoggedIn }) {
             mobile ?  
                 <MobileNavbar />
             :
-            
             <Grid2 
                 lg={2}
                 md={4}
