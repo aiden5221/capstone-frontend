@@ -17,6 +17,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
+        console.log(email,password)
         try{
 
             await createUser(email, password)
@@ -46,6 +47,7 @@ const Signup = () => {
                 backgroundColor: "#5f4c4c",
                 marginTop: "10px"
             }}
+            onClick={handleSubmit}
             >Sign Up</Button>
 
             <p style={{
