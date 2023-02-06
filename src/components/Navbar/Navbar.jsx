@@ -3,7 +3,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
 import React, { useState } from 'react'
 import Logo from '../../assets/logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import '../../index.css';
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
@@ -48,7 +48,7 @@ function Navbar({ isLoggedIn }) {
     }
 
   return (
-
+    
     <Grid2 
         container 
         spacing={2}

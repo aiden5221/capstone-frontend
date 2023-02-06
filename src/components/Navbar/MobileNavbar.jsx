@@ -46,12 +46,16 @@ function MobileNavbar({ isLoggedIn }) {
                             {
                                 NAV_HEADINGS.map((heading) => {
                                     if(checkIfLoggedIn(heading)) return null
+
+                                    // Used to remove whitespace in heading for url
+                                    const urlText = heading.replaceAll(' ','')
+
                                     return(
                                     <ListItem
                                         disablePadding
                                         divider>
                                         <Link
-                                            to={heading}
+                                            to={urlText}
                                             style={LinkStyling}>
                                             <ListItemButton>
                                                 <ListItemText primary={ <Typography sx={ TextStyling } variant='h5'>{heading}</Typography> }>
