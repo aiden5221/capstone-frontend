@@ -33,7 +33,7 @@ function Homepage() {
             md={8}
             lg={5}
             xl={4}
-            xsOffset={1}    
+            xsOffset={ isVerySmall ? 1 : 0}
             mdOffset={0}
             lgOffset={0}
             item

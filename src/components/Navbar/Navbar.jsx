@@ -89,9 +89,12 @@ function Navbar({ isLoggedIn }) {
 
                                     if(checkIfLoggedIn(heading)) return null
 
+                                    // Used to remove whitespace in heading for url
+                                    const urlText = heading.replaceAll(' ','')
+
                                     return (
                                         <Link
-                                            to={heading}
+                                            to={urlText}
                                             style={LinkStyling}
                                             onClick={activePageHandler}>
                                             <Typography
