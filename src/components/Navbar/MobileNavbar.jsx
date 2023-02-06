@@ -20,6 +20,7 @@ function MobileNavbar({ isLoggedIn }) {
         '&:hover': {
             color: "white",
         },
+        whiteSpace:'nowrap'
     }
 
     const LinkStyling = {
@@ -41,16 +42,20 @@ function MobileNavbar({ isLoggedIn }) {
                     onClose={sideBarHandler}
                     ModalProps={{ disableScrollLock: true }}>
                     <List
-                        sx={{ width:'50vw', height:'100vh', backgroundColor:'#5f4c4c' }}>
+                        sx={{ width:'60vw', height:'100vh', backgroundColor:'#5f4c4c' }}>
                             {
                                 NAV_HEADINGS.map((heading) => {
                                     if(checkIfLoggedIn(heading)) return null
+
+                                    // Used to remove whitespace in heading for url
+                                    const urlText = heading.replaceAll(' ','')
+
                                     return(
                                     <ListItem
                                         disablePadding
                                         divider>
                                         <Link
-                                            to={heading}
+                                            to={urlText}
                                             style={LinkStyling}>
                                             <ListItemButton>
                                                 <ListItemText primary={ <Typography sx={ TextStyling } variant='h5'>{heading}</Typography> }>

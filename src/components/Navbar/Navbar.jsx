@@ -3,7 +3,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
 import React, { useState } from 'react'
 import Logo from '../../assets/logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import '../../index.css';
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
@@ -48,7 +48,7 @@ function Navbar({ isLoggedIn }) {
     }
 
   return (
-
+    
     <Grid2 
         container 
         spacing={2}
@@ -61,7 +61,7 @@ function Navbar({ isLoggedIn }) {
             >
                 <Link
                     to={ '/home' }
-                    style={{ color:'black', textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
+                    style={{ textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
                     <img src={Logo} alt='Logo img' />
                     <Typography
                         sx={[{ marginLeft:'1.5rem' },  TextStyling, ]}
@@ -74,7 +74,6 @@ function Navbar({ isLoggedIn }) {
             mobile ?  
                 <MobileNavbar />
             :
-            
             <Grid2 
                 lg={2}
                 md={4}
@@ -90,9 +89,12 @@ function Navbar({ isLoggedIn }) {
 
                                     if(checkIfLoggedIn(heading)) return null
 
+                                    // Used to remove whitespace in heading for url
+                                    const urlText = heading.replaceAll(' ','')
+
                                     return (
                                         <Link
-                                            to={heading}
+                                            to={urlText}
                                             style={LinkStyling}
                                             onClick={activePageHandler}>
                                             <Typography
