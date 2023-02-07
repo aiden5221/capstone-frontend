@@ -3,6 +3,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
+import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
 
 function Homepage() {
     const [search, setSearch] = useState('')
@@ -12,11 +13,15 @@ function Homepage() {
 
     const searchHandler = (e) => {
         setSearch(e.target.value);
-        console.log(search)
     }
 
-    const submitSearch = () => {
-        console.log(search)
+    const submitSearch = async () => {
+        // Get all job applications if search field is empty
+        if(search){
+            console.log(await getJobApplicationByName(search));
+        }else{
+            console.log(await getJobApplications());
+        }
     }
 
   return (
