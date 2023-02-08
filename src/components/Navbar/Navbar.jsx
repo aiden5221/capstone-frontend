@@ -8,7 +8,11 @@ import '../../index.css';
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
 
+
 function Navbar({ isLoggedIn }) {
+
+
+
     const [activePage, setActivePage] = useState('Home');
     
     const mobile = useMediaQuery('(max-width:1000px)')
@@ -46,7 +50,6 @@ function Navbar({ isLoggedIn }) {
             bottom: '-10px',
         }
     }
-
   return (
 
     <Grid2 
@@ -112,5 +115,6 @@ function Navbar({ isLoggedIn }) {
 
   )
 }
+
 
 export default Navbar

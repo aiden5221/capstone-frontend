@@ -28,6 +28,7 @@ const Signup = () => {
     }
 
   return (
+
     <div className='form'>
         <div>
             <h1>Register</h1>
@@ -46,12 +47,13 @@ const Signup = () => {
                 backgroundColor: "#5f4c4c",
                 marginTop: "10px"
             }}
+            onClick={handleSubmit}
             >Sign Up</Button>
 
             <p style={{
                 fontSize:"10pt"
                 }}>
-                Already have an account? <Link to='/' className='underline'>Sign in.</Link>
+                Already have an account? <Link to='/Login' className='underline'>Sign in.</Link>
             </p>
 
         </form>

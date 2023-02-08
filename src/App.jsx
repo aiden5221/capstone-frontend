@@ -8,6 +8,7 @@ import Account from './components/Account'
 import { Route, Routes } from 'react-router-dom'
 import { AuthContextProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import { AuthContextGProvider } from './context/AuthContextG'
 
 function App() {
 
@@ -17,21 +18,23 @@ function App() {
 
       <Navbar />
       <Footer />
-   
-      <AuthContextProvider>
-        <Routes>
-          <Route path='/' element={<Signin />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route 
-          path='/account' 
-          element={
-            <ProtectedRoute>
-            <Account />
-            </ProtectedRoute>
-          } 
-          />
-        </Routes>
-      </AuthContextProvider>
+
+      <AuthContextGProvider>
+        <AuthContextProvider>
+          <Routes>
+            <Route path='/Login' element={<Signin />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route 
+            path='/account' 
+            element={
+              <ProtectedRoute>
+              <Account />
+              </ProtectedRoute>
+            } 
+            />
+          </Routes>
+        </AuthContextProvider>
+      </AuthContextGProvider>
 
     </div>
 

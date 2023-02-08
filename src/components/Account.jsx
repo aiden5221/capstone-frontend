@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import{UserAuth} from '../context/AuthContext'
+import{ UserAuth } from '../context/AuthContext'
+import Button from '@mui/material/Button';
 
 const Account = () => {
   const { user, logout } = UserAuth()
@@ -18,11 +19,17 @@ const Account = () => {
   }
 
   return (
-    <div className='max-w-[600px] mx-auto my-16 p-4'>
+    <div className='form'>
         <h1 className='text-2xl font-bold py-4'>Account</h1>
-        <p>User Email: {user && user.email}</p>
+        <p>Welcome {user.displayName}</p>
+        <p>User Email: {user.displayName && user.email}</p>
 
-        <button onClick={handleLogout} className='border px-6 py-4 my-4'>Logout</button>
+
+
+        <Button onClick={handleLogout} variant="contained" style={{
+                backgroundColor: "#5f4c4c",
+                marginTop: "10px"
+                    }}>Logout</Button>
     </div>
   )
 }
