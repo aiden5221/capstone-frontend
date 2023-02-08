@@ -18,7 +18,6 @@ const Signup = () => {
         e.preventDefault()
         setError('')
         try{
-
             await createUser(email, password)
             navigate('/Account')
         } catch (e) {
