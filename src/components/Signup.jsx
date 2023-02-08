@@ -17,6 +17,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
+        console.log(email,password)
         try{
             await createUser(email, password)
             navigate('/Account')
