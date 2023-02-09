@@ -4,7 +4,7 @@ import Footer from './components/Footer'
 import Navbar from './components/Navbar/Navbar'
 import Homepage from './components/Pages/Homepage/Homepage'
 import NavbarLayout from './components/Layouts/NavbarLayout'
-
+import ApplicantForm from './components/applicantForm/ApplicantForm'
 function App() {
 
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route path='createAPosting' element={null} />
           <Route path='login' element={null} />
           <Route path='signup' element={null} />
+          <Route path='applyForJob' element={<ApplicantForm/>} />
       </Route>
     </Routes>
 
