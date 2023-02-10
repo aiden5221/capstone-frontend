@@ -1,9 +1,10 @@
-import { Button, FormControl, InputLabel, OutlinedInput, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Button, FormControl, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
+import JobCarousel from '../../JobCarousel/JobCarousel'
 
 function Homepage() {
     const [search, setSearch] = useState('')
@@ -25,11 +26,12 @@ function Homepage() {
     }
 
   return (
+    
     <Grid2
         container
         sx={{ display:'flex', height:'70vh', marginTop:'1rem' }}
     >   
-        
+    <JobCarousel />
     <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto' }, isVerySmall ? {} : { display:'flex' }]}>
         
         <Grid2

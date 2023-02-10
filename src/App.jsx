@@ -1,10 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar/Navbar'
 import Homepage from './components/Pages/Homepage/Homepage'
 import NavbarLayout from './components/Layouts/NavbarLayout'
-
 function App() {
 
   return (
