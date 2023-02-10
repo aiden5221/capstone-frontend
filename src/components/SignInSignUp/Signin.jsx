@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
-import { textAlign } from '@mui/system';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { GoogleButton } from 'react-google-button';
-import "../styles.css"
-import { UserAuthG } from '../context/AuthContextG';
-
+import { UserAuthG } from '../../context/AuthContextG';
+import './styles.css'
 
 
 const Signin = () => {
@@ -50,7 +48,7 @@ const Signin = () => {
     }, [user])
     
   return (
-    <Grid item xs="12" md={4}>
+    <Grid item xs={12} md={4}>
     <div className="form">
             <div>
                 <h1>Login</h1>

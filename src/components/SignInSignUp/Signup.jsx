@@ -1,10 +1,9 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {UserAuth} from '../context/AuthContext'
-import "../styles.css"
+import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import './styles.css'
 
 const Signup = () => {
     const [email, setEmail] = useState('')
@@ -35,12 +34,13 @@ const Signup = () => {
         </div>
         <form onSubmit={handleSubmit}>
             <div className='flex flex-col py-2'>
-                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"500px", backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"80%", maxWidth:'40vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
             </div>
 
             <div>
-                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"500px", backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
             </div>
+
 
 
             <Button variant="contained" style={{
@@ -51,7 +51,7 @@ const Signup = () => {
             >Sign Up</Button>
 
             <p style={{
-                fontSize:"10pt"
+                fontSize:"1em"
                 }}>
                 Already have an account? <Link to='/Login' className='underline'>Sign in.</Link>
             </p>
