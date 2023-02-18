@@ -8,7 +8,6 @@ import { getJobApplications } from '../../utils/backend/requests';
 
 function JobCarousel() {
     const [jobApps, setJobApps] = useState([])
-    const MOCK_ITEMS = [{'jobName':'Overflowing name that shouldnt fit in the box', 'jobDate':'testDate1'},{'jobName':'testJob2', 'jobDate':'testDate2'},{'jobName':'testJob3', 'jobDate':'testDate3'},{'jobName':'testJob4', 'jobDate':'testDate4'},{'jobName':'testJob5', 'jobDate':'testDate5'},{'jobName':'testJob6', 'jobDate':'testDate6'},{'jobName':'testJob7', 'jobDate':'testDate7'},{'jobName':'testJob8', 'jobDate':'testDate8'},{'jobName':'testJob9', 'jobDate':'testDate9'},]
 
     useEffect(() => {
         const getJobApps = async () => {
@@ -18,15 +17,13 @@ function JobCarousel() {
             const request = getJobApps()
                             .then((res) => setJobApps(res))
                             .catch(console.error());
-
         }
-        console.log(jobApps)
     }, [])
 
   return (
     <Grid2
     item
-    sx={{width:'100%', height:'20%'}}
+    sx={{ width:'100%' }}
     xlOffset={1}
     lgOffset={1}
     mdOffset={1}
@@ -43,9 +40,10 @@ function JobCarousel() {
             arrows={false}
             >
             {
-                jobApps.map(({jobName, jobDate}) => {
+                jobApps.map(({jobName, date}) => {
+                    console.log(jobApps)
                     return(
-                    <JobItem jobName={jobName} jobDate={jobDate}/>)
+                    <JobItem jobName={jobName} jobDate={date}/>)
                 })
             }
         </Carousel>

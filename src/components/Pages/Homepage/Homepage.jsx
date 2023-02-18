@@ -32,7 +32,7 @@ function Homepage() {
         sx={{ display:'flex', height:'70vh', marginTop:'1rem' }}
     >   
     <JobCarousel />
-    <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto' }, isVerySmall ? {} : { display:'flex' }]}>
+    <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto', marginTop:'0' }, isVerySmall ? {} : { display:'flex' }]}>
         
         <Grid2
             xs={10}
@@ -45,7 +45,7 @@ function Homepage() {
             lgOffset={0}
             item
            >
-            <Typography variant={ isVerySmall ? 'h4' : 'h3'} sx={[{ position:'absolute' }, isVerySmall ? {top:'32%'} : {top:'34%'}]}>Search a job</Typography>
+            <Typography variant={ isVerySmall ? 'h4' : 'h3'} sx={[{ position:'absolute' }, isVerySmall ? {top:'32%'} : {top:'37%'}]}>Search a job</Typography>
             <FormControl fullWidth variant='outlined' >
                     <TextField
                         id='searchbox'
@@ -65,7 +65,7 @@ function Homepage() {
             lgOffset={0}
             item>
             <Button
-                sx={[{ height:'100%' }, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
+                sx={[{ height:'100%'}, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
                 endIcon={<FaSearch />}
                 onClick={submitSearch}
                 variant='contained'
