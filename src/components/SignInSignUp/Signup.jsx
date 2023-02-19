@@ -4,6 +4,7 @@ import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './styles.css'
+import { Typography } from '@mui/material';
 
 const Signup = () => {
     const [email, setEmail] = useState('')
@@ -30,15 +31,15 @@ const Signup = () => {
 
     <div className='form'>
         <div>
-            <h1>Register</h1>
+            <Typography variant='h4'>Register</Typography>
         </div>
         <form onSubmit={handleSubmit}>
-            <div className='flex flex-col py-2'>
-                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"80%", maxWidth:'40vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+            <div>
+                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
             </div>
 
             <div>
-                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
             </div>
 
 
@@ -51,7 +52,7 @@ const Signup = () => {
             >Sign Up</Button>
 
             <p style={{
-                fontSize:"1em"
+                fontSize:"0.8em"
                 }}>
                 Already have an account? <Link to='/Login' className='underline'>Sign in.</Link>
             </p>

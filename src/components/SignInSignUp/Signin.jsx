@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { GoogleButton } from 'react-google-button';
 import { UserAuthG } from '../../context/AuthContextG';
@@ -51,15 +52,15 @@ const Signin = () => {
     <Grid item xs={12} md={4}>
     <div className="form">
             <div>
-                <h1>Login</h1>
+                <Typography variant='h4'>Login</Typography>
             </div>
             <form onSubmit={handleSubmit}>
                 <div >
-                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"500px", backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
                 </div>
 
                 <div>
-                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"500px", backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
                 </div>
 
                 <Button variant="contained" style={{
@@ -75,7 +76,7 @@ const Signin = () => {
                 }}/>    
 
                 <p style={{
-                fontSize:"10pt"
+                fontSize:"0.8em"
                 }}>
                     Don't have an account? <Link to='/Signup' className='underline'>Sign up.</Link>
                 </p>
