@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
+import $ from "jquery"
+import AddNewSkill from './AddNewSkill'
 
 // Icons
 import EditIcon from '@mui/icons-material/Edit';
@@ -42,9 +44,7 @@ const CustomTableCell = ({ row, name, onChange }) => {
   );
 };
 
-
 function CreateApplicationForm() {
-
   const [rows, setRows] = React.useState([
     createData("Java", 8),
     createData("Python", 7),
@@ -96,6 +96,8 @@ function CreateApplicationForm() {
 
   return (
     <Paper style={{overflow: "hidden", marginBottom: "5px"}}>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+      </script>
       <Typography variant='h4' gutterBottom marginTop={2} marginLeft={2} style={{textAlign:'center'}}>
         Create Job Application Form
       </Typography>
@@ -123,58 +125,30 @@ function CreateApplicationForm() {
                 <TextField label = "Job Qualifications" placeholder='Enter Job Qualifications here' variant='outlined' multiline fullWidth rows={4}>
                 </TextField>
               </Grid>
-  
-              <Table>
-                <caption>Weighted Skills</caption>
-                <TableHead>
-                  <TableRow>
-                  <Button
+              <Grid xs = {12} item>
+              <Button
                     type='submit'
                     variant='contained'
                     color='primary'
                     style={{ width: "10%" }}
+                    id = "add"
+                    
                   >
                     Add
-                  </Button>
-                  <TableCell align="left">Skill Name</TableCell>
-                  <TableCell align="left">Weighted Value</TableCell>
-                  </TableRow>
-                </TableHead>
+              </Button>
 
-                <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
-                      <TableCell>
-                        {row.isEditMode ? (
-                          <>
-                            <IconButton
-                              aria-label="done"
-                              onClick={() => onToggleEditMode(row.id)}
-                            >
-                              <DoneIcon />
-                            </IconButton>
-                            <IconButton
-                              aria-label="revert"
-                              onClick={() => onRevert(row.id)}
-                            >
-                              <CancelIcon />
-                            </IconButton>
-                          </>
-                        ) : (
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => onToggleEditMode(row.id)}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        )}
-                      </TableCell>
-                      <CustomTableCell {...{ row, name: "skillname", onChange }} />
-                      <CustomTableCell {...{ row, name: "weightedValue", onChange }} />
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <Button
+                    type='submit'
+                    variant='contained'
+                    color='error'
+                    style={{ width: "10%" }}
+                    id = "remove"
+
+                  >
+                    Remove
+              </Button>  
+              </Grid>
+                     
               <Grid xs = {12} item>
                 <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth>
                 </TextField>
