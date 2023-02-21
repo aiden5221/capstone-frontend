@@ -1,9 +1,10 @@
-import { Button, FormControl, InputLabel, OutlinedInput, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Button, FormControl, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
+import JobCarousel from '../../JobCarousel/JobCarousel'
 
 function Homepage() {
     const [search, setSearch] = useState('')
@@ -25,12 +26,13 @@ function Homepage() {
     }
 
   return (
+    
     <Grid2
         container
         sx={{ display:'flex', height:'70vh', marginTop:'1rem' }}
     >   
-        
-    <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto' }, isVerySmall ? {} : { display:'flex' }]}>
+    <JobCarousel />
+    <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto', marginTop:'0' }, isVerySmall ? {} : { display:'flex' }]}>
         
         <Grid2
             xs={10}
@@ -43,7 +45,7 @@ function Homepage() {
             lgOffset={0}
             item
            >
-            <Typography variant={ isVerySmall ? 'h4' : 'h3'} sx={[{ position:'absolute' }, isVerySmall ? {top:'32%'} : {top:'34%'}]}>Search a job</Typography>
+            <Typography variant={ isVerySmall ? 'h4' : 'h3'} sx={[{ position:'absolute' }, isVerySmall ? {top:'32%'} : {top:'37%'}]}>Search a job</Typography>
             <FormControl fullWidth variant='outlined' >
                     <TextField
                         id='searchbox'
@@ -63,7 +65,7 @@ function Homepage() {
             lgOffset={0}
             item>
             <Button
-                sx={[{ height:'100%' }, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
+                sx={[{ height:'100%'}, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
                 endIcon={<FaSearch />}
                 onClick={submitSearch}
                 variant='contained'
