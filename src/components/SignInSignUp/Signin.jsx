@@ -49,18 +49,17 @@ const Signin = () => {
     }, [user])
     
   return (
-    <Grid item xs={12} md={4}>
-    <div className="form">
+    <div className="form" style= {{marginTop:"20vh"}}>
             <div>
-                <Typography variant='h4'>Login</Typography>
+                <Typography variant='h2'style= {{marginBottom:"3vh"}}>Login</Typography>
             </div>
             <form onSubmit={handleSubmit}>
                 <div >
-                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
                 </div>
 
                 <div>
-                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
                 </div>
 
                 <Button variant="contained" style={{
@@ -72,19 +71,18 @@ const Signin = () => {
 
                 <GoogleButton onClick={handleGoogleSignIn} style={{
                     margin: "auto",
-                    marginTop: "20px"
+                    marginTop: "4vh"
                 }}/>    
 
                 <p style={{
-                fontSize:"0.8em"
+                fontSize:"1.1em",
+                marginTop:"3vh"
                 }}>
                     Don't have an account? <Link to='/Signup' className='underline'>Sign up.</Link>
                 </p>
 
             </form>
     </div>
-
-    </Grid>
   )
 }
 

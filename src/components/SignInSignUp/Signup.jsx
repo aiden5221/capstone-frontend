@@ -29,30 +29,30 @@ const Signup = () => {
 
   return (
 
-    <div className='form'>
+    <div className='form' style= {{marginTop:"20vh"}}>
         <div>
-            <Typography variant='h4'>Register</Typography>
+            <Typography variant='h2'>Register</Typography>
         </div>
         <form onSubmit={handleSubmit}>
             <div>
-                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{ width:"50vh", maxWidth:'70vw', backgroundColor:"white", marginTop:"5vh"}} onChange={(e) => setEmail(e.target.value)} type="email" />
             </div>
 
             <div>
-                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50%", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} type="password" />
             </div>
 
 
 
             <Button variant="contained" style={{
                 backgroundColor: "#5f4c4c",
-                marginTop: "10px"
+                marginTop:"3vh",
             }}
             onClick={handleSubmit}
             >Sign Up</Button>
 
             <p style={{
-                fontSize:"0.8em"
+                fontSize:"1.3em",
                 }}>
                 Already have an account? <Link to='/Login' className='underline'>Sign in.</Link>
             </p>
