@@ -58,18 +58,18 @@ export const Job_Posting = () => {
     //go to the specified job posting page
     //we need to able to identify each page
     // we can use the id of each job posting as the key
-    console.log("Hello World")
+   
     
   }
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  const isVerySmall = useMediaQuery('(max-width:600px)')
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   //mapp each posting dynacally to the box
 
   return (
     <div>
-    <Typography variant='h4' paddingTop={4} paddingLeft={25}>Job Postings</Typography>
+    <Typography variant='h4' paddingTop={4} paddingLeft={25} sx={[isSmall ? {textAlign:'center',paddingLeft:'0'} : {},isMedium ? {textAlign:'center',paddingLeft:'0'} : {}]}>Job Postings</Typography>
     <div style={{ width: '100%' }}>
     {job_postings.map(({jobtitle,company,location}, index)=>{
       //destructured the array mapped object to allowed us to access the variables themselves
@@ -91,7 +91,7 @@ export const Job_Posting = () => {
           borderRadius: 2,
           fontSize: '0.875rem',
           fontWeight: '700',
-        },isSmall ? {marginLeft:0,marginRight:0} :{marginLeft:18,marginRight:18}]}
+        },isSmall ? {marginLeft:10,marginRight:10} :{marginLeft:18,marginRight:18}, isMedium ? {marginLeft:10,marginRight:10} :{marginLeft:18,marginRight:18}]}
       > {jobtitle} <div style={{fontSize: '0.8rem',fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
       </Box>
 
