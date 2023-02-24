@@ -27,16 +27,12 @@ function Footer({ isLoggedIn }) {
     return (
         <Grid2
             container
-            sx={{ position: 'fixed', width:'100%', display:'flex', left:0, bottom:30, right:0,  borderTop:'1px solid' }}>
+            sx={{ width:'100vw', position:'sticky', top:'100%', display:'flex', borderTop:'1px solid' }}>
                 <Grid2
                     item
                     xsOffset={1}
                     xs={10}
-                    sx={{display:'flex'}}>
-                    <Typography
-                        sx={{ position:'fixed', right:'20%', bottom:0, fontFamily:"'Lato', sans-serif;" }}>
-                        &#169; 2023 Job Board
-                    </Typography>
+                    sx={{ display:'flex' }}>
                     <Grid2
                         item
                         xs={1}>
@@ -65,6 +61,7 @@ function Footer({ isLoggedIn }) {
                                 }
                             
                         </Stack>
+                        
                     </Grid2>
                     {
                         // Provides logged in features such as creating posting and viewing your postings
@@ -89,12 +86,16 @@ function Footer({ isLoggedIn }) {
                                             View your postings
                                         </Typography>
                                     </Link>
-
+ 
                                 </Stack>
                             </Grid2>
                     }
-                    
+                   <Typography
+                        sx={{ fontFamily:"'Lato', sans-serif", marginTop:'auto', width:'100%', display:'flex', justifyContent:'flex-end' }}>
+                        &#169; 2023 Job Board
+                    </Typography> 
                 </Grid2>
+                
         </Grid2>
     )
 }
