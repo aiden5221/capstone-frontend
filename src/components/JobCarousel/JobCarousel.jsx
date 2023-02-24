@@ -23,7 +23,7 @@ function JobCarousel() {
   return (
     <Grid2
     item
-    sx={{ width:'100%' }}
+    sx={{ width:'100%'}}
     xlOffset={1}
     lgOffset={1}
     mdOffset={1}

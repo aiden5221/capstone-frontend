@@ -1,16 +1,17 @@
-import { Button, FormControl, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Button, FormControl, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
-import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
-import JobCarousel from '../../JobCarousel/JobCarousel'
+
 
 function Homepage() {
     const [search, setSearch] = useState('')
     const theme = useTheme()
+
+    const isMedium = useMediaQuery(theme.breakpoints.down('md'))
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-    const isVerySmall = useMediaQuery('(max-width:600px)')
+    const isVerySmall = useMediaQuery(theme.breakpoints.down('xs'))
 
     const searchHandler = (e) => {
         setSearch(e.target.value);
@@ -29,51 +30,54 @@ function Homepage() {
     
     <Grid2
         container
-        sx={{ display:'flex', height:'70vh', marginTop:'1rem' }}
+        sx={{ display:'flex', justifyContent:'center', alignContent:'center', flexGrow:0.6 }}
     >   
-    <JobCarousel />
-    <Box sx={[{ width:'100%', justifyContent:'center', margin:'auto', marginTop:'0' }, isVerySmall ? {} : { display:'flex' }]}>
-        
+       
         <Grid2
             xs={10}
             sm={8}
             md={8}
-            lg={5}
-            xl={4}
+            lg={7}
+            xl={5}
             xsOffset={ isVerySmall ? 1 : 0}
             mdOffset={0}
-            lgOffset={0}
+            lgOffset={1}
             item
-           >
-            <Typography variant={ isVerySmall ? 'h4' : 'h3'} sx={[{ position:'absolute' }, isVerySmall ? {top:'32%'} : {top:'37%'}]}>Search a job</Typography>
-            <FormControl fullWidth variant='outlined' >
-                    <TextField
-                        id='searchbox'
-                        variant='filled'
-                        label='Search'
-                        onChange={searchHandler}
-                    />
-            </FormControl>
+            sx={{ flexShrink:0, maxWidth:'800px', height:'80%' }}>
+            <Stack 
+                sx={{ width:'100%' }}
+                spacing={2}>
+                <Typography variant={ isSmall ? 'h4' : 'h3'}>Search a job</Typography>
+                <FormControl fullWidth variant='outlined' >
+                        <TextField
+                            id='searchbox'
+                            variant='filled'
+                            label='Search'
+                            onChange={searchHandler}
+                        />
+                </FormControl>
+            </Stack>
+            
         </Grid2>
         <Grid2
             sm={2}
             md={2}
-            lg={0}
-            xs={9}
+            lg={2}
+            xs={10}
             xsOffset={isVerySmall ? 1 : 0}
             mdOffset={0}
             lgOffset={0}
-            item>
+            item
+            sx={{alignItems:'flex-end', display:'flex'}}>
             <Button
-                sx={[{ height:'100%'}, isSmall ? { marginTop:'1rem' } : { marginLeft:'1rem' } ]} 
+                sx={[{ height:'3.5rem', minWidth:'80px', fontSize:'1em' },  isMedium ? { fontSize:'0.75em' } : {}, isSmall ? { marginTop:'1rem', fontSize:'1em' } : { marginLeft:'1rem' },]} 
                 endIcon={<FaSearch />}
                 onClick={submitSearch}
                 variant='contained'
             >Search</Button>    
         </Grid2>
-        </Box>
     </Grid2>
   )
 }
 
-export default Homepage
+export default Homepage;

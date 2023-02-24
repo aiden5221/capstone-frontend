@@ -3,7 +3,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
 import React, { useState } from 'react'
 import Logo from '../../assets/logo.svg'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../index.css';
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
@@ -52,7 +52,7 @@ function Navbar({ isLoggedIn }) {
     <Grid2 
         container 
         spacing={2}
-        sx={{ alignItems:'center', backgroundColor: '#2f2626', display:'flex' }}
+        sx={{ alignItems:'center', backgroundColor: '#2f2626', display:'flex', marginBottom:'10px', paddingTop:'8px' }}
         >
         <Grid2 
             lgOffset={1}
