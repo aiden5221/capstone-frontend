@@ -1,98 +1,34 @@
-import React from 'react'
-import { Button, CardContent, Grid, TextareaAutosize, TextField, Typography } from '@mui/material'
+import React, {useState} from 'react'
+import { Button, CardContent, Grid, TextField, Typography } from '@mui/material'
 import {Card} from '@mui/material'
-import { textAlign } from '@mui/system'
-import { makeStyles } from '@mui/styles'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import $ from "jquery"
-import AddNewSkill from './AddNewSkill'
 
-// Icons
-import EditIcon from '@mui/icons-material/Edit';
-import DoneIcon from '@mui/icons-material/Done';
-import CancelIcon from '@mui/icons-material/Cancel';
-
-
-const createData = (skillname, weightedValue) => ({
-  id: skillname.replace(" ", "_"),
-  skillname,
-  weightedValue,
-  isEditMode: false
-});
-
-const CustomTableCell = ({ row, name, onChange }) => {
-  const { isEditMode } = row;
-  return (
-    <TableCell align="left">
-      {isEditMode ? (
-        <Input
-          value={row[name]}
-          name={name}
-          onChange={e => onChange(e, row)}
-        />
-      ) : (
-        row[name]
-      )}
-    </TableCell>
-  );
-};
 
 function CreateApplicationForm() {
-  const [rows, setRows] = React.useState([
-    createData("Java", 8),
-    createData("Python", 7),
-  ]);
 
-  const [previous, setPrevious] = React.useState({});
+  const [formValues, setFormValues] = useState([{ skillName: "", skillValue : ""}])
 
-  const onToggleEditMode = id => {
-    setRows(state => {
-      return rows.map(row => {
-        if (row.id === id) {
-          return { ...row, isEditMode: !row.isEditMode };
-        }
-        return row;
-      });
-    });
-  };
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
+  }
+  
+  let addFormFields = () => {
+    setFormValues([...formValues, { skillName: "", skillValue: "" }])
+  }
 
-  const onChange = (e, row) => {
-    if (!previous[row.id]) {
-      setPrevious(state => ({ ...state, [row.id]: row }));
-    }
-    const value = e.target.value;
-    const name = e.target.name;
-    const { id } = row;
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return { ...row, [name]: value };
-      }
-      return row;
-    });
-    setRows(newRows);
-  };
+  let removeFormFields = (i) => {
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues)
+  }
 
-  const onRevert = id => {
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return previous[id] ? previous[id] : row;
-      }
-      return row;
-    });
-    setRows(newRows);
-    setPrevious(state => {
-      delete state[id];
-      return state;
-    });
-    onToggleEditMode(id);
-  };
+  let handleSubmit = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
+  }
 
   return (
     <Paper style={{overflow: "hidden", marginBottom: "5px"}}>
@@ -103,7 +39,7 @@ function CreateApplicationForm() {
       </Typography>
       <Card style={{maxWidth: 2000, margin: "0 auto", padding: "20px 5px"}}>
         <CardContent>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={1}>
               <Grid xs = {12} item>
                 <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth>
@@ -125,29 +61,52 @@ function CreateApplicationForm() {
                 <TextField label = "Job Qualifications" placeholder='Enter Job Qualifications here' variant='outlined' multiline fullWidth rows={4}>
                 </TextField>
               </Grid>
-              <Grid xs = {12} item>
-              <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    style={{ width: "10%" }}
-                    id = "add"
+              
+                {formValues.map((element, index) => (
+                  <div key={index}>
+                    <Grid xs = {12} item>
+                      <TextField label = "Skill Name" placeholder='Enter Skill Name here' name='skillName' variant='outlined' fullWidth value={element.name || ""} onChange={e => handleChange(index, e)}>
+                      </TextField>
+
+                      <TextField type = "number" label = "Skill Value" placeholder='Enter Skill Value here' name='skillValue' variant='outlined' fullWidth value={element.name || ""} onChange={e => handleChange(index, e)}>
+                      </TextField>
+
+                    </Grid>
                     
-                  >
-                    Add
-              </Button>
+                    {
+                      index ? 
+                        <Grid xs = {12} item>
+                          <Button
+                            type='submit'
+                            variant='contained'
+                            color='error'
+                            style={{ width: "10%" }}
+                            onClick={() => removeFormFields(index)}
 
-              <Button
-                    type='submit'
-                    variant='contained'
-                    color='error'
-                    style={{ width: "10%" }}
-                    id = "remove"
+                            >
+                            Remove
+                          </Button>
+                        </Grid>
+                        : null
 
-                  >
-                    Remove
-              </Button>  
-              </Grid>
+
+                    }
+                  </div>
+
+
+                ))}
+                <Grid xs = {12} item>
+                  <Button
+                        type='submit'
+                        variant='contained'
+                        color='primary'
+                        style={{ width: "10%" }}
+                        onClick={() => addFormFields()}
+                        
+                      >
+                        Add
+                  </Button> 
+                </Grid>
                      
               <Grid xs = {12} item>
                 <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth>
