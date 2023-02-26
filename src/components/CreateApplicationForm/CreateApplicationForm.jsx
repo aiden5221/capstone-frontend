@@ -86,12 +86,8 @@ function CreateApplicationForm() {
       }
       return row;
     });
+    newRows.splice(id, 1);
     setRows(newRows);
-    setPrevious(state => {
-      delete state[id];
-      return state;
-    });
-    onToggleEditMode(id);
   };
 
   return (
@@ -129,10 +125,10 @@ function CreateApplicationForm() {
                 <TableHead>
                   <TableRow>
                   <Button
-                    type='submit'
                     variant='contained'
                     color='primary'
                     style={{ width: "10%" }}
+                    onClick={() => setRows([...rows, createData('test', 69)])}
                   >
                     Add
                   </Button>
