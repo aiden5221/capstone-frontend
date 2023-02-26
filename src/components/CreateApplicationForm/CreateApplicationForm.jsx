@@ -18,8 +18,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 
-const createData = (skillname, weightedValue) => ({
-  id: skillname.replace(" ", "_"),
+const createData = (skillname, weightedValue, index) => ({
+  id: index,
   skillname,
   weightedValue,
   isEditMode: false
@@ -46,8 +46,8 @@ const CustomTableCell = ({ row, name, onChange }) => {
 function CreateApplicationForm() {
 
   const [rows, setRows] = React.useState([
-    createData("Java", 8),
-    createData("Python", 7),
+    createData("Java", 8, ""),
+    // createData("Python", 7, 1),
   ]);
 
   const [previous, setPrevious] = React.useState({});
@@ -77,16 +77,12 @@ function CreateApplicationForm() {
       return row;
     });
     setRows(newRows);
+    console.log(row);
   };
 
-  const onRevert = id => {
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return previous[id] ? previous[id] : row;
-      }
-      return row;
-    });
-    newRows.splice(id, 1);
+  const onRevert = (index) => {
+    const newRows = [...rows]
+    newRows.splice(index, 1);
     setRows(newRows);
   };
 
@@ -124,21 +120,16 @@ function CreateApplicationForm() {
                 <caption>Weighted Skills</caption>
                 <TableHead>
                   <TableRow>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    style={{ width: "10%" }}
-                    onClick={() => setRows([...rows, createData('test', 69)])}
-                  >
-                    Add
-                  </Button>
+                  <TableCell>
+                      
+                  </TableCell>
                   <TableCell align="left">Skill Name</TableCell>
                   <TableCell align="left">Weighted Value</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
-                  {rows.map(row => (
+                  {rows.map((row, index) => (
                     <TableRow key={row.id}>
                       <TableCell>
                         {row.isEditMode ? (
@@ -151,23 +142,42 @@ function CreateApplicationForm() {
                             </IconButton>
                             <IconButton
                               aria-label="revert"
-                              onClick={() => onRevert(row.id)}
+                              onClick={() => {onRevert(index)}}
                             >
                               <CancelIcon />
                             </IconButton>
                           </>
                         ) : (
+                          
                           <IconButton
                             aria-label="delete"
                             onClick={() => onToggleEditMode(row.id)}
                           >
                             <EditIcon />
                           </IconButton>
+ 
                         )}
                       </TableCell>
                       <CustomTableCell {...{ row, name: "skillname", onChange }} />
                       <CustomTableCell {...{ row, name: "weightedValue", onChange }} />
+                      <>
+                        {
+                          rows.length - 1 === index &&
+                          <Button
+                              variant='contained'
+                              color='primary'
+                              style={{ width: "10%" }}
+                              onClick={() => setRows([...rows, createData("test", 69, index)])}
+                          >
+                              Add
+                          </Button> 
+                        }
+                          
+                      </>
+                      
                     </TableRow>
+                    
+                    
                   ))}
                 </TableBody>
               </Table>
