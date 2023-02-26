@@ -25,10 +25,20 @@ function CreateApplicationForm() {
     setFormValues(newFormValues)
   }
 
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    alert(JSON.stringify(formValues));
-  }
+  const onRevert = id => {
+    const newRows = rows.map(row => {
+      if (row.id === id) {
+        return previous[id] ? previous[id] : row;
+      }
+      return row;
+    });
+    setRows(newRows);
+    setPrevious(state => {
+      delete state[id];
+      return state;
+    });
+    onToggleEditMode(id);
+  };
 
   return (
     <Paper style={{overflow: "hidden", marginBottom: "5px"}}>
