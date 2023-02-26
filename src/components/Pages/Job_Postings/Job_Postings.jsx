@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography,Box, Button,colors,useMediaQuery,useTheme } from '@mui/material'
 import { useState } from 'react'
 import { Link, Routes, useNavigate } from 'react-router-dom'
-
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 
 const job_postings = [
 {
@@ -70,11 +70,14 @@ export const Job_Posting = () => {
   return (
     <div>
     <Typography variant='h4' paddingTop={4} paddingLeft={25} sx={[isSmall ? {textAlign:'center',paddingLeft:'0'} : {},isMedium ? {textAlign:'center',paddingLeft:'0'} : {}]}>Job Postings</Typography>
-    <div style={{ width: '100%' }}>
+    <Grid2 container>
     {job_postings.map(({jobtitle,company,location}, index)=>{
       //destructured the array mapped object to allowed us to access the variables themselves
       return (
-        <Box onClick={posting_handler}
+        <Grid2
+        onClick={posting_handler}
+        xs={10}
+        xlOffset={1}
         //created a button layour for each job_posting
         component="span"//usesd to expand the 
         sx={[{
@@ -91,9 +94,9 @@ export const Job_Posting = () => {
           borderRadius: 2,
           fontSize: '0.875rem',
           fontWeight: '700',
-        },isSmall ? {marginLeft:10,marginRight:10} :{marginLeft:18,marginRight:18}, isMedium ? {marginLeft:10,marginRight:10} :{marginLeft:18,marginRight:18}]}
-      > {jobtitle} <div style={{fontSize: '0.8rem',fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
-      </Box>
+        }]}
+      > {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
+      </Grid2>
 
       
       )
@@ -101,7 +104,7 @@ export const Job_Posting = () => {
     
 
     
-    </div>
+    </Grid2>
     
     </div>
   
