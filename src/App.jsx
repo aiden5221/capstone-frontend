@@ -1,12 +1,9 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar/Navbar'
-import Signin from './components/SignInSignUp/Signin'
-import Signup from './components/SignInSignUp/Signup'
-import Account from './components/Account'
-import { Route, Routes } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { userState } from './utils/firebase/recoil/atoms/user/user'
+import Homepage from './components/Pages/Homepage/Homepage'
+import NavbarLayout from './components/Layouts/NavbarLayout'
 
 function App() {
   const [user, setUser] = useRecoilState(userState); 
@@ -21,17 +18,17 @@ function App() {
   //     }
   // },[])
   return (
-    
-    <div>
-      <Navbar />
-      <Footer />
-          <Routes>
-            <Route path='/Login' element={<Signin />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/account' element={<Account />} />
-          </Routes>
-    </div>
-  );
+    <Routes>
+      <Route path='/' element={<NavbarLayout />}>
+          <Route index path='home' element={<Homepage />}/>
+          <Route path='postings' element={null} />
+          <Route path='createAPosting' element={null} />
+          <Route path='login' element={null} />
+          <Route path='signup' element={null} />
+      </Route>
+    </Routes>
+
+  )
 }
 
 export default App

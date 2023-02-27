@@ -61,11 +61,11 @@ function Navbar() {
         }
     }
   return (
-
+    
     <Grid2 
         container 
         spacing={2}
-        sx={{ alignItems:'center', backgroundColor: '#2f2626', display:'flex' }}
+        sx={{ alignItems:'center', backgroundColor: '#2f2626', display:'flex', marginBottom:'10px', paddingTop:'8px' }}
         >
         <Grid2 
             lgOffset={1}
@@ -74,7 +74,7 @@ function Navbar() {
             >
                 <Link
                     to={ '/home' }
-                    style={{ color:'black', textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
+                    style={{ textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
                     <img src={Logo} alt='Logo img' />
                     <Typography
                         sx={[{ marginLeft:'1.5rem' },  TextStyling, ]}
@@ -87,7 +87,6 @@ function Navbar() {
             mobile ?  
                 <MobileNavbar user={user} />
             :
-            
             <Grid2 
                 lg={2}
                 md={4}
@@ -102,6 +101,9 @@ function Navbar() {
                                 NAV_HEADINGS.map((heading) => {
 
                                     if(checkIfLoggedIn(heading)) return null
+
+                                    // Used to remove whitespace in heading for url
+                                    const urlText = heading.replaceAll(' ','')
 
                                     return (
                                         <Link
