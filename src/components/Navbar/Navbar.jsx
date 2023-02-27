@@ -23,7 +23,6 @@ function Navbar() {
         // Check if the current page is logout then set the active page to home
         // Do this becuase logout page isnt actually a page and redirects user to home
         e.target.innerHTML == 'Logout' ? setActivePage('Home') : setActivePage(e.target.innerHTML)
-        console.log(e.target.innerHTML)
     }
 
     const logoutHandler = () => {
