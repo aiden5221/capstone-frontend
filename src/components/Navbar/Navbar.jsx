@@ -4,20 +4,33 @@ import { Stack } from '@mui/system'
 import React, { useState } from 'react'
 import Logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
-import '../../index.css';
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
+import { DEFAULT_USERSTATE, userState } from '../../utils/firebase/recoil/atoms/user/user'
+import { useRecoilState } from 'recoil';
+import '../../index.css';
+import { logout } from '../../utils/firebase/firebase'
 
-function Navbar({ isLoggedIn }) {
+function Navbar() {
+
+    const [user, setUser] = useRecoilState(userState)
+
     const [activePage, setActivePage] = useState('Home');
     
     const mobile = useMediaQuery('(max-width:1000px)')
     
     const activePageHandler = async (e) => {
-        setActivePage(e.target.innerHTML)
+        // Check if the current page is logout then set the active page to home
+        // Do this becuase logout page isnt actually a page and redirects user to home
+        e.target.innerHTML == 'Logout' ? setActivePage('Home') : setActivePage(e.target.innerHTML)
     }
 
-    const checkIfLoggedIn = (heading) => heading == 'Login' && isLoggedIn || heading == 'Logout' && !isLoggedIn
+    const logoutHandler = () => {
+        setUser(DEFAULT_USERSTATE)
+        logout()
+    }
+
+    const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
 
     const LinkStyling = {
         color:'black',
@@ -46,7 +59,6 @@ function Navbar({ isLoggedIn }) {
             bottom: '-10px',
         }
     }
-
   return (
     
     <Grid2 
@@ -72,7 +84,7 @@ function Navbar({ isLoggedIn }) {
         </Grid2>
         {
             mobile ?  
-                <MobileNavbar />
+                <MobileNavbar user={user} />
             :
             <Grid2 
                 lg={2}
@@ -94,9 +106,14 @@ function Navbar({ isLoggedIn }) {
 
                                     return (
                                         <Link
-                                            to={urlText}
+                                            to={heading == 'Logout' ? 'Home' : heading}
                                             style={LinkStyling}
-                                            onClick={activePageHandler}>
+                                            // If statement to make the logout button work on navbar
+                                            onClick={(e) => {
+                                                activePageHandler(e),
+                                                heading == 'Logout' && user.uid != '' ? logoutHandler() : null
+                                            }}
+                                            key={heading}>
                                             <Typography
                                                 variant='h5'
                                                 sx={[TextStyling, activePage == heading ? ActivePageTextStyling : '', heading == 'Login' || heading == 'Logout' ? { color: '#0380a6' } : '']}>
@@ -114,5 +131,6 @@ function Navbar({ isLoggedIn }) {
 
   )
 }
+
 
 export default Navbar
