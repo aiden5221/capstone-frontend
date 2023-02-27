@@ -1,26 +1,39 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './styles.css'
 import { Typography } from '@mui/material';
+import { createUser } from '../../utils/firebase/firebase';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../utils/firebase/recoil/atoms/user/user';
+
+const defaultFormFields = {
+    email: '',
+    password: '',
+}
 
 const Signup = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [formFields, setFormFields] = useState(defaultFormFields)
     const [error, setError] = useState('')
-
-    const {createUser} = UserAuth()
+    const [user, setUser] = useRecoilState(userState)
     const navigate = useNavigate()
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormFields({ ...formFields, [name]: value })
+        console.log(formFields)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
-        console.log(email,password)
+
         try{
-            await createUser(email, password)
-            navigate('/Account')
+            const { user: { uid, displayName}} = await createUser(formFields)
+            setUser({uid: uid, displayName: displayName})
+            console.log(uid, displayName)
+            navigate('/home')
         } catch (e) {
             setError(e.message)
             console.log(e.message)
@@ -28,35 +41,33 @@ const Signup = () => {
     }
 
   return (
-
     <div className='form' style= {{marginTop:"20vh"}}>
         <div>
             <Typography variant='h2'>Register</Typography>
         </div>
         <form onSubmit={handleSubmit}>
             <div>
-                <TextField classname="email" id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{ width:"50vh", maxWidth:'70vw', backgroundColor:"white", marginTop:"5vh"}} onChange={(e) => setEmail(e.target.value)} type="email" />
+                <TextField classname="email" id="outlined-basic" label="Email Address" name='email' variant="outlined" size="small" margin="normal" style= {{ width:"50vh", maxWidth:'70vw', backgroundColor:"white", marginTop:"5vh"}} onChange={handleChange} type="email" />
             </div>
 
             <div>
-                <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} type="password" />
+                <TextField id="outlined-basic" label="Password" variant="outlined" name='password' size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} type="password" />
             </div>
 
-
-
-            <Button variant="contained" style={{
-                backgroundColor: "#5f4c4c",
-                marginTop:"3vh",
-            }}
-            onClick={handleSubmit}
+            <Button 
+                variant="contained" 
+                style={{
+                    backgroundColor: "#5f4c4c",
+                    marginTop:"3vh",
+                }}
+                onClick={handleSubmit}
             >Sign Up</Button>
 
-            <p style={{
-                fontSize:"1.3em",
-                }}>
-                Already have an account? <Link to='/Login' className='underline'>Sign in.</Link>
+            <p 
+            style={{fontSize:"1.3em"}}>
+                Already have an account? 
+                <Link to='/Login' className='underline'>Sign in.</Link>
             </p>
-
         </form>
     </div>
   )

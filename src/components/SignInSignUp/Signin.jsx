@@ -1,28 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../../context/AuthContext'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { GoogleButton } from 'react-google-button';
-import { UserAuthG } from '../../context/AuthContextG';
+import { googleSignIn, signIn } from '../../utils/firebase/firebase';
+import { useRecoilState } from 'recoil'
+import { userState } from '../../utils/firebase/recoil/atoms/user/user';
+
 import './styles.css'
 
+const defaultFormFields = {
+    email: '',
+    password: '',
+}
 
 const Signin = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [formFields, setFormFields] = useState(defaultFormFields)
+    const [error, setError] = useState('');
+    const [user, setUser] = useRecoilState(userState)
+
+    const { email, password } = formFields;
+
     const navigate = useNavigate()
 
-    const { signIn } = UserAuth()
-
     const handleSubmit = async (e) => {
+
         e.preventDefault()
-        setError('')
         try {
-            await signIn(email, password)
+            await signIn(formFields)
             navigate('/Account')
         } catch (e) {
             setError(e.message)
@@ -30,36 +36,44 @@ const Signin = () => {
         }
     }
 
-    const { googleSignIn, user } = UserAuthG();
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormFields({ ...formFields, [name]: value })
+    }
 
     const handleGoogleSignIn = async () => {
 
         try {
-            await googleSignIn()
+            const { user: { uid, displayName, email }} = await googleSignIn()
+            setUser({uid: uid, displayName: displayName, email: email})
+            console.log(uid, displayName, email)
+            navigate('/Account')
         } catch (error) {
             console.log(error)
         }
 
     }
 
-    useEffect(() => {
-        if(user != null) {
-            navigate('/Account')
-        }
-    }, [user])
+    
+
+    // useEffect(() => {
+    //     if(user != null) {
+    //         navigate('/Account')
+    //     }
+    // }, [user])
     
   return (
-    <div className="form" style= {{marginTop:"20vh"}}>
+    <div className="form" style= {{ marginTop:"20vh" }}>
             <div>
-                <Typography variant='h2'style= {{marginBottom:"3vh"}}>Login</Typography>
+                <Typography variant='h2'style= {{ marginBottom:"3vh" }}>Login</Typography>
             </div>
             <form onSubmit={handleSubmit}>
                 <div >
-                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email" />
+                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="email" />
                 </div>
 
                 <div>
-                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="password" />
                 </div>
 
                 <Button variant="contained" style={{

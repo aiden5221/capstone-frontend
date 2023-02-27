@@ -4,8 +4,13 @@ import { Stack } from '@mui/system'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { NAV_HEADINGS } from './constants'
+import { useRecoilState } from 'recoil'
+import { DEFAULT_USERSTATE, userState } from '../utils/firebase/recoil/atoms/user/user'
+import { logout } from '../utils/firebase/firebase'
 
-function Footer({ isLoggedIn }) {
+function Footer() {
+
+    const [user, setUser] = useRecoilState(userState);
 
     const TextStyling = {
         transition: 'color 0.5s ease-out',
@@ -22,7 +27,13 @@ function Footer({ isLoggedIn }) {
         textDecoration:'none',
     }
 
-    const checkIfLoggedIn = (heading) => heading == 'Login' && isLoggedIn || heading == 'Logout' && !isLoggedIn
+    const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
+
+    const logoutHandler = () => {
+        console.log('hi')
+        setUser(DEFAULT_USERSTATE)
+        logout()
+    }
 
     return (
         <Grid2
@@ -51,8 +62,10 @@ function Footer({ isLoggedIn }) {
 
                                         return (
                                             <Link
-                                                to={heading}
-                                                style={ LinkStyling }>
+                                                to={heading == 'Logout' ? 'Home' : heading}
+                                                style={ LinkStyling }
+                                                onClick={ heading == 'Logout' && user.uid != '' ? logoutHandler : null }
+                                                key={heading}>
                                                 <Typography
                                                     variant='h5'
                                                     sx={ TextStyling }>
@@ -66,33 +79,6 @@ function Footer({ isLoggedIn }) {
                             
                         </Stack>
                     </Grid2>
-                    {
-                        // Provides logged in features such as creating posting and viewing your postings
-                        isLoggedIn &&
-                            <Grid2>
-                                <Stack
-                                    sx={{ marginTop:1 }}
-                                    spacing={1}>
-                                    <Link
-                                        style={LinkStyling}
-                                        to={'/createPosting'}>
-                                        <Typography
-                                            sx={TextStyling}>
-                                            Create a posting
-                                        </Typography>
-                                    </Link>
-                                    <Link
-                                        style={LinkStyling}
-                                        to={'/yourPostings'}>
-                                        <Typography
-                                            sx={TextStyling}>
-                                            View your postings
-                                        </Typography>
-                                    </Link>
-
-                                </Stack>
-                            </Grid2>
-                    }
                     
                 </Grid2>
         </Grid2>

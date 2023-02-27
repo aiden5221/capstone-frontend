@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import{ UserAuth } from '../context/AuthContext'
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom'
 import { Typography } from '@mui/material';
+import { DEFAULT_USERSTATE, userState } from '../utils/firebase/recoil/atoms/user/user';
+import { useRecoilState } from 'recoil';
+import { logout } from '../utils/firebase/firebase';
 
 const Account = () => {
+  const [user, setUser] = useRecoilState(userState)
   
-  const { user, logout } = UserAuth()
   const navigate = useNavigate();
 
+  // To prevent user from accessing this page if they are not logged in
+  useEffect(() => {
+    if(user.uid == '') {
+      navigate('/')
+    }
+  }, [user])
 
   const handleLogout = async () => {
     try {
       await logout()
+      setUser(DEFAULT_USERSTATE)
       navigate('/')
       console.log('You are logged out')
     } catch (e) {
