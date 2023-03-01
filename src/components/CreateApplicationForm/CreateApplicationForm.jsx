@@ -11,15 +11,15 @@ import TableRow from '@mui/material/TableRow';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
-
 // Icons
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { json } from 'react-router-dom'
 
 
-const createData = (skillname, weightedValue, index) => ({
-  id: index,
+const createData = (skillname, weightedValue) => ({
+  id: skillname.replace(" ", "_"),
   skillname,
   weightedValue,
   isEditMode: false
@@ -42,13 +42,41 @@ const CustomTableCell = ({ row, name, onChange }) => {
   );
 };
 
+function handleSubmit() {
+
+  const data = new FormData(document.getElementById("formData"));
+  data.forEach((value,key) => (data[key] = value));
+  
+}
+
 
 function CreateApplicationForm() {
 
   const [rows, setRows] = React.useState([
-    createData("Java", 8, ""),
-    // createData("Python", 7, 1),
+    createData("Java", 8),
   ]);
+
+  const displayData = () => {
+
+    //manipulating the rows
+  const myRows = {}
+
+  rows.filter((element) => {
+    const{skillname, weightedValue} = element; 
+    myRows[skillname] = weightedValue; 
+  })
+   //convert myRows to json
+    JSON.stringify(myRows); 
+
+    //retrieving the data
+    const data = new FormData(document.getElementById("formData"));
+    data.forEach((value,key) => (data[key] = value));
+    const json = JSON.stringify(data);
+    const myObj = JSON.parse(json);
+    myObj.skills = myRows; 
+    delete myObj.skillValue; 
+    console.log(myObj);
+  }
 
   const [previous, setPrevious] = React.useState({});
 
@@ -77,7 +105,7 @@ function CreateApplicationForm() {
       return row;
     });
     setRows(newRows);
-    console.log(row);
+
   };
 
   const onRevert = (index) => {
@@ -86,25 +114,40 @@ function CreateApplicationForm() {
     setRows(newRows);
   };
 
+  const getSkillName = () => {
+    let text = document.getElementById("skills").value; 
+    return text; 
+  }
+
+  const getSkillValue = () => {
+    let value = document.getElementById("skillValue").value; 
+    return value;
+  }
+
+  const handleAddClick = () => {
+    let text = getSkillName();
+    let value = getSkillValue();
+    setRows([...rows, createData(text, value)]);
+  }
+
   return (
-    <Paper style={{overflow: "hidden", marginBottom: "5px"}}>
-      <Typography variant='h4' gutterBottom marginTop={2} marginLeft={2} style={{textAlign:'center'}}>
-        Create Job Application Form
-      </Typography>
       <Card style={{maxWidth: 2000, margin: "0 auto", padding: "20px 5px"}}>
         <CardContent>
-          <form action="">
+        <Typography variant='h4' gutterBottom marginTop={2} marginLeft={2} style={{textAlign:'center'}}>
+          Create Job Application Form
+        </Typography>
+          <form id = 'formData'>
             <Grid container spacing={1}>
               <Grid xs = {12} item>
-                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth>
+                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobTitle' id='jobTitle'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth>
+                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='companyName' id='companyName'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Job Description" placeholder='Enter Job Description here' variant='outlined' multiline fullWidth rows={4}>
+                <TextField label = "Job Description" placeholder='Enter Job Description here' variant='outlined' multiline fullWidth rows={4} name='jobDescription' id='jobDescription'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
@@ -112,10 +155,35 @@ function CreateApplicationForm() {
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Job Qualifications" placeholder='Enter Job Qualifications here' variant='outlined' multiline fullWidth rows={4}>
+                <TextField label = "Job Qualifications" placeholder='Enter Job Qualifications here' variant='outlined' multiline fullWidth rows={4} name='jobQualifications' id='jobQualifications'>
                 </TextField>
               </Grid>
-  
+              <Grid xs = {12} item>
+                <Button
+                    variant='contained'
+                    color='primary'
+                    style={{ width: "10%" }}
+                    onClick = {handleAddClick}
+                  >
+                      Add
+                  </Button> 
+              </Grid>
+              <>
+              <Grid xs = {12} item>
+                  <TextField
+                    id='skills'
+                    name='skills'
+                    label = 'Skill Name'
+                    variant = 'outlined'>
+                  </TextField>
+                  <TextField
+                    id='skillValue'
+                    name='skillValue'
+                    label = 'Skill Value'
+                    variant = 'outlined'>
+                  </TextField>
+              </Grid>
+              </>
               <Table>
                 <caption>Weighted Skills</caption>
                 <TableHead>
@@ -159,42 +227,31 @@ function CreateApplicationForm() {
                         )}
                       </TableCell>
                       <CustomTableCell {...{ row, name: "skillname", onChange }} />
-                      <CustomTableCell {...{ row, name: "weightedValue", onChange }} />
-                      <>
-                        {
-                          rows.length - 1 === index &&
-                          <Button
-                              variant='contained'
-                              color='primary'
-                              style={{ width: "10%" }}
-                              onClick={() => setRows([...rows, createData("test", 69, index)])}
-                          >
-                              Add
-                          </Button> 
-                        }
-                          
-                      </>
-                      
+                      <CustomTableCell {...{ row, name: "weightedValue", onChange }} /> 
                     </TableRow>
-                    
-                    
                   ))}
                 </TableBody>
+               
               </Table>
+             
               <Grid xs = {12} item>
-                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth>
+                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='applicationDeadline' id='applicationDeadline'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <Button variant='contained' color='primary' fullWidth type='submit'>
+                <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
                   Submit
                 </Button>
               </Grid>
             </Grid>
           </form>
+          <Button
+            onClick={displayData}
+          >
+            Display Data
+          </Button>
         </CardContent>
       </Card>
-    </Paper>
   )
 }
 
