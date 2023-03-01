@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { NAV_HEADINGS } from '../constants'
 
 
-function MobileNavbar({ isLoggedIn }) {
+function MobileNavbar({ user }) {
     const [showSidebar, setShowSidebar] = useState(false)
     
     const sideBarHandler = () => {
@@ -30,7 +30,7 @@ function MobileNavbar({ isLoggedIn }) {
         
     }
 
-    const checkIfLoggedIn = (heading) => heading == 'Login' && isLoggedIn || heading == 'Logout' && !isLoggedIn
+    const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
     
     return (
         <Grid2 

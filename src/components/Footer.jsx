@@ -4,8 +4,13 @@ import { Stack } from '@mui/system'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { NAV_HEADINGS } from './constants'
+import { useRecoilState } from 'recoil'
+import { DEFAULT_USERSTATE, userState } from '../utils/firebase/recoil/atoms/user/user'
+import { logout } from '../utils/firebase/firebase'
 
-function Footer({ isLoggedIn }) {
+function Footer() {
+
+    const [user, setUser] = useRecoilState(userState);
 
     const TextStyling = {
         transition: 'color 0.5s ease-out',
@@ -22,21 +27,23 @@ function Footer({ isLoggedIn }) {
         textDecoration:'none',
     }
 
-    const checkIfLoggedIn = (heading) => heading == 'Login' && isLoggedIn || heading == 'Logout' && !isLoggedIn
+    const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
+
+    const logoutHandler = () => {
+        console.log('hi')
+        setUser(DEFAULT_USERSTATE)
+        logout()
+    }
 
     return (
         <Grid2
             container
-            sx={{ position: 'fixed', width:'100%', display:'flex', left:0, bottom:30, right:0,  borderTop:'1px solid' }}>
+            sx={{ width:'100vw', position:'sticky', top:'100%', display:'flex', borderTop:'1px solid' }}>
                 <Grid2
                     item
                     xsOffset={1}
                     xs={10}
-                    sx={{display:'flex'}}>
-                    <Typography
-                        sx={{ position:'fixed', right:'20%', bottom:0, fontFamily:"'Lato', sans-serif;" }}>
-                        &#169; 2023 Job Board
-                    </Typography>
+                    sx={{ display:'flex' }}>
                     <Grid2
                         item
                         xs={1}>
@@ -51,8 +58,10 @@ function Footer({ isLoggedIn }) {
 
                                         return (
                                             <Link
-                                                to={heading}
-                                                style={ LinkStyling }>
+                                                to={heading == 'Logout' ? 'Home' : heading}
+                                                style={ LinkStyling }
+                                                onClick={ heading == 'Logout' && user.uid != '' ? logoutHandler : null }
+                                                key={heading}>
                                                 <Typography
                                                     variant='h5'
                                                     sx={ TextStyling }>
@@ -65,36 +74,11 @@ function Footer({ isLoggedIn }) {
                                 }
                             
                         </Stack>
+                        
                     </Grid2>
-                    {
-                        // Provides logged in features such as creating posting and viewing your postings
-                        isLoggedIn &&
-                            <Grid2>
-                                <Stack
-                                    sx={{ marginTop:1 }}
-                                    spacing={1}>
-                                    <Link
-                                        style={LinkStyling}
-                                        to={'/createPosting'}>
-                                        <Typography
-                                            sx={TextStyling}>
-                                            Create a posting
-                                        </Typography>
-                                    </Link>
-                                    <Link
-                                        style={LinkStyling}
-                                        to={'/yourPostings'}>
-                                        <Typography
-                                            sx={TextStyling}>
-                                            View your postings
-                                        </Typography>
-                                    </Link>
-
-                                </Stack>
-                            </Grid2>
-                    }
                     
                 </Grid2>
+                
         </Grid2>
     )
 }
