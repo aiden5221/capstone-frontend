@@ -1,24 +1,23 @@
 import React from 'react'
-import Input from '@mui/material/Input';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import { makeStyles } from '@mui/styles';
-
-const UploadSection = makeStyles({
-    root: {
-        color: 'black'
-    },
-});
+import { TextField, Grid } from '@mui/material'
 export default function InputForm(props) {
-    const classes = UploadSection();
-
     return (
-        <Box component={"div"} className={classes.root}>
-            <br></br>
-            <Stack spacing={props.SpacingVal} direction="row" sx={{ alignItems: 'center' }}>
-                <label ><b>{props.LabelText}</b></label>
-                <Input sx={{ backgroundColor: '#D9D9D9' }} variant="outlined" disableUnderline />
-            </Stack>
-        </Box>
+        <Grid item xs={props.SpacingVal}>
+            <TextField
+                id={props.idName}
+                label={props.label}
+                name={props.idName}
+                fullWidth
+                multiline={!!props.isMultiline}
+                rows={props.rows}
+                required={!!props.isRequired}
+                value={props.textVal || ''}
+                variant="outlined"
+                onChange={props.onChange}
+                InputLabelProps={{
+                    shrink: !!props.textVal,
+                }}
+            />
+        </Grid>
     )
 }
