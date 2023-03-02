@@ -2,12 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Homepage from './components/Pages/Homepage/Homepage'
 import NavbarLayout from './components/Layouts/NavbarLayout'
-<<<<<<< HEAD
 import ApplicantForm from './components/applicantForm/ApplicantForm'
-=======
 import SignIn from './components/SignInSignUp/Signin'
 import Account from './components/Account'
->>>>>>> master
+
 function App() {
 
   return (
@@ -18,11 +16,8 @@ function App() {
           <Route path='createAPosting' element={null} />
           <Route path='login' element={<SignIn />} />
           <Route path='signup' element={null} />
-<<<<<<< HEAD
           <Route path='applyForJob' element={<ApplicantForm/>} />
-=======
           <Route path='account' element={<Account />} />
->>>>>>> master
       </Route>
     </Routes>
 
