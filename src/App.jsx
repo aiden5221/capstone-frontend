@@ -5,6 +5,7 @@ import NavbarLayout from './components/Layouts/NavbarLayout'
 import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm'
 import SignIn from './components/SignInSignUp/Signin'
 import Account from './components/Account'
+
 function App() {
 
   return (
