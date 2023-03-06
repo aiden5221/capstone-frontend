@@ -3,8 +3,9 @@ import { Typography,Box, Button,colors,useMediaQuery,useTheme } from '@mui/mater
 import { useState } from 'react'
 import { Link, Routes, useNavigate } from 'react-router-dom'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
-
+import { useEffect } from 'react'
 import {Job_Listings} from '../Job_Postings/Job_Listings'
+import { getJobApplications } from '../../../utils/backend/requests'
 const job_postings = [
 {
   id:1,
@@ -51,13 +52,33 @@ const job_postings = [
 
 export const Job_Posting = () => {
   // pass in a prop to map the job_posting to each box
-  const [jobState,setjobState] = useState(0);
   
-  const posting_handler = (e) =>{
+  
+ 
+const [jobPost, setjobPost] = useState([]);
 
-   
-    
+const posting_handler = ({jobPost}) => {
+
+  
+
+
+}
+
+useEffect(() =>{
+  async function fetchJobs(){
+    try{
+    const data = await getJobApplications();
+    setjobPost(data);
+    console.log(data);
+    }
+    catch (err){
+      console.log('Error')
+    }
   }
+  fetchJobs();
+  //simply retrieve the information
+  
+  }, [])
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
@@ -68,8 +89,7 @@ export const Job_Posting = () => {
     <div>
     <Typography variant='h4' paddingTop={4} paddingLeft={25} sx={[isSmall ? {textAlign:'center',paddingLeft:'0'} : {},isMedium ? {textAlign:'center',paddingLeft:'0'} : {}]}>Job Postings</Typography>
     <Grid2 container>
-    {job_postings.map(({jobtitle,company,location}, index)=>{
-      //destructured the array mapped object to allowed us to access the variables themselves
+    {jobPost.map(({id,jobName, jobDescription,location}) => {
       return (
         <Grid2
         onClick={posting_handler}
@@ -92,13 +112,11 @@ export const Job_Posting = () => {
           fontSize: '0.875rem',
           fontWeight: '700',
         }]}
-      > <Job_Listings /> {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
+      > {jobName} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{jobDescription}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}>{location} </div>
       </Grid2>
 
-      
-      )
-    })}
-    
+)
+})}
 
     
     </Grid2>

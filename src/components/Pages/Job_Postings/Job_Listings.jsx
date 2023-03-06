@@ -4,7 +4,6 @@ import axios from 'axios'
 import { getJobApplications} from '../../../utils/backend/requests'
 
 
-
 // const job_postings = [
 //     {
 //       id:1,
@@ -43,7 +42,7 @@ import { getJobApplications} from '../../../utils/backend/requests'
 //     },
     
 //     ]
-export const Job_Listings = ({id, name}) => {
+export const Job_Listings = () => {
   
 //created a useeffect to have the depenency run once  when the hook is run
 const [jobPost, setjobPost] = useState([]);
@@ -66,10 +65,10 @@ useEffect(() =>{
 
     return (
     
-    <div>{jobPost.map(({id, jobName, jobDescription})=>{
+    <div>{jobPost.map(({id, jobName, jobDescription, location})=>{
       //Import
       return(
-        <div>{id} {jobName} {jobDescription}</div>
+        <div>{id} {jobName} {jobDescription}{location}</div>
       )
 
 
