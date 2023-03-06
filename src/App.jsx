@@ -4,21 +4,23 @@ import Homepage from './components/Pages/Homepage/Homepage'
 import NavbarLayout from './components/Layouts/NavbarLayout'
 import SignIn from './components/SignInSignUp/Signin'
 import Account from './components/Account'
+import Aptitude from './components/Pages/Aptitude/createTest'
+
 function App() {
 
   return (
     <Routes>
       <Route path='/' element={<NavbarLayout />}>
           <Route index path='home' element={<Homepage />}/>
-          <Route path='postings' element={null} />
+          <Route path='postings' element={<Aptitude />} />
           <Route path='createAPosting' element={null} />
           <Route path='login' element={<SignIn />} />
           <Route path='signup' element={null} />
           <Route path='account' element={<Account />} />
       </Route>
     </Routes>
-
   )
+
 }
 
 export default App
