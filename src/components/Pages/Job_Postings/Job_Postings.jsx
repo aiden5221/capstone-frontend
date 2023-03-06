@@ -52,13 +52,9 @@ const job_postings = [
 export const Job_Posting = () => {
   // pass in a prop to map the job_posting to each box
   const [jobState,setjobState] = useState(0);
-  //1) The Job postings need to be clickable to take them to the corresponding Job_posting page
-  //2) We need to get dummy data from the back end and have it show in each box
-  //3) We can simply mapp the key id of each job posting using useffect in order to generate a separate page for each
+  
   const posting_handler = (e) =>{
-    //go to the specified job posting page
-    //we need to able to identify each page
-    // we can use the id of each job posting as the key
+
    
     
   }
@@ -96,7 +92,7 @@ export const Job_Posting = () => {
           fontSize: '0.875rem',
           fontWeight: '700',
         }]}
-      > <Job_Listings/> {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
+      > <Job_Listings /> {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
       </Grid2>
 
       
