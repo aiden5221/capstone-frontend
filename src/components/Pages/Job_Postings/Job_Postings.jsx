@@ -6,44 +6,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { useEffect } from 'react'
 import {Job_Listings} from '../Job_Postings/Job_Listings'
 import { getJobApplications } from '../../../utils/backend/requests'
-const job_postings = [
-{
-  id:1,
-  jobtitle: 'Jr Software Developer',
-  company:  'Deloitte',
-  location: 'Calagry, AB',
 
-},
-{
-  id:2,
-  jobtitle: 'Database Developer',
-  company:  'Oracle',
-  location: 'Calagry, AB',
-
-},
-{
-  id:3,
-  jobtitle: 'Front-end Developer',
-  company:  'OMERS',
-  location: 'Toronto, ON',
-
-},
-{
-  id:4,
-  jobtitle: 'Backend Developer',
-  company:  'Uber',
-  location: 'Montreal QC',
-
-},
-{
-  id:5,
-  jobtitle: 'Data Analyst',
-  company:  'Affirm',
-  location: 'Toronto, ON',
-
-},
-
-]
 //2 need to link the job postings page to the indivual posting page
 //2.1 create a link inside the button need an onclick handler function to handle this
 
@@ -59,7 +22,7 @@ const [jobPost, setjobPost] = useState([]);
 
 const posting_handler = ({jobPost}) => {
 
-  
+
 
 
 }
