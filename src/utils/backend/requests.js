@@ -17,3 +17,11 @@ export const getJobApplicationByName = async (name) => {
             return data;    
         })
 }
+export const postJobListings = async (data) =>{
+    return axios.post('http://localhost:8000/joblistings/',{data},
+    {headers:{
+        'content-type' :'text/json'
+    }});
+    res.data.headers['Content-Type'];
+
+}

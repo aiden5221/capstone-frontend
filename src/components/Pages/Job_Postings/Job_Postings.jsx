@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link, Routes, useNavigate } from 'react-router-dom'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 
+import {Job_Listings} from '../Job_Postings/Job_Listings'
 const job_postings = [
 {
   id:1,
@@ -95,7 +96,7 @@ export const Job_Posting = () => {
           fontSize: '0.875rem',
           fontWeight: '700',
         }]}
-      > {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
+      > <Job_Listings/> {jobtitle} <div style={{fontSize: '0.8rem', fontWeight: '700',}}>{company}</div> <div style={{fontSize: '0.7rem',fontWeight: '700',color:'grey',}}> {location}</div>
       </Grid2>
 
       
