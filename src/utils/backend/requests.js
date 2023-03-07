@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import axios from 'axios';
 
 const BACKEND_URL = 'http://localhost:8000'
@@ -16,4 +17,13 @@ export const getJobApplicationByName = async (name) => {
             const { data } = res;
             return data;    
         })
+}
+
+export const postJobApplication = async (myObj) => {
+    return axios.post(`${BACKEND_URL}/jobapplications/`, myObj)
+        .then(response => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
 }

@@ -1,21 +1,19 @@
 import React from 'react'
 import { Button, CardContent, Grid, TextareaAutosize, TextField, Typography } from '@mui/material'
 import {Card} from '@mui/material'
-import { textAlign } from '@mui/system'
-import { makeStyles } from '@mui/styles'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Input from '@mui/material/Input';
-import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
+import { postJobApplication } from '../../utils/backend/requests';
 // Icons
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { json } from 'react-router-dom'
+
 
 
 const createData = (skillname, weightedValue) => ({
@@ -42,19 +40,32 @@ const CustomTableCell = ({ row, name, onChange }) => {
   );
 };
 
-function handleSubmit() {
-
-  const data = new FormData(document.getElementById("formData"));
-  data.forEach((value,key) => (data[key] = value));
-  
-}
-
-
 function CreateApplicationForm() {
 
   const [rows, setRows] = React.useState([
     createData("Java", 8),
   ]);
+
+  const handleSubmit = async () => {
+  //manipulating the rows
+  const myRows = {}
+
+  rows.filter((element) => {
+    const{skillname, weightedValue} = element; 
+    myRows[skillname] = weightedValue; 
+  })
+   //convert myRows to json
+    JSON.stringify(myRows);
+
+    //retrieving the data
+    const data = new FormData(document.getElementById("formData"));
+    data.forEach((value,key) => (data[key] = value));
+    const json = JSON.stringify(data);
+    const myObj = JSON.parse(json);
+    myObj.desiredSkills = myRows; 
+    delete myObj.skillValue; 
+    console.log(await postJobApplication(JSON.stringify(myObj)));
+  }
 
   const displayData = () => {
 
@@ -65,17 +76,17 @@ function CreateApplicationForm() {
     const{skillname, weightedValue} = element; 
     myRows[skillname] = weightedValue; 
   })
-   //convert myRows to json
-    JSON.stringify(myRows); 
-
+  
     //retrieving the data
     const data = new FormData(document.getElementById("formData"));
     data.forEach((value,key) => (data[key] = value));
     const json = JSON.stringify(data);
     const myObj = JSON.parse(json);
-    myObj.skills = myRows; 
+    myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    console.log(myObj);
+    
+    console.log(JSON.stringify(myRows));
+    
   }
 
   const [previous, setPrevious] = React.useState({});
@@ -115,7 +126,7 @@ function CreateApplicationForm() {
   };
 
   const getSkillName = () => {
-    let text = document.getElementById("skills").value; 
+    let text = document.getElementById("desiredSkills").value; 
     return text; 
   }
 
@@ -139,11 +150,11 @@ function CreateApplicationForm() {
           <form id = 'formData'>
             <Grid container spacing={1}>
               <Grid xs = {12} item>
-                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobTitle' id='jobTitle'>
+                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobName' id='jobName'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='companyName' id='companyName'>
+                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='company' id='company'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
@@ -151,11 +162,15 @@ function CreateApplicationForm() {
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Address Line 1" placeholder='Enter Company Address here' variant='outlined' fullWidth>
+                <TextField label = "Address Line 1" placeholder='Enter Company Address here' variant='outlined' fullWidth name='location' id='location'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
-                <TextField label = "Job Qualifications" placeholder='Enter Job Qualifications here' variant='outlined' multiline fullWidth rows={4} name='jobQualifications' id='jobQualifications'>
+                <TextField type = "number" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA'>
+                </TextField>
+              </Grid>
+              <Grid xs = {12} item>
+                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>
@@ -171,8 +186,8 @@ function CreateApplicationForm() {
               <>
               <Grid xs = {12} item>
                   <TextField
-                    id='skills'
-                    name='skills'
+                    id='desiredSkills'
+                    name='desiredSkills'
                     label = 'Skill Name'
                     variant = 'outlined'>
                   </TextField>
@@ -235,7 +250,7 @@ function CreateApplicationForm() {
               </Table>
              
               <Grid xs = {12} item>
-                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='applicationDeadline' id='applicationDeadline'>
+                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='date' id='date'>
                 </TextField>
               </Grid>
               <Grid xs = {12} item>

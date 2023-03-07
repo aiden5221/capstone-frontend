@@ -13,7 +13,7 @@ function App() {
       <Route path='/' element={<NavbarLayout />}>
           <Route index path='home' element={<Homepage />}/>
           <Route path='postings' element={null} />
-          <Route path='createAPosting' element={<CreateApplicationForm />} />
+          <Route path='/createaposting' element={<CreateApplicationForm />} />
           <Route path='login' element={<SignIn />} />
           <Route path='signup' element={null} />
           <Route path='account' element={<Account />} />
