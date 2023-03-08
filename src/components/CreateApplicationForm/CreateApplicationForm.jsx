@@ -66,23 +66,21 @@ function CreateApplicationForm() {
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
     console.log(await postJobApplication({
-      "jobName" : myObj.jobName, 
-      "jobDescription": myObj.jobDescription, 
-      "desiredSkills": myObj.desiredSkills, 
-      "minGPA": myObj.minGPA, 
-      "location": myObj.location, 
+      "jobName": myObj.jobName,
+      "jobDescription": myObj.jobDescription,
+      "company": myObj.company,
+      "desiredSkills": myObj.desiredSkills,
+      "location" : myObj.location,
+      "minGPA": myObj.minGPA,
       "pastExperiences": {
         "pastExperience1": 5,
         "pastExperience2": 7
-      }, 
-      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-      "applicants": [],
-      "date": myObj.date,
-      "company":myObj.company, 
-      "createdBy": "placeholder_createdBy"
+      },
+      "aptitudeResultsMin": myObj.aptitudeResultsMin
     }));
   }
 
+  //for testing purposes only
   const displayData = () => {
 
     //manipulating the rows
@@ -101,7 +99,7 @@ function CreateApplicationForm() {
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
     
-    console.log(myObj.date);
+    console.log(myObj);
     
   }
 
