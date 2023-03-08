@@ -2,11 +2,13 @@ import React from 'react'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer'
 import { Outlet } from 'react-router-dom'
+import JobCarousel from '../JobCarousel/JobCarousel'
 
 function NavbarLayout() {
   return (
-    <div>
+    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column'}}>
         <Navbar />
+        {/* <JobCarousel/> */}
         <Outlet />
         <Footer />
     </div>

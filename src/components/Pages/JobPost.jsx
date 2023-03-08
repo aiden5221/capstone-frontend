@@ -1,7 +1,4 @@
 import { Typography } from '@mui/material'
-import React from 'react'
-// import jobPost from '/src/utils/jobPost.json'
-
 
 function JobPost(){
 
@@ -13,14 +10,9 @@ function JobPost(){
         Qualification: ["Python", "Java", "C++", "C#", "Strong Leadership", "Big Mans", "Big Broski", "Sir Chad", "1", "3", "4", "5", "6", "7"]
     }
 
-    const boldStyle = {
-        fontWeight:"bold"
-    }
-
     const listSkills = jobPost.Qualification.map((Qualification) => 
         <ul>- {Qualification}</ul>
     );
-
 
     return (
         <div style={{ marginTop: "2vh", marginLeft:"10vh", padding:"4vh", width:"190vh", maxWidth:"90%", overflowY:"hidden"}}>
