@@ -67,7 +67,8 @@ function ApplicantForm() {
     };
 
     return (
-        <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
+        // <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
+        <Box className='ApplicantForm' sx={{ maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
             <form onSubmit={submitJobPosting}>
                 <Box sx={{ flexGrow: 1 }} >
                     <Grid container spacing={2} >
