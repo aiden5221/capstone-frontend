@@ -4,9 +4,9 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { GoogleButton } from 'react-google-button';
-import { googleSignIn, signIn } from '../../utils/firebase/firebase';
+import { googleSignIn, signIn } from '../../../utils/firebase/firebase';
 import { useRecoilState } from 'recoil'
-import { userState } from '../../utils/firebase/recoil/atoms/user/user';
+import { userState } from '../../../utils/firebase/recoil/atoms/user/user';
 
 import './styles.css'
 

@@ -4,12 +4,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { FaFilePdf, FaBars } from 'react-icons/fa';
 import axios from 'axios';
-import { postPotentialEmployee } from '../../utils/backend/requests'
+import { postPotentialEmployee } from '../../../utils/backend/requests'
 import InputForm from './InputForm';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function ApplicantForm() {    
+function ApplicantForm() {   
+
     const [resumeData, setResumeData] = useState({
         name: '',
         email: '',
@@ -24,16 +26,16 @@ function ApplicantForm() {
         country: '',
         gpa: ''
     });
-
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const submitJobPosting = async () => {
-        // event.preventDefault(); // Prevent the form from reloading the page
+        event.preventDefault(); // Prevent the form from reloading the page
         const locationStr = locationData.address1 + " " + locationData.address2 + "," + locationData.city
             + "," + locationData.province + "," + locationData.country;
-        // console.log(locationStr)
+        console.log('hi')
         await postPotentialEmployee({
-            "jobApplication": "4",
+            "jobApplication": id,
             "name": resumeData.name,
             "skills": resumeData.skills.split(","),
             "GPA": locationData.gpa,
@@ -43,17 +45,17 @@ function ApplicantForm() {
                 "pastExperience2",
                 "pastExperience3"
             ],
-            "aptitudeResults": "6.90",
+            "aptitudeResults": "6.5",
             "email": resumeData.email,
             "phoneNumber": resumeData.mobile
         })
         .then((res) => {
             console.log(res);
-            navigate('/home');
         })
         .catch(console.error());
-
+        navigate('/');
     }
+
     const handleFileUpload = async (event) => {
         // event.preventDefault(); // Prevent the form from reloading the page
         if (event.target.files[0].size <= 2621440) {
@@ -75,6 +77,7 @@ function ApplicantForm() {
         } else {
             alert('File exceeded maximum limit 2.5mb');
         }
+
 
     };
 
