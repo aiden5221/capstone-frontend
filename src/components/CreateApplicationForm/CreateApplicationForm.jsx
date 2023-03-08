@@ -46,7 +46,8 @@ function CreateApplicationForm() {
     createData("Java", 8),
   ]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+  event.preventDefault();
   //manipulating the rows
   const myRows = {}
 
@@ -64,7 +65,22 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    console.log(await postJobApplication(JSON.stringify(myObj)));
+    console.log(await postJobApplication({
+      "jobName" : myObj.jobName, 
+      "jobDescription": myObj.jobDescription, 
+      "desiredSkills": myObj.desiredSkills, 
+      "minGPA": myObj.minGPA, 
+      "location": myObj.location, 
+      "pastExperiences": {
+        "pastExperience1": 5,
+        "pastExperience2": 7
+      }, 
+      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+      "applicants": [],
+      "date": myObj.date,
+      "company":myObj.company, 
+      "createdBy": "placeholder_createdBy"
+    }));
   }
 
   const displayData = () => {
@@ -85,7 +101,7 @@ function CreateApplicationForm() {
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
     
-    console.log(JSON.stringify(myRows));
+    console.log(myObj.date);
     
   }
 
