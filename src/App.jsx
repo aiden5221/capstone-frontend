@@ -8,6 +8,7 @@ import NavbarWithCarousel from './components/Layouts/NavbarFooterWithCarousel'
 import JobPost from './components/Pages/JobPost'
 import { JobPostings } from './components/Pages/JobPostings/JobPostings'
 import './App.css'
+import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm'
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         <Route path='postings' element={<JobPostings/>}>
           <Route path=':search' element={<JobPostings/>}/>
         </Route>
-        <Route path='createAPosting' element={null} />
+        <Route path='createAPosting' element={<CreateApplicationForm/>} />
         <Route path='login' element={<SignIn />} />
         <Route path='signup' element={null} />
         <Route path='account' element={<Account />} />
