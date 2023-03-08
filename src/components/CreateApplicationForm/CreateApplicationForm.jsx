@@ -13,7 +13,7 @@ import { postJobApplication } from '../../utils/backend/requests';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const createData = (skillname, weightedValue) => ({
@@ -42,10 +42,8 @@ const CustomTableCell = ({ row, name, onChange }) => {
 
 function CreateApplicationForm() {
 
-  const [rows, setRows] = React.useState([
-    createData("Java", 8),
-  ]);
-
+  const [rows, setRows] = React.useState([]);
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
   event.preventDefault();
   //manipulating the rows
@@ -65,7 +63,7 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    console.log(await postJobApplication({
+    const { id } = await postJobApplication({
       "jobName" : myObj.jobName, 
       "jobDescription": myObj.jobDescription, 
       "desiredSkills": myObj.desiredSkills, 
@@ -80,7 +78,8 @@ function CreateApplicationForm() {
       "date": myObj.date,
       "company":myObj.company, 
       "createdBy": "placeholder_createdBy"
-    }));
+    });
+    navigate(`/jobPosting/${id}`);
   }
 
   const displayData = () => {
@@ -276,11 +275,6 @@ function CreateApplicationForm() {
               </Grid>
             </Grid>
           </form>
-          <Button
-            onClick={displayData}
-          >
-            Display Data
-          </Button>
         </CardContent>
       </Card>
   )
