@@ -11,8 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<NavbarLayout />}>
-          <Route index path='home' element={<Homepage />}/>
-          <Route path='postings' element={null} />
+          <Route path='postings' element={<JobPost />}/>
           <Route path='createAPosting' element={null} />
           <Route path='login' element={<SignIn />} />
           <Route path='signup' element={null} />
