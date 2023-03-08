@@ -8,7 +8,7 @@ function NavbarLayout() {
   return (
     <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column'}}>
         <Navbar />
-        <JobCarousel/>
+        {/* <JobCarousel/> */}
         <Outlet />
         <Footer />
     </div>

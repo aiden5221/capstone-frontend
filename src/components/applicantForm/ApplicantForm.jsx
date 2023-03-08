@@ -21,8 +21,8 @@ function ApplicantForm() {
         country: '',
         gpa: ''
     });
-    const test = async (event) => {
-        event.preventDefault(); // Prevent the form from reloading the page
+    const submitJobPosting = async () => {
+        // event.preventDefault(); // Prevent the form from reloading the page
         const locationStr = locationData.address1 + " " + locationData.address2 + "," + locationData.city
             + "," + locationData.province + "," + locationData.country;
         // console.log(locationStr)
@@ -37,11 +37,13 @@ function ApplicantForm() {
                 "pastExperience2",
                 "pastExperience3"
             ],
-            "aptitudeResults": "6.90"
+            "aptitudeResults": "6.90",
+            "email": resumeData.email,
+            "phoneNumber": resumeData.mobile
         })
     }
     const handleFileUpload = async (event) => {
-        event.preventDefault(); // Prevent the form from reloading the page
+        // event.preventDefault(); // Prevent the form from reloading the page
         if (event.target.files[0].size <= 2621440) {
             const formData = new FormData();
             formData.append('resume_parse', event.target.files[0]);
@@ -66,7 +68,7 @@ function ApplicantForm() {
 
     return (
         <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
-            <form onSubmit={test}>
+            <form onSubmit={submitJobPosting}>
                 <Box sx={{ flexGrow: 1 }} >
                     <Grid container spacing={2} >
                         <Grid container item spacing={1} >
@@ -91,6 +93,7 @@ function ApplicantForm() {
                                 label="Full Name"
                                 isRequired={true}
                                 isMultiline={false}
+                                maxLenChar = {300}
                                 rows={0}
                                 textVal={resumeData.name || ''}
                                 onChange={(event) => setResumeData((prevResumeData) => ({ ...prevResumeData, name: event.target.value }))} />
@@ -102,6 +105,7 @@ function ApplicantForm() {
                                 label="Email"
                                 isRequired={true}
                                 isMultiline={false}
+                                maxLenChar = {254}
                                 rows={0}
                                 textVal={resumeData.email || ''}
                                 onChange={(event) => setResumeData((prevResumeData) => ({ ...prevResumeData, email: event.target.value }))} />
@@ -109,6 +113,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="gpa"
                                 label="GPA"
+                                maxLenChar = {3}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -120,6 +125,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="phone"
                                 label="Phone Number"
+                                maxLenChar = {30}
                                 isRequired={true}
                                 isMultiline={false}
                                 rows={0}
@@ -129,6 +135,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="city"
                                 label="City"
+                                maxLenChar = {30}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -140,6 +147,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="add1"
                                 label="Address Line 1"
+                                maxLenChar = {25}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -149,6 +157,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="province"
                                 label="Province"
+                                maxLenChar = {30}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -160,6 +169,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="add2"
                                 label="Address Line 2"
+                                maxLenChar = {25}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -169,6 +179,7 @@ function ApplicantForm() {
                                 SpacingVal={5}
                                 idName="country"
                                 label="Country"
+                                maxLenChar = {30}
                                 isRequired={false}
                                 isMultiline={false}
                                 rows={0}
@@ -180,6 +191,7 @@ function ApplicantForm() {
                                 SpacingVal={10}
                                 idName="skills"
                                 label="Skills"
+                                maxLenChar = {50}
                                 isRequired={true}
                                 isMultiline={true}
                                 rows={4}

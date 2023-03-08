@@ -17,6 +17,9 @@ export default function InputForm(props) {
                 InputLabelProps={{
                     shrink: !!props.textVal,
                 }}
+                InputProps={{
+                    inputProps: { maxLength: props.maxLenChar },
+                }}
             />
         </Grid>
     )
