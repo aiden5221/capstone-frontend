@@ -72,7 +72,7 @@ function Navbar() {
             xs={7}
             >
                 <Link
-                    to={ '/home' }
+                    to={ '/' }
                     style={{ textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
                     <img src={Logo} alt='Logo img' />
                     <Typography

@@ -33,7 +33,7 @@ const Signup = () => {
             const { user: { uid, displayName}} = await createUser(formFields)
             setUser({uid: uid, displayName: displayName})
             console.log(uid, displayName)
-            navigate('/home')
+            navigate('/')
         } catch (e) {
             setError(e.message)
             console.log(e.message)

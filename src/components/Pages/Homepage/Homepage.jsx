@@ -3,7 +3,8 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
-
+import { useNavigate } from 'react-router-dom'
+import JobCarousel from '../../JobCarousel/JobCarousel'
 
 function Homepage() {
     const [search, setSearch] = useState('')
@@ -12,18 +13,19 @@ function Homepage() {
     const isMedium = useMediaQuery(theme.breakpoints.down('md'))
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
     const isVerySmall = useMediaQuery(theme.breakpoints.down('xs'))
-
+    const navigate = useNavigate();
     const searchHandler = (e) => {
         setSearch(e.target.value);
     }
 
     const submitSearch = async () => {
-        // Get all job applications if search field is empty
         if(search){
-            console.log(await getJobApplicationByName(search));
+            navigate(`postings/${search}`)
         }else{
-            console.log(await getJobApplications());
+            navigate('postings')
         }
+        
+        
     }
 
   return (
@@ -31,7 +33,6 @@ function Homepage() {
         container
         sx={{ display:'flex', justifyContent:'center', alignContent:'center', flexGrow:0.6 }}
     >   
-       
         <Grid2
             xs={10}
             sm={8}
