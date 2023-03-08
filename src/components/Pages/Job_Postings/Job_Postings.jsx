@@ -1,7 +1,7 @@
 import React from 'react'
-import { Typography,Box, Button,colors,useMediaQuery,useTheme } from '@mui/material'
+import { Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useState } from 'react'
-import { Link, Routes, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 
 const job_postings = [
@@ -58,13 +58,12 @@ export const Job_Posting = () => {
     //go to the specified job posting page
     //we need to able to identify each page
     // we can use the id of each job posting as the key
-   
-    
+    navigate('/jobPosting')
   }
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
-
+  const navigate = useNavigate()
   //mapp each posting dynacally to the box
 
   return (
@@ -84,6 +83,7 @@ export const Job_Posting = () => {
           display: 'block',//adds the button on  a new line with a width of the screen
           p: 1,//add a padding of 1 inbetween each job posting
           m: 1,
+          cursor:'pointer',
           bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),//added a background colour with a theme prop to choose for a list of colors
           color: (theme) =>
             theme.palette.mode === 'dark' ? 'grey.400' : 'grey.800',// pass in the same theme to the color of the text
