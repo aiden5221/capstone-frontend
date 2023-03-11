@@ -26,10 +26,10 @@ export const carouselResponsiveValues = {
     const diffTime = Math.abs(today - datePosted);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         
-    if(diffDays === 0){
+    if(diffDays === 1){
       return 'Today';
     }
-    else if(diffDays === 1){
+    else if(diffDays === 2){
       return 'Yesterday';
     }
     else if(diffDays < 7){

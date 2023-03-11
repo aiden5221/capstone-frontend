@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { getDateDistance } from '../constants'
 function JobItem({ job }) {
     const [jobDate, setJobDate] = useState()
-    var { id, jobName, date } = job;
+    var { id, jobName, date, company } = job;
     const navigate = useNavigate()
 
     useEffect(() =>{
@@ -37,7 +37,10 @@ function JobItem({ job }) {
             <Typography sx={TextStyling} variant='h6'>
                 {jobName}
             </Typography>
-            <Typography sx={[TextStyling, { float:'right'}]} variant='subtitle1'>
+            <Typography sx={[TextStyling, { float:'left', color:'gray'}]} variant='subtitle1'>
+                {company}
+            </Typography>
+            <Typography sx={[TextStyling, { float:'right', color:'gray'}]} variant='subtitle1'>
                 {jobDate}
             </Typography>
         </CardContent>

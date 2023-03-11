@@ -44,7 +44,7 @@ function MobileNavbar({ user }) {
                     <List
                         sx={{ width:'60vw', height:'100vh', backgroundColor:'#5f4c4c' }}>
                             {
-                                NAV_HEADINGS.map((heading) => {
+                                NAV_HEADINGS.map((heading, index) => {
                                     if(checkIfLoggedIn(heading)) return null
 
                                     // Used to remove whitespace in heading for url
@@ -53,7 +53,8 @@ function MobileNavbar({ user }) {
                                     return(
                                     <ListItem
                                         disablePadding
-                                        divider>
+                                        divider
+                                        key={index}>
                                         <Link
                                             to={urlText}
                                             style={LinkStyling}>
