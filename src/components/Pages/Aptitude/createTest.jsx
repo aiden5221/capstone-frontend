@@ -12,13 +12,14 @@ function createTest() {
   const [choice, setChoice] = useState('')
 
   const addQuestion = () => {
+
     if(newQuestion) {
       let num = Question.length
       let newEntry = { id: num, title: newQuestion, status: false }
       aptitude.questions[num] = newQuestion
       setQuestion([...Question, newEntry])
       setNewQuestion('')
-      setChoice(null)
+      setChoice('')
     }
   }
 
@@ -34,7 +35,7 @@ function createTest() {
   }
 
   return(
-    <div className="container App">
+    <div className="container App" style={{overflowY:"hidden"}}>
 
       <br /><br />
       <Typography variant="h2">Create Aptitude Test</Typography>
@@ -121,7 +122,8 @@ function createTest() {
           height:"5vh", 
           position:"relative", 
           left:"23vw", 
-          marginTop:"7vh"}}
+          marginTop:"7vh",
+          marginBottom:"7vh"}}
         >Submit Questions</Button>
       </div>
 
