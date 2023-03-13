@@ -6,7 +6,7 @@ import './styles.css'
 import { Typography } from '@mui/material';
 import { createUser } from '../../utils/firebase/firebase';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../utils/firebase/recoil/atoms/user/user';
+import { userState } from '../../utils/recoil/atoms/user/user';
 
 const defaultFormFields = {
     email: '',

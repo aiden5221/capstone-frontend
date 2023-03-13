@@ -6,7 +6,7 @@ import Logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
-import { DEFAULT_USERSTATE, userState } from '../../utils/firebase/recoil/atoms/user/user'
+import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user'
 import { useRecoilState } from 'recoil';
 import '../../index.css';
 import { logout } from '../../utils/firebase/firebase'

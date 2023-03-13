@@ -40,10 +40,11 @@ function JobCarousel() {
             arrows={false}
             >
             {
+                jobApps ?
                 jobApps.map((job, i) => {
                     return(
                     <JobItem job={job} key={i}/>)
-                })
+                }) : <div/>
             }
         </Carousel>
     </Grid2>
