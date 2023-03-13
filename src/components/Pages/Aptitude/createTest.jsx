@@ -1,25 +1,24 @@
-import { React, useState, useReducer } from 'react'
+import { React, useState, useReducer, useNaviagte } from 'react'
+import aptitude from "/src/utils/aptitudeInfo.json"
 import { Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import CreateIcon from '@mui/icons-material/Create';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './createTestStyle.css'
-
-var questions = []
-var answers = []
 
 function createTest() {
 
   const [Question, setQuestion] = useState([])
   const [newQuestion, setNewQuestion] = useState('')
+  const [choice, setChoice] = useState('')
 
   const addQuestion = () => {
     if(newQuestion) {
       let num = Question.length
       let newEntry = { id: num, title: newQuestion, status: false }
-      questions[num] = newQuestion
+      aptitude.questions[num] = newQuestion
       setQuestion([...Question, newEntry])
       setNewQuestion('')
+      setChoice(null)
     }
   }
 
@@ -29,8 +28,9 @@ function createTest() {
   }
 
   const handleList = (event) => {
+    setChoice(event.target.value)
     let num = Question.length
-    answers[num] = event.target.value
+    aptitude.answers[num] = event.target.value
   }
 
   return(
@@ -55,6 +55,7 @@ function createTest() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             name="Answer1"
+            value={choice}
             onChange={handleList}
             style={{width:"10vw"}}
           >
@@ -71,7 +72,8 @@ function createTest() {
           variant="filled" 
           className='btn'
           onClick={addQuestion}
-          style={{marginTop:"2.3vh", backgroundColor:"black", color:"white", height:"5vh"}}>
+          style={{marginTop:"2.3vh", backgroundColor:"#5f4c4c", color:"white", height:"5vh"}}
+          >
             Add Question
           </Button>
         </div>
@@ -89,7 +91,8 @@ function createTest() {
 
                   <div className={question.status ? 'done' : ''}>
                     <Typography className="taskNumber">{index + 1}</Typography>
-                    <Typography className="taskText"> Question: {question.title} {         } Answer: {answers[index]}</Typography>
+                    <Typography className="taskText"> Question: {question.title}</Typography>
+                    <Typography className='taskText'>Answer: {aptitude.answers[index]}</Typography>
                   </div> 
 
                   <div className='iconsWrap'>
@@ -110,12 +113,20 @@ function createTest() {
         })
       }
 
-      {/* <Typography variant="h1">{questions[0]}1{answers[0]}</Typography>
-      <Typography variant="h1">{questions[1]}2</Typography>
-      <Typography variant="h1">{questions[2]}3</Typography> */}
-
+      <div>
+        <Button variant="filled" 
+        style={{
+          backgroundColor:"#5f4c4c",
+          color:"white", 
+          height:"5vh", 
+          position:"relative", 
+          left:"23vw", 
+          marginTop:"7vh"}}
+        >Submit Questions</Button>
+      </div>
 
     </div>
+
   )
 }
 

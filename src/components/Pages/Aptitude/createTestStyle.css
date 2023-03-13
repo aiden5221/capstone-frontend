@@ -4,11 +4,15 @@
   }
   
   .taskBg {
-    margin-bottom: 20px;
+    margin-bottom: 4vh;
     padding: 10px 140px 10px 15px;
     text-align: left;
     font-size: 22px;
     position: relative;
+    border-bottom: solid;
+    border-radius: 7px;
+    border-width: 1px;
+    border-color: grey;
   }
   
   .taskBg div {
@@ -18,11 +22,11 @@
   
   .taskNumber {
     color: #999;
-    width: 30px;
-    height: 26px;
+    width: 5vw;
+    height: 3vh;
     display: flex;
     text-align: center;
-    margin-right: 8px;
+    margin-right: 3vw;
     align-items: center;
     justify-content: center;
   }
@@ -40,18 +44,18 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 15px;
+    right: 3vw;
     width: auto;
     display: inline-block;
   }
   
   .taskBg .iconsWrap span {
     display: inline-block;
-    margin: 0px 10px 0 10px;
+    margin: 0px 2vh 0 2vh;
     cursor: pointer;
   }
   
   
   .mr-20 {
-    margin-right: 20px;
+    margin-right: 4vw;
   }
