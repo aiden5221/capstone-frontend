@@ -18,9 +18,12 @@ var testInfo = {
 }
 
 function createTest() {
+
   const [Question, setQuestion] = useState([])
   const [newQuestion, setNewQuestion] = useState('')
   const [choice, setChoice] = useState('')
+
+
   const addQuestion = () => {
     if(newQuestion) {
       let num = Question.length
@@ -39,6 +42,8 @@ function createTest() {
     }
     console.log(testInfo)
   }
+  
+
   const deleteQuestion = (id) => {
     let newQuestions = Question.filter( question => question.id !== id )
     setQuestion(newQuestions)
@@ -46,12 +51,14 @@ function createTest() {
     delete answersArray[id]
     console.log(testInfo)
   }
+
   const handleList = (event) => {
     setChoice(event.target.value)
     let num = Question.length
     answersArray[num] = event.target.value
     answers = event.target.value
   }
+
   return(
     <div className="container App" style={{overflowY:"hidden"}}>
       <br /><br />
@@ -66,6 +73,7 @@ function createTest() {
           className='form-control form-control-lg'
           >Enter Question</TextField>
         </div>
+
         <div className='col-auto'>
         <InputLabel id="demo-simple-select-label">Answer</InputLabel>
           <Select
@@ -83,6 +91,7 @@ function createTest() {
             <MenuItem value={"Strongly Disagree"}>Strongly Disagree</MenuItem>
           </Select>
         </div>
+
         <div className='col-auto'>
           <Button 
           variant="filled" 
