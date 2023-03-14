@@ -122,7 +122,7 @@ function createTest() {
                   <div className={question.status ? 'done' : ''}>
                     <Typography className="taskNumber">{index + 1}</Typography>
                     <Typography className="taskText"> Question: {question.title}</Typography>
-                    <Typography className='taskText'>Answer: {answersArray[index]}</Typography>
+                    <Typography className='taskText'>Answer: {testInfo.Questions[index].answer}</Typography>
                   </div> 
 
                   <div className='iconsWrap'>
