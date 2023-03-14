@@ -11,7 +11,7 @@
     position: relative;
     border-bottom: solid;
     border-radius: 7px;
-    border-width: 1px;
+    border-width: thin;
     border-color: grey;
   }
   
