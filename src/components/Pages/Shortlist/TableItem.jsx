@@ -1,12 +1,12 @@
 import React from 'react'
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material"
-import { Box, Collapse, IconButton, TableCell, TableRow, Typography } from "@mui/material"
+import { Box, Collapse, IconButton, TableBody, TableCell, Table, TableHead, TableRow, Typography } from "@mui/material"
 import { useState } from "react"
 
 function TableItem({ row }) {
     const [open, setOpen] = useState(false)
-    const { name, score } = row;
-
+    const { name, score, correspondingSkills } = row;
+    console.log(row)
     return (
         <>
             <TableRow sx={{backgroundColor:'#ECEEF2'}} >
@@ -28,9 +28,17 @@ function TableItem({ row }) {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor:'#E1E4EA' }} colSpan={6}>
                     <Collapse in={open} timeout='auto' unmountOnExit>
                         <Box sx={{margin:1}}>
-                            <Typography variant='h6' gutterBottom component='div'>
-                                Skills
-                            </Typography>
+                            <Table>
+                                <TableHead sx={{fontWeight:'700'}}>
+                                    Skills
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                        correspondingSkills.map((skill) => <TableRow><TableCell sx={{paddingBottom:0}}>{skill}</TableCell></TableRow>)
+                                    }
+                                </TableBody>
+                            </Table>
+                        
                         </Box>
                     </Collapse>
                 </TableCell>
