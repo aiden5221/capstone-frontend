@@ -21,10 +21,7 @@
     width: 60vw;
   }
 
-  .question-block{
-    display: inline-block;
-    vertical-align: middle;
-  }
+
   
   .taskBg div {
     display: flex;

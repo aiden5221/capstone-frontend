@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Typography, TextField, Button, InputLabel, Select, MenuItem} from '@mui/material'
+import { Typography, TextField, Button, InputLabel, Select, MenuItem, FormControl} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './createTestStyle.css'
@@ -7,7 +7,7 @@ import './createTestStyle.css'
 //Temporary variable to hold answer
 var answers = ""
 
-//Array to display answers
+//Array to  answers
 var answersArray = []
 
 var testInfo = {
@@ -58,49 +58,45 @@ function CreateTest() {
   }
 
   return(
-    <div className="container" style={{overflowY:"hidden"}}>
+    <div className="container" style={{overflowY:"hidden",backgroundColor:'white', borderRadius:'4px', padding:'1rem'}}>
       <br /><br />
       <Typography style={{fontSize:"5.5em"}} >Create Aptitude Test</Typography>
       <br /><br />
 
-        <div style={{marginRight:"5vw"}}>
-          <div classname="question-block">
+          <div  style={{display:'flex',}}>
             <TextField 
-            style={{width:"50vw", marginRight:"20vw"}}
+            style={{width:"50vw",flexWrap:'wrap' }}
             value={newQuestion}
             onChange={ (e) => setNewQuestion(e.target.value) }
+            
             >Enter Question</TextField>
-          </div>
-
-          <div classname="question-block" style={{marginTop:"-7.34vh", marginLeft:"45vw"}}>
-          <InputLabel >Answer</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              name="Answer1"
-              value={choice}
-              onChange={handleList}
-              style={{width:"10vw"}}
-            >
-              <MenuItem value={"Strongly Agree"}>Strongly Agree</MenuItem>
-              <MenuItem value={"Agree"}>Agree</MenuItem>
-              <MenuItem value={"Neutral"}>Neutral</MenuItem>
-              <MenuItem value={"Disagree"}>Disagree</MenuItem>
-              <MenuItem value={"Strongly Disagree"}>Strongly Disagree</MenuItem>
-            </Select>
-            </div>
-
-          
-            <div style={{marginLeft:"67vw", marginTop:"-7.5vh"}}>
+            <FormControl>
+              <InputLabel htmlFor='demo-simple-select-label'>Answer</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label='Answer'
+                  name="Answer1"
+                  value={choice}
+                  onChange={handleList}
+                  style={{width:"10vw"}}
+                >
+                  <MenuItem value={"Strongly Agree"}>Strongly Agree</MenuItem>
+                  <MenuItem value={"Agree"}>Agree</MenuItem>
+                  <MenuItem value={"Neutral"}>Neutral</MenuItem>
+                  <MenuItem value={"Disagree"}>Disagree</MenuItem>
+                  <MenuItem value={"Strongly Disagree"}>Strongly Disagree</MenuItem>
+                </Select>
+              </FormControl>
               <Button 
               variant="filled" 
               onClick={addQuestion}
-              style={{marginTop:"2.3vh", backgroundColor:"#5f4c4c", color:"white", height:"5vh", width:"8vw", fontSize:"0.9em"}}
+              style={{ backgroundColor:"#5f4c4c", color:"white", height:"6vh", width:"8vw", fontSize:"0.9em"}}
               >
                 Add Question
               </Button>
             </div>
-          </div>
+
       
       <br/>
         
