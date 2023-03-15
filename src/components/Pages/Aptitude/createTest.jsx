@@ -2,7 +2,7 @@ import { React, useState, useReducer } from 'react'
 import aptitude from "/src/utils/aptitudeInfo.json"
 import { Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './createTestStyle.css'
 
 //Temporary variable to hold answer
@@ -42,7 +42,7 @@ function createTest() {
     }
     console.log(testInfo)
   }
-  
+
 
   const deleteQuestion = (id) => {
     let newQuestions = Question.filter( question => question.id !== id )
@@ -60,49 +60,50 @@ function createTest() {
   }
 
   return(
-    <div className="container App" style={{overflowY:"hidden"}}>
+    <div className="container" style={{overflowY:"hidden"}}>
       <br /><br />
-      <Typography variant="h2">Create Aptitude Test</Typography>
+      <Typography style={{fontSize:"5.5em"}} >Create Aptitude Test</Typography>
       <br /><br />
-  
-      <div className='row'>
-        <div className='col' style={{marginTop:"2.1vh"}}>
-          <TextField 
-          value={newQuestion}
-          onChange={ (e) => setNewQuestion(e.target.value) }
-          className='form-control form-control-lg'
-          >Enter Question</TextField>
-        </div>
 
-        <div className='col-auto'>
-        <InputLabel id="demo-simple-select-label">Answer</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            name="Answer1"
-            value={choice}
-            onChange={handleList}
-            style={{width:"10vw"}}
-          >
-            <MenuItem value={"Strongly Agree"}>Strongly Agree</MenuItem>
-            <MenuItem value={"Agree"}>Agree</MenuItem>
-            <MenuItem value={"Neutral"}>Neutral</MenuItem>
-            <MenuItem value={"Disagree"}>Disagree</MenuItem>
-            <MenuItem value={"Strongly Disagree"}>Strongly Disagree</MenuItem>
-          </Select>
-        </div>
+        <div style={{alignContent:"center"}}>
+          <div classname="question-block">
+            <TextField 
+            style={{width:"50vw", marginRight:"20vw"}}
+            value={newQuestion}
+            onChange={ (e) => setNewQuestion(e.target.value) }
+            >Enter Question</TextField>
+          </div>
 
-        <div className='col-auto'>
-          <Button 
-          variant="filled" 
-          className='btn'
-          onClick={addQuestion}
-          style={{marginTop:"2.3vh", backgroundColor:"#5f4c4c", color:"white", height:"5vh"}}
-          >
-            Add Question
-          </Button>
-        </div>
-      </div>
+          <div classname="question-block" style={{marginTop:"-7.34vh", marginLeft:"45vw"}}>
+          <InputLabel >Answer</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="Answer1"
+              value={choice}
+              onChange={handleList}
+              style={{width:"10vw"}}
+            >
+              <MenuItem value={"Strongly Agree"}>Strongly Agree</MenuItem>
+              <MenuItem value={"Agree"}>Agree</MenuItem>
+              <MenuItem value={"Neutral"}>Neutral</MenuItem>
+              <MenuItem value={"Disagree"}>Disagree</MenuItem>
+              <MenuItem value={"Strongly Disagree"}>Strongly Disagree</MenuItem>
+            </Select>
+            </div>
+
+          
+            <div style={{marginLeft:"67vw", marginTop:"-7.5vh"}}>
+              <Button 
+              variant="filled" 
+              onClick={addQuestion}
+              style={{marginTop:"2.3vh", backgroundColor:"#5f4c4c", color:"white", height:"5vh", width:"8vw", fontSize:"0.9em"}}
+              >
+                Add Question
+              </Button>
+            </div>
+          </div>
+      
       <br/>
         
       {Question && Question.length ? '' : 'No Questions...'}
