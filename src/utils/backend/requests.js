@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import axios from 'axios';
 
 const BACKEND_URL = 'http://localhost:8000'
@@ -29,7 +28,6 @@ export const getJobApplicationById = async (id) => {
     return axios.get(`${BACKEND_URL}/jobapplication/${id}`)
         .then(res => {
             const { data } = res;
-            console.log(data)
             return data;
         })
         .catch(err => {
@@ -37,22 +35,35 @@ export const getJobApplicationById = async (id) => {
         })
 }
 
-
 export const postPotentialEmployee = async (potentialEmployeeFields) => {
     return axios.post(`${BACKEND_URL}/potentialemployees/`, potentialEmployeeFields)
         .then(res => {
             const { data } = res;
             return data;
         })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 export const postJobApplication = async (myObj) => {
     return axios.post(`${BACKEND_URL}/jobapplications/`, myObj)
-        .then(response => {
-            const { data } = response;
+        .then(res => {
+            const { data } = res;
             return data;
         })
         .catch((error) => {
             console.error(error)
         });
+}
+
+export const getShortlist = async (id, length) => {
+    return axios.get(`${BACKEND_URL}/jobapplication/${id}/shortlist/${length}`)
+        .then(res => {
+            const { data } = res;
+            return data;
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }

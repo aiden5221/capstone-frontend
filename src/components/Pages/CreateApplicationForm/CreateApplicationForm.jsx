@@ -1,19 +1,14 @@
-import React from 'react'
-import { Button, CardContent, Grid, TextareaAutosize, TextField, Typography } from '@mui/material'
-import {Card} from '@mui/material'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Input from '@mui/material/Input';
-import IconButton from '@mui/material/IconButton';
-import { postJobApplication } from '../../utils/backend/requests';
-// Icons
+import React, { useEffect } from 'react'
+import { Button, CardContent, Grid, Typography, Table, TableBody, TableCell, TableHead, TableRow, Input, IconButton, Card, TextField } from '@mui/material'
+import { postJobApplication } from '../../../utils/backend/requests';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
+
 import { useNavigate } from 'react-router-dom';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { userState } from '../../../utils/recoil/atoms/user/user';
+import { useRecoilValue } from 'recoil';
 
 
 const createData = (skillname, weightedValue) => ({
@@ -44,43 +39,57 @@ function CreateApplicationForm() {
 
   const [rows, setRows] = React.useState([]);
   const navigate = useNavigate();
+  const { uid } = useRecoilValue(userState);
   const handleSubmit = async (event) => {
-  event.preventDefault();
-  //manipulating the rows
-  const myRows = {}
+    event.preventDefault();
+    //manipulating the rows
+    const myRows = {}
 
-  rows.filter((element) => {
-    const{skillname, weightedValue} = element; 
-    myRows[skillname] = weightedValue; 
-  })
-   //convert myRows to json
+    rows.filter((element) => {
+      const{skillname, weightedValue} = element; 
+      myRows[skillname] = weightedValue; 
+    })
+    //convert myRows to json
     JSON.stringify(myRows);
 
-    //retrieving the data
-    const data = new FormData(document.getElementById("formData"));
-    data.forEach((value,key) => (data[key] = value));
-    const json = JSON.stringify(data);
-    const myObj = JSON.parse(json);
-    myObj.desiredSkills = myRows; 
-    delete myObj.skillValue; 
-    const { id } = await postJobApplication({
-      "jobName" : myObj.jobName, 
-      "jobDescription": myObj.jobDescription, 
-      "desiredSkills": myObj.desiredSkills, 
-      "minGPA": myObj.minGPA, 
-      "location": myObj.location, 
-      "pastExperiences": {
-        "pastExperience1": 5,
-        "pastExperience2": 7
-      }, 
-      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-      "applicants": [],
-      "date": myObj.date,
-      "company":myObj.company, 
-      "createdBy": "placeholder_createdBy"
-    });
-    navigate(`/jobPosting/${id}`);
-  }
+   //retrieving the data
+   const data = new FormData(document.getElementById("formData"));
+   data.forEach((value,key) => (data[key] = value));
+   const json = JSON.stringify(data);
+   const myObj = JSON.parse(json);
+   myObj.desiredSkills = myRows; 
+   delete myObj.skillValue; 
+   console.log({
+    "jobName" : myObj.jobName, 
+    "jobDescription": myObj.jobDescription, 
+    "desiredSkills": myObj.desiredSkills, 
+    "minGPA": myObj.minGPA, 
+    "location": myObj.location, 
+    "pastExperiences": {
+      "pastExperience1": 5,
+      "pastExperience2": 7
+    }, 
+    "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+    "company":myObj.company, 
+    "createdBy": "placeholder_createdBy"
+  })
+  const { id } = await postJobApplication({
+    "jobName" : myObj.jobName, 
+    "jobDescription": myObj.jobDescription, 
+    "desiredSkills": myObj.desiredSkills, 
+    "minGPA": myObj.minGPA, 
+    "location": myObj.location, 
+    "pastExperiences": {
+      "pastExperience1": 5,
+      "pastExperience2": 7
+    }, 
+    "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+    "company":myObj.company, 
+    "createdBy": "placeholder_createdBy"
+  })
+  
+   navigate(`/jobPosting/${id}`);
+ }
 
   const displayData = () => {
 
@@ -156,39 +165,46 @@ function CreateApplicationForm() {
     setRows([...rows, createData(text, value)]);
   }
 
+  useEffect(() => {
+    if(uid == ''){
+      navigate('/login');
+    }
+  },[])
+
   return (
-      <Card style={{maxWidth: 2000, margin: "0 auto", padding: "20px 5px"}}>
+    <Grid2 container xs={10} xsOffset={1} sx={{ marginBottom:'3vh'}}>
+      <Card >
         <CardContent>
         <Typography variant='h4' gutterBottom marginTop={2} marginLeft={2} style={{textAlign:'center'}}>
           Create Job Application Form
         </Typography>
           <form id = 'formData'>
-            <Grid container spacing={1}>
-              <Grid xs = {12} item>
+            <Grid2 container spacing={1}>
+              <Grid2 xs = {12} item>
                 <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobName' id='jobName'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='company' id='company'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <TextField label = "Job Description" placeholder='Enter Job Description here' variant='outlined' multiline fullWidth rows={4} name='jobDescription' id='jobDescription'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <TextField label = "Address Line 1" placeholder='Enter Company Address here' variant='outlined' fullWidth name='location' id='location'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <TextField type = "number" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <Button
                     variant='contained'
                     color='primary'
@@ -197,9 +213,9 @@ function CreateApplicationForm() {
                   >
                       Add
                   </Button> 
-              </Grid>
+              </Grid2>
               <>
-              <Grid xs = {12} item>
+              <Grid2 xs = {12} item>
                   <TextField
                     id='desiredSkills'
                     name='desiredSkills'
@@ -212,7 +228,7 @@ function CreateApplicationForm() {
                     label = 'Skill Value'
                     variant = 'outlined'>
                   </TextField>
-              </Grid>
+              </Grid2>
               </>
               <Table>
                 <caption>Weighted Skills</caption>
@@ -264,19 +280,20 @@ function CreateApplicationForm() {
                
               </Table>
              
-              <Grid xs = {12} item>
+              <Grid2 xs = {12} item>
                 <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='date' id='date'>
                 </TextField>
-              </Grid>
-              <Grid xs = {12} item>
+              </Grid2>
+              <Grid2 xs = {12} item>
                 <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
                   Submit
                 </Button>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </form>
         </CardContent>
       </Card>
+      </Grid2>
   )
 }
 
