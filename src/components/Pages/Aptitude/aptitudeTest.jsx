@@ -1,9 +1,9 @@
 import { React } from 'react'
-import { Typography, Button, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
+import { Typography, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
 import aptitudeInfo from '/src/utils/aptitudeInfo.json'
 
 
-function aptitudeTest(){
+function AptitudeTest(){
 
     var score = 0
 
@@ -78,4 +78,4 @@ function aptitudeTest(){
 
 }
 
-export default aptitudeTest
+export default AptitudeTest

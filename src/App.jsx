@@ -4,7 +4,7 @@ import Homepage from './components/Pages/Homepage/Homepage'
 import NavbarLayout from './components/Layouts/NavbarLayout'
 import SignIn from './components/SignInSignUp/Signin'
 import Account from './components/Account'
-import Aptitude from './components/Pages/Aptitude/createTest'
+import Aptitude from './components/Pages/Aptitude/CreateTest'
 
 function App() {
 

@@ -1,6 +1,5 @@
-import { React, useState, useReducer } from 'react'
-import aptitude from "/src/utils/aptitudeInfo.json"
-import { Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material'
+import { React, useState } from 'react'
+import { Typography, TextField, Button, InputLabel, Select, MenuItem} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './createTestStyle.css'
@@ -17,12 +16,11 @@ var testInfo = {
   ]
 }
 
-function createTest() {
+function CreateTest() {
 
   const [Question, setQuestion] = useState([])
   const [newQuestion, setNewQuestion] = useState('')
   const [choice, setChoice] = useState('')
-
 
   const addQuestion = () => {
     if(newQuestion) {
@@ -133,17 +131,17 @@ function createTest() {
       }
       <div>
         <Button variant="filled" 
-        style={{
-          backgroundColor:"#5f4c4c",
-          color:"white", 
-          height:"5vh", 
-          position:"relative", 
-          left:"23vw", 
-          marginTop:"7vh",
-          marginBottom:"7vh"}}
-        >Submit Questions</Button>
+          style={{
+            backgroundColor:"#5f4c4c",
+            color:"white", 
+            height:"5vh", 
+            position:"relative", 
+            left:"23vw", 
+            marginTop:"7vh",
+            marginBottom:"7vh"}}
+          >Submit Questions</Button>
       </div>
     </div>
   )
 }
-export default createTest
+export default CreateTest
