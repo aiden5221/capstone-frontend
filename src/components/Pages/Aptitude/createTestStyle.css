@@ -1,18 +1,29 @@
 
-  .App {
+  .container {
     text-align: center;
+    width: 90vw;
+    align-self: center;
   }
-  
-  .taskBg {
+
+ 
+   .taskBg {
+    margin-top: 3vh;
     margin-bottom: 4vh;
+    margin-left: 10vw;
     padding: 10px 140px 10px 15px;
     text-align: left;
     font-size: 22px;
     position: relative;
     border-bottom: solid;
     border-radius: 7px;
-    border-width: 1px;
-    border-color: grey;
+    border-color: rgb(154, 149, 149);
+    background-color:hwb(60 78% 21%);
+    width: 60vw;
+  }
+
+  .question-block{
+    display: inline-block;
+    vertical-align: middle;
   }
   
   .taskBg div {
@@ -58,4 +69,4 @@
   
   .mr-20 {
     margin-right: 4vw;
-  }
+  } 
