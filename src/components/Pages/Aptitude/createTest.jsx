@@ -65,7 +65,7 @@ function createTest() {
       <Typography style={{fontSize:"5.5em"}} >Create Aptitude Test</Typography>
       <br /><br />
 
-        <div style={{alignContent:"center"}}>
+        <div style={{marginRight:"5vw"}}>
           <div classname="question-block">
             <TextField 
             style={{width:"50vw", marginRight:"20vw"}}
