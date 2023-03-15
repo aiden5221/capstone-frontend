@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,8 +19,6 @@ const Signin = () => {
     const [formFields, setFormFields] = useState(defaultFormFields)
     const [error, setError] = useState('');
     const [user, setUser] = useRecoilState(userState)
-
-    const { email, password } = formFields;
 
     const navigate = useNavigate()
 
@@ -88,10 +86,7 @@ const Signin = () => {
                     marginTop: "4vh"
                 }}/>    
 
-                <p style={{
-                fontSize:"1.1em",
-                marginTop:"3vh"
-                }}>
+                <p style={{marginTop:"3vh"}}>
                     Don't have an account? <Link to='/Signup' className='underline'>Sign up.</Link>
                 </p>
 

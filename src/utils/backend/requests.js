@@ -25,7 +25,7 @@ export const getJobApplicationByName = async (name) => {
 }
 
 export const getJobApplicationById = async (id) => {
-    return axios.get(`${BACKEND_URL}/jobapplications/${id}`)
+    return axios.get(`${BACKEND_URL}/jobapplication/${id}`)
         .then(res => {
             const { data } = res;
             return data;
@@ -49,7 +49,7 @@ export const postPotentialEmployee = async (potentialEmployeeFields) => {
 export const postJobApplication = async (myObj) => {
     return axios.post(`${BACKEND_URL}/jobapplications/`, myObj)
         .then(res => {
-            const { data } = response;
+            const { data } = res;
             return data;
         })
         .catch((error) => {

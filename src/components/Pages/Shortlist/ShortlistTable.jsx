@@ -1,7 +1,6 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead } from "@mui/material"
 import TableItem from "./TableItem"
 function ShortlistTable({ shortlist }) {
-
 
     return (
         <TableContainer>
@@ -10,6 +9,8 @@ function ShortlistTable({ shortlist }) {
                     <TableCell/>
                     <TableCell sx={{fontWeight:'700'}}>Name</TableCell>
                     <TableCell sx={{fontWeight:'700'}}>Score</TableCell>
+                    <TableCell sx={{fontWeight:'700'}}>Location</TableCell>
+                    <TableCell sx={{fontWeight:'700'}}>Email</TableCell>
                 </TableHead>
                 <TableBody>
                     {shortlist &&

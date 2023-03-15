@@ -16,7 +16,6 @@ function Shortlist() {
     useEffect(() => {
         const fetchJobData = async () => {
             setJobPosting(await getJobApplicationById(id))
-            console.log(jobPosting)
         }
         fetchJobData();
     }, [])
@@ -24,6 +23,7 @@ function Shortlist() {
     const handleShortlist = async () => {
         const { shortlist } = await getShortlist(id, shortlistLength);
         setShortlist(shortlist);
+        console.log(shortlist)
     }
 
   return ( 
@@ -42,7 +42,6 @@ function Shortlist() {
                 <Typography variant='h5' sx={{fontWeight:'700'}}>
                     {jobName}
                 </Typography>
-                
                 <Typography component={'div'} variant='h7' sx={{fontWeight: '700'}}>
                     {company}
                 </Typography>
@@ -53,13 +52,14 @@ function Shortlist() {
                     {getDateDistance(date)}
                 </Typography>
                     { applicants ? 
-                    <Typography component={'div'} variant='body2' sx={{fontWeight: '400' }} >
-                        Applicants: {applicants.length} 
-                    </Typography> 
+                        <Typography component={'div'} variant='body2' sx={{fontWeight: '400' }} >
+                            Applicants: {applicants.length} 
+                        </Typography> 
                     : 
-                    <Typography component={'div'} variant='body2' sx={{fontWeight: '400' }}>
-                        No applicants 
-                    </Typography>}
+                        <Typography component={'div'} variant='body2' sx={{fontWeight: '400' }}>
+                            No applicants 
+                        </Typography>
+                    }
             </Grid2>
             <Grid2 xs={12} sx={{display:'flex', justifyContent:'center', marginTop:'2vh', marginBottom:'2vh'}}>
                 <TextField 
