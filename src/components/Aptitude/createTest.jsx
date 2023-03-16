@@ -58,23 +58,22 @@ function CreateTest() {
   }
 
   return(
-    <div className="container" style={{overflowY:"hidden",backgroundColor:'white', borderRadius:'4px', padding:'1rem'}}>
+    <div className="container" style={{overflowY:"hidden"}}>
       <br /><br />
       <Typography style={{fontSize:"5.5em"}} >Create Aptitude Test</Typography>
       <br /><br />
 
           <div  style={{display:'flex',}}>
             <TextField 
-            style={{width:"50vw",flexWrap:'wrap' }}
+            style={{width:"50vw",flexWrap:'wrap', marginLeft:"8vw", marginRight:"2vw" }}
             value={newQuestion}
             onChange={ (e) => setNewQuestion(e.target.value) }
             
             >Enter Question</TextField>
+
             <FormControl>
-              <InputLabel htmlFor='demo-simple-select-label'>Answer</InputLabel>
+              <InputLabel>Answer</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   label='Answer'
                   name="Answer1"
                   value={choice}
@@ -91,7 +90,7 @@ function CreateTest() {
               <Button 
               variant="filled" 
               onClick={addQuestion}
-              style={{ backgroundColor:"#5f4c4c", color:"white", height:"6vh", width:"8vw", fontSize:"0.9em"}}
+              style={{ backgroundColor:"#5f4c4c", color:"white", height:"5.3vh", width:"8vw", fontSize:"0.9em", marginLeft:"2vw", verticalAlign:"center"}}
               >
                 Add Question
               </Button>
