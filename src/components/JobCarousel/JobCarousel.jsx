@@ -39,11 +39,12 @@ function JobCarousel() {
             autoPlaySpeed={1500}
             arrows={false}
             >
-            {
-                jobApps.map((job, i) => {
-                    return(
-                    <JobItem job={job} key={i}/>)
-                })
+            {   
+                jobApps ?
+                    jobApps.map((job, i) => {
+                        return(
+                        <JobItem job={job} key={i}/>)
+                    }) : <div/>
             }
         </Carousel>
     </Grid2>

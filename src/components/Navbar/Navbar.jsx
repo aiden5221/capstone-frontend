@@ -17,7 +17,7 @@ function Navbar() {
 
     const [activePage, setActivePage] = useState('Home');
     
-    const mobile = useMediaQuery('(max-width:1000px)')
+    const mobile = useMediaQuery('(max-width:1450px)')
     
     const activePageHandler = async (e) => {
         // Check if the current page is logout then set the active page to home

@@ -56,3 +56,14 @@ export const postJobApplication = async (myObj) => {
             console.error(error)
         });
 }
+
+export const getCreatedJobPostings = async (uid) => {
+    return axios.get(`${BACKEND_URL}/userJobApplications/${uid}`)
+        .then(res => {
+            const { data } = res;
+            return data;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}

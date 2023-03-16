@@ -1,4 +1,4 @@
-export const NAV_HEADINGS = ['Home', 'Postings', 'Create a posting', 'Logout', 'Login']
+export const NAV_HEADINGS = ['Home', 'Postings', 'Create a posting','Your Postings', 'Logout', 'Login',]
 export const carouselResponsiveValues = {
     superLargeDesktop: {
       // the naming can be any, depends on you.

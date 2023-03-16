@@ -9,6 +9,7 @@ import JobPost from './components/Pages/JobPost'
 import { JobPostings } from './components/Pages/JobPostings/JobPostings'
 import './App.css'
 import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm'
+import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='account' element={<Account />} />
         <Route path='apply/:id' element={<ApplicantForm />} />
         <Route path='jobPosting/:id' element={<JobPost/>} />
+        <Route path='yourPostings' element={<CreatedPostings />} />
       </Route>
     </Routes>
 

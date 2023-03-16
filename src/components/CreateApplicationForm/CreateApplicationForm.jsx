@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CardContent, Grid, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Button, CardContent, Grid, TextField, Typography } from '@mui/material'
 import {Card} from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +14,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../utils/firebase/recoil/atoms/user/user';
 
 
 const createData = (skillname, weightedValue) => ({
@@ -44,6 +46,7 @@ function CreateApplicationForm() {
 
   const [rows, setRows] = React.useState([]);
   const navigate = useNavigate();
+  const { uid } = useRecoilValue(userState);
   const handleSubmit = async (event) => {
   event.preventDefault();
   //manipulating the rows
@@ -77,7 +80,7 @@ function CreateApplicationForm() {
       "applicants": [],
       "date": myObj.date,
       "company":myObj.company, 
-      "createdBy": "placeholder_createdBy"
+      "createdBy": uid
     });
     navigate(`/jobPosting/${id}`);
   }
