@@ -1,0 +1,22 @@
+
+{
+    "Questions" : [
+        {
+            "id": 0,
+            "question": "What is your name?",
+            "answer": "Disagree"
+        },
+
+        {
+            "id": 1,
+            "question": "What is your favorite color?",
+            "answer": "Agree"
+        },
+
+        {
+            "id": 2,
+            "question": "What is your favorite number?",
+            "answer": "Neutral"
+        }
+    ]
+}

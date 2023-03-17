@@ -1,31 +1,68 @@
-import { React } from 'react'
-import { Typography, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
+import { React, useState } from 'react'
+import { Typography, Button, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
 import aptitudeInfo from '/src/utils/aptitudeInfo.json'
+import './aptitudeTestStyle.css'
 
 
-function AptitudeTest(){
+var totalScore = 0
+var answers = []
 
-    var score = 0
+export const aptitudeTest = () => {
 
-    const getScore = (event) => {
-        score = event.target.value
+    const testInfo = {
+        "Questions" : [
+            {
+                "id": 0,
+                "question": "What is your name?",
+                "answer": "Disagree"
+            },
+    
+            {
+                "id": 1,
+                "question": "What is your favorite color?",
+                "answer": "Agree"
+            },
+    
+            {
+                "id": 2,
+                "question": "What is your favorite number?",
+                "answer": "Neutral"
+            }
+        ]
     }
 
-    return(
+    const [score, setScore] = useState('')
 
-        <div style={{marginLeft:"80vh", marginTop:"10vh", maxWidth:"60%"}}>
-            <FormControl>
-                <FormLabel sx={{ marginLeft:"-3vh", marginBottom:"4vh", fontSize:"1.8em", textAlign:"center"}}> {aptitudeInfo.questions[0]} </FormLabel>
+    const getAnswers = () => {
+        let num = testInfo.Questions.length
+
+        for (var i=0;i<num;i++){
+            answers[i] = testInfo.Questions[i].answer
+        }
+
+        console.log(answers)
+    }
+
+    const getScore = (e) => {
+        setScore(e.target.value)
+
+    }
+
+    const displayTest = testInfo.Questions.map((Question, index) =>
+        <div key={index} style={{borderBottom:"solid", borderBottomWidth:"thin", marginTop:"5vh", width:"80vw", textAlign:"center"}}>
+            <FormControl> 
+                <FormLabel style={{textAlign:"center", fontSize:"3em", alignSelf:"center", marginBottom:"5vh"}}> {Question.question} </FormLabel>
                 <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="Neutral"
                     name="radio-buttons-group"
                     row
                     onChange={getScore} 
+                    style={{marginBottom:"9vh", alignSelf:"center"}}
+                    
                 >
                     <FormControlLabel value="Strongly Agree" 
                         
-                        control={<Radio value={10} sx={{
+                        control={<Radio value="Strongly Agree" sx={{
                         '& .MuiSvgIcon-root': {
                             fontSize: 60,
                         }}}
@@ -69,13 +106,24 @@ function AptitudeTest(){
                     />
                 </RadioGroup>
             </FormControl>
-
-
-            <Typography>Score: {score} </Typography>
         </div>
-
     )
+    
 
-}
+    
+    return(
+        <div style={{alignSelf:"center", overflowY:"hidden"}}>
+            {displayTest}
+            <Typography>Score: {score}</Typography>
+            <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", float:"right", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
+        </div>    
+        
+    )
+    
+    
+}  
 
-export default AptitudeTest
+export default aptitudeTest
+
+
+

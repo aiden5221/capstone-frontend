@@ -5,6 +5,7 @@ import NavbarLayout from './components/Layouts/NavbarLayout'
 import SignIn from './components/SignInSignUp/Signin'
 import Account from './components/Account'
 import CreateTest from './components/Aptitude/createTest'
+import Test from './components/Aptitude/aptitudeTest'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='login' element={<SignIn />} />
           <Route path='signup' element={null} />
           <Route path='account' element={<Account />} />
+          <Route path='test' element={<Test />} /> 
       </Route>
     </Routes>
   )
