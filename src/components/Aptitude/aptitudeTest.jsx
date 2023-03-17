@@ -28,6 +28,12 @@ export const aptitudeTest = () => {
                 "id": 2,
                 "question": "What is your favorite number?",
                 "answer": "Neutral"
+            },
+
+            {
+                "id": 3,
+                "question": "Testing Functionality",
+                "answer": "Agree"
             }
         ]
     }
@@ -121,10 +127,10 @@ export const aptitudeTest = () => {
 
     
     return(
-        <div style={{alignSelf:"center", overflowY:"hidden"}}>
-            <Typography style={{textAlign:"center", marginTop:"7vh", marginBottom:"7vh", fontSize:"5em"}}>Complete Aptitude Test</Typography>
+        <div style={{marginLeft:"10vw", overflowY:"hidden"}}>
+            <Typography style={{textAlign:"center", marginTop:"7vh", marginRight:"9vw", marginBottom:"7vh", fontSize:"5em"}}>Complete Aptitude Test</Typography>
             {displayTest}
-            <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", float:"right", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
+            <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", marginLeft:"75vw", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
         </div>    
         
     )
