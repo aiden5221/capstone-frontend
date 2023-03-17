@@ -6,6 +6,7 @@ import './aptitudeTestStyle.css'
 
 var totalScore = 0
 var answers = []
+var UserAnswers = []
 
 export const aptitudeTest = () => {
 
@@ -40,23 +41,33 @@ export const aptitudeTest = () => {
             answers[i] = testInfo.Questions[i].answer
         }
 
-        console.log(answers)
+        for(var n=0;n<num;n++){
+            if(UserAnswers[n] === answers[n]){
+                totalScore += 10
+            }
+        }
+
+        totalScore = totalScore/10
+
+        console.log(totalScore)
+        
     }
 
-    const getScore = (e) => {
-        setScore(e.target.value)
+    const getUserAnswer = (e) => {
 
+        setScore(e.target.value)
+        UserAnswers[e.target.name] = e.target.value
+        
     }
 
     const displayTest = testInfo.Questions.map((Question, index) =>
-        <div key={index} style={{borderBottom:"solid", borderBottomWidth:"thin", marginTop:"5vh", width:"80vw", textAlign:"center"}}>
+        <div key={index} style={{borderTop:"solid", borderTopWidth:"thin", marginTop:"5vh", width:"80vw", textAlign:"center", marginBottom:"-4vh"}}>
             <FormControl> 
-                <FormLabel style={{textAlign:"center", fontSize:"3em", alignSelf:"center", marginBottom:"5vh"}}> {Question.question} </FormLabel>
+                <FormLabel style={{textAlign:"center", fontSize:"3em", alignSelf:"center", marginTop:"6vh", marginBottom:"3vh"}}> {Question.question} </FormLabel>
                 <RadioGroup
-                    defaultValue="Neutral"
-                    name="radio-buttons-group"
+                    name={index}
                     row
-                    onChange={getScore} 
+                    onChange={getUserAnswer} 
                     style={{marginBottom:"9vh", alignSelf:"center"}}
                     
                 >
@@ -66,7 +77,7 @@ export const aptitudeTest = () => {
                         '& .MuiSvgIcon-root': {
                             fontSize: 60,
                         }}}
-                        />} 
+                        />}
                         label="Strongly Agree"
                         labelPlacement='top'
                     
@@ -113,8 +124,8 @@ export const aptitudeTest = () => {
     
     return(
         <div style={{alignSelf:"center", overflowY:"hidden"}}>
+            <Typography style={{textAlign:"center", marginTop:"7vh", marginBottom:"7vh", fontSize:"5em"}}>Aptitude Test</Typography>
             {displayTest}
-            <Typography>Score: {score}</Typography>
             <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", float:"right", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
         </div>    
         
