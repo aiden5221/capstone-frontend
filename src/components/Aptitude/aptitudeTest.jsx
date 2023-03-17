@@ -122,7 +122,7 @@ export const aptitudeTest = () => {
     
     return(
         <div style={{alignSelf:"center", overflowY:"hidden"}}>
-            <Typography style={{textAlign:"center", marginTop:"7vh", marginBottom:"7vh", fontSize:"5em"}}>Aptitude Test</Typography>
+            <Typography style={{textAlign:"center", marginTop:"7vh", marginBottom:"7vh", fontSize:"5em"}}>Complete Aptitude Test</Typography>
             {displayTest}
             <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", float:"right", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
         </div>    
