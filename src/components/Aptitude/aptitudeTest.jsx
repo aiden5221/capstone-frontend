@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import { Typography, Button, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
-import aptitudeInfo from '/src/utils/aptitudeInfo.json'
+// import aptitudeInfo from '/src/utils/aptitudeInfo.json'
 import './aptitudeTestStyle.css'
 
 
@@ -43,14 +43,12 @@ export const aptitudeTest = () => {
 
         for(var n=0;n<num;n++){
             if(UserAnswers[n] === answers[n]){
-                totalScore += 10
+                totalScore += 1
             }
         }
 
-        totalScore = totalScore/10
-
         console.log(totalScore)
-        
+
     }
 
     const getUserAnswer = (e) => {
