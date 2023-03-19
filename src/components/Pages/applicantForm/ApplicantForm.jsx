@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Typography, Grid } from '@mui/material'
-import Box from '@mui/material/Box';
+import React, { useEffect, useState } from 'react'
+import { Typography, Grid, Box} from '@mui/material'
 import Button from '@mui/material/Button';
 import { FaFilePdf, FaBars } from 'react-icons/fa';
 import axios from 'axios';
@@ -9,6 +8,8 @@ import InputForm from './InputForm';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../utils/recoil/atoms/user/user';
 
 function ApplicantForm() {   
 
@@ -28,6 +29,7 @@ function ApplicantForm() {
     });
     const { id } = useParams();
     const navigate = useNavigate();
+    const { uid } = useRecoilValue(userState);
 
     const submitJobPosting = async () => {
         event.preventDefault(); // Prevent the form from reloading the page
@@ -80,6 +82,12 @@ function ApplicantForm() {
 
 
     };
+
+    useEffect(() => {
+        if (uid === '') {
+            navigate('/login');
+        }
+    }, [])
 
     return (
         // <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">

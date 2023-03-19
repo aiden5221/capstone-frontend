@@ -19,8 +19,7 @@ export const carouselResponsiveValues = {
     }
   };
 
-  export 
-  const getDateDistance = (date) => {
+  export const getDateDistance = (date) => {
     const today = new Date();
     const datePosted = new Date(date);
     const diffTime = Math.abs(today - datePosted);

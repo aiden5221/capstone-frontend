@@ -6,10 +6,12 @@ import SignIn from './components/Pages/SignInSignUp/Signin'
 import Account from './components/Pages/Account'
 import NavbarWithCarousel from './components/Layouts/NavbarFooterWithCarousel'
 import JobPost from './components/Pages/JobPost'
+import SignUp from './components/Pages/SignInSignUp/Signup'
 import { JobPostings } from './components/Pages/JobPostings/JobPostings'
 import './App.css'
-import CreateApplicationForm from './components/CreateApplicationForm/CreateApplicationForm'
-import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
+import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
+import Shortlist from './components/Pages/Shortlist/Shortlist'
+import AptitudeTest from './components/Aptitude/aptitudeTest'
 
 function App() {
 
@@ -24,15 +26,17 @@ function App() {
         </Route>
         <Route path='createAPosting' element={<CreateApplicationForm/>} />
         <Route path='login' element={<SignIn />} />
-        <Route path='signup' element={null} />
+        <Route path='signup' element={< SignUp/>} />
         <Route path='account' element={<Account />} />
         <Route path='apply/:id' element={<ApplicantForm />} />
         <Route path='jobPosting/:id' element={<JobPost/>} />
         <Route path='yourPostings' element={<CreatedPostings />} />
+        <Route path='shortlist/:id' element={<Shortlist />} />
+        <Route path='test' element={<AptitudeTest />} />
       </Route>
     </Routes>
-
   )
+
 }
 
 export default App
