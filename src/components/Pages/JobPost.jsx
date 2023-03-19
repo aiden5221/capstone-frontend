@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getJobApplicationById } from '../../utils/backend/requests'
 import { useRecoilValue } from 'recoil'
-import { userState } from '../../utils/firebase/recoil/atoms/user/user'
+import { userState } from '../../utils/recoil/atoms/user/user'
 
 
 function JobPost(){
