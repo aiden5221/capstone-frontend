@@ -30,6 +30,7 @@ function App() {
         <Route path='account' element={<Account />} />
         <Route path='apply/:id' element={<ApplicantForm />} />
         <Route path='jobPosting/:id' element={<JobPost/>} />
+        <Route path='yourPostings' element={<CreatedPostings />} />
         <Route path='shortlist/:id' element={<Shortlist />} />
         <Route path='test' element={<AptitudeTest />} />
       </Route>

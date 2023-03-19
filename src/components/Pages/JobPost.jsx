@@ -5,15 +5,22 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getJobApplicationById } from '../../utils/backend/requests'
+import { useRecoilValue } from 'recoil'
+import { userState } from '../../utils/firebase/recoil/atoms/user/user'
 
 
 function JobPost(){
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams();   
     const [jobPosting, setjobPosting] = useState({});
-    
+    const { uid } = useRecoilValue(userState)
+    const navigate = useNavigate();
+
     const handleRedirect = () => {
-      navigate(`/apply/${id}`)
+        if (jobPosting.createdBy == uid){
+            navigate(`/shortlist/${id}`)
+        }else{
+            navigate(`/apply/${id}`)
+        }
     }
 
     useEffect(() =>{
@@ -21,7 +28,6 @@ function JobPost(){
           try{
             console.log('hi')
             const data = await getJobApplicationById(id);
-            console.log(data)
             setjobPosting(data);
           }
           catch (err){
@@ -80,7 +86,14 @@ function JobPost(){
             <Button
                 variant="contained"
                 onClick={handleRedirect}
-            >Apply</Button>
+            >
+                {
+                    jobPosting.createdBy == uid ?
+                    "Shortlist" 
+                    : 
+                    "Apply"
+                }
+            </Button>
             </div>
         </Grid2>
     )

@@ -57,6 +57,17 @@ export const postJobApplication = async (myObj) => {
         });
 }
 
+export const getCreatedJobPostings = async (uid) => {
+    return axios.get(`${BACKEND_URL}/userJobApplications/${uid}`)
+        .then(res => {
+            const { data } = res;
+            return data;
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
 export const getShortlist = async (id, length) => {
     return axios.get(`${BACKEND_URL}/jobapplication/${id}/shortlist/${length}`)
         .then(res => {
@@ -64,6 +75,6 @@ export const getShortlist = async (id, length) => {
             return data;
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
 }

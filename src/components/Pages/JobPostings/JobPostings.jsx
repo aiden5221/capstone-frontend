@@ -58,14 +58,11 @@ export const JobPostings = () => {
       <Typography variant='h4' paddingTop={4} paddingLeft={25} >Job Postings</Typography>
       <Grid2 container xsOffset={1} sx={containerStyling}>
       {
-        jobPostings &&
+        jobPostings ?
           jobPostings.map((posting, index) => {
             return <JobPosting jobPosting={posting} key={index} />
-          })
-      }
-      {
-        jobPostings.length === 0 &&
-        <Typography variant='h5' sx={{ margin:'auto', marginTop:'10vh', color:'gray'}}>No job postings found... </Typography>
+          }) :
+          <Typography variant='h5' sx={{ margin:'auto', marginTop:'10vh', color:'gray'}}>No job postings found... </Typography>
       }
       </Grid2>
     </div>

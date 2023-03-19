@@ -158,7 +158,6 @@ function CreateApplicationForm() {
       navigate('/login');
     }
   },[])
-  console.log(aptitudeTest)
   return (
     <Grid2 container xs={10} xsOffset={1} sx={{ marginBottom:'3vh'}}>
       <Card >

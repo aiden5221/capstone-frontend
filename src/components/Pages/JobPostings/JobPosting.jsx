@@ -3,7 +3,8 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { getDateDistance } from '../../constants'
-const JobPosting = ({jobPosting}) => {
+
+const JobPosting = ({jobPosting, isCreatedPostings}) => {
   var { id, jobName, company, location, date } = jobPosting;
   const [jobDate, setJobDate] = useState(date);
 
@@ -34,7 +35,7 @@ const JobPosting = ({jobPosting}) => {
   return (
     <Grid2
       onClick={() => posting_handler(id)}
-      xs={10}
+      xs={isCreatedPostings ? 12 : 11}
       component="span"
       sx={jobPostingsContainer}
     > 

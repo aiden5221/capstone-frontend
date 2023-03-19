@@ -56,9 +56,13 @@ function Footer() {
 
                                         if(checkIfLoggedIn(heading)) return null
 
+                                        // Used to remove whitespace in heading for url
+                                        const urlText = heading.replaceAll(' ','')
+                                        console.log(urlText)
+
                                         return (
                                             <Link
-                                                to={heading == 'Logout' ? 'Home' : heading}
+                                                to={urlText == 'Logout' ? 'Home' : urlText}
                                                 style={ LinkStyling }
                                                 onClick={ heading == 'Logout' && user.uid != '' ? logoutHandler : null }
                                                 key={heading}>
