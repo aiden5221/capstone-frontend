@@ -12,7 +12,7 @@ import './App.css'
 import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
 import Shortlist from './components/Pages/Shortlist/Shortlist'
 import AptitudeTest from './components/Aptitude/aptitudeTest'
-
+import CreatedPostings from './components/Pages/CreatedPostings/CreatedPosting'
 function App() {
 
   return (

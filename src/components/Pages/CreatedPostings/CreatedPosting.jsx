@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react'
 import { getCreatedJobPostings } from '../../../utils/backend/requests'
 import JobPosting from '../JobPostings/JobPosting'
 import { useRecoilValue } from 'recoil'
-import { userState } from '../../../utils/firebase/recoil/atoms/user/user'
+import { userState } from '../../../utils/recoil/atoms/user/user'
 import { useNavigate } from 'react-router-dom'
 
 const CreatedPosting = ({jobPosting}) => {
@@ -48,7 +48,7 @@ const CreatedPosting = ({jobPosting}) => {
         onClick={() => posting_handler(id)}
         > 
            {
-                jobPostings.length !== 0 ?
+                jobPostings ?
                 jobPostings.map((jobPosting) => {
                     return (
                         <JobPosting jobPosting={jobPosting} isCreatedPostings={true}/>
