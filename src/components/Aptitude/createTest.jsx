@@ -21,7 +21,6 @@ function CreateTest({ setTest, questions=[], isOpen }) {
   const [newQuestion, setNewQuestion] = useState('')
   const [choice, setChoice] = useState('')
 
-  console.log(testInfo.Questions)
   const addQuestion = () => {
     if(newQuestion) {
       let num = question.length
@@ -38,7 +37,6 @@ function CreateTest({ setTest, questions=[], isOpen }) {
         }
       )
     }
-    console.log(testInfo.Questions)
     setTest(testInfo.Questions)
 
   }
@@ -49,7 +47,6 @@ function CreateTest({ setTest, questions=[], isOpen }) {
     setQuestion(newQuestions)
     testInfo.Questions.pop(id)
     delete answersArray[id]
-    console.log(testInfo)
   }
 
   const handleList = (event) => {
