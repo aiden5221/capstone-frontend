@@ -15,19 +15,20 @@ var testInfo = {
   ]
 }
 
-function CreateTest() {
+function CreateTest({ setTest, questions=[], isOpen }) {
 
-  const [Question, setQuestion] = useState([])
+  const [question, setQuestion] = useState(questions)
   const [newQuestion, setNewQuestion] = useState('')
   const [choice, setChoice] = useState('')
 
+  console.log(testInfo.Questions)
   const addQuestion = () => {
     if(newQuestion) {
-      let num = Question.length
-      let newEntry = { id: num, title: newQuestion, status: false }
-      setQuestion([...Question, newEntry])
+      let num = question.length
+      let newEntry = { id: num, question: newQuestion }
+      setQuestion([...question, newEntry])
       setNewQuestion('')
-      setChoice('')
+      setChoice('') 
     
       testInfo.Questions.push(
         {
@@ -37,12 +38,14 @@ function CreateTest() {
         }
       )
     }
-    console.log(testInfo)
+    console.log(testInfo.Questions)
+    setTest(testInfo.Questions)
+
   }
 
 
   const deleteQuestion = (id) => {
-    let newQuestions = Question.filter( question => question.id !== id )
+    let newQuestions = question.filter( question => question.id !== id )
     setQuestion(newQuestions)
     testInfo.Questions.pop(id)
     delete answersArray[id]
@@ -51,24 +54,24 @@ function CreateTest() {
 
   const handleList = (event) => {
     setChoice(event.target.value)
-    let num = Question.length
+    let num = question.length
     answersArray[num] = event.target.value
     answers = event.target.value
   }
 
   return(
-    <div className="container" style={{overflowY:"hidden"}}>
+    <div className="container" style={{overflowY:"hidden", padding:'2vw'}}>
       <br /><br />
-      <Typography style={{fontSize:"5.5em"}} >Create Aptitude Test</Typography>
+      <Typography variant='h3' >Create Aptitude Test</Typography>
       <br /><br />
 
-          <div  style={{display:'flex',}}>
+          <div  style={{ display:'flex' }}>
             <TextField 
-            style={{width:"50vw",flexWrap:'wrap', marginLeft:"8vw", marginRight:"2vw" }}
+            style={{ width:"50vw", flexWrap:'wrap', margin:'auto', marginRight:"2vw" }}
             value={newQuestion}
-            onChange={ (e) => setNewQuestion(e.target.value) }
-            
-            >Enter Question</TextField>
+            onChange={ (e) => setNewQuestion(e.target.value) }>
+              Enter Question
+            </TextField>
 
             <FormControl>
               <InputLabel>Answer</InputLabel>
@@ -77,7 +80,7 @@ function CreateTest() {
                   name="Answer1"
                   value={choice}
                   onChange={handleList}
-                  style={{width:"10vw"}}
+                  style={{ width:"10vw" }}
                 >
                   <MenuItem value={"Strongly Agree"}>Strongly Agree</MenuItem>
                   <MenuItem value={"Agree"}>Agree</MenuItem>
@@ -89,7 +92,7 @@ function CreateTest() {
               <Button 
               variant="filled" 
               onClick={addQuestion}
-              style={{ backgroundColor:"#5f4c4c", color:"white", height:"5.3vh", width:"8vw", fontSize:"0.9em", marginLeft:"2vw", verticalAlign:"center"}}
+              style={{ backgroundColor:"#5f4c4c", color:"white",fontSize:"0.9em", marginLeft:"2vw", }}
               >
                 Add Question
               </Button>
@@ -98,31 +101,32 @@ function CreateTest() {
       
       <br/>
         
-      {Question && Question.length ? '' : 'No Questions...'}
-      {Question && Question
+      {question.length ? question
         .sort((a, b) => a.id > b.id ? 1 : -1)
         .map ((question, index) => {
           return(
               <div key={question.id}>
                 <div className="col taskBg">
-                  <div className={question.status ? 'done' : ''}>
+                  <div>
                     <Typography className="taskNumber">{index + 1}</Typography>
-                    <Typography className="taskText"> Question: {question.title}</Typography>
+                    <Typography className="taskText"> Question: {question.question}</Typography>
                     <Typography className='taskText'>Answer: {testInfo.Questions[index].answer}</Typography>
                   </div> 
 
                   <div className='iconsWrap'>
-                    {question.status ? null : (
-                        <span title="Delete"
-                        onClick={() => deleteQuestion(question.id)}>
-                        <DeleteIcon />
-                        </span>
-                    )}
+                    
+                    <span title="Delete"
+                    onClick={() => deleteQuestion(question.id)}>
+                    <DeleteIcon />
+                    </span>
+                    
                   </div> 
                 </div>
               </div>  
           )
         })
+        :
+        'No Questions...'
       }
       <div>
         <Button variant="filled" 
@@ -134,6 +138,7 @@ function CreateTest() {
             left:"23vw", 
             marginTop:"7vh",
             marginBottom:"7vh"}}
+            onClick={() => isOpen(false)}
           >Submit Questions</Button>
       </div>
     </div>
