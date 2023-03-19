@@ -11,6 +11,7 @@ import { JobPostings } from './components/Pages/JobPostings/JobPostings'
 import './App.css'
 import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
 import Shortlist from './components/Pages/Shortlist/Shortlist'
+import AptitudeTest from './components/Aptitude/aptitudeTest'
 
 function App() {
 
@@ -30,10 +31,11 @@ function App() {
         <Route path='apply/:id' element={<ApplicantForm />} />
         <Route path='jobPosting/:id' element={<JobPost/>} />
         <Route path='shortlist/:id' element={<Shortlist />} />
+        <Route path='test' element={<AptitudeTest />} />
       </Route>
     </Routes>
-
   )
+
 }
 
 export default App

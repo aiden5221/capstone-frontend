@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
-import { Button, CardContent, Grid, Typography, Table, TableBody, TableCell, TableHead, TableRow, Input, IconButton, Card, TextField } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Button, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Input, IconButton, Card, TextField, Modal, Box } from '@mui/material'
 import { postJobApplication } from '../../../utils/backend/requests';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import CreateTest from '../../Aptitude/CreateTest';
 import { useNavigate } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { userState } from '../../../utils/recoil/atoms/user/user';
 import { useRecoilValue } from 'recoil';
-
 
 const createData = (skillname, weightedValue) => ({
   id: skillname.replace(" ", "_"),
@@ -37,7 +36,9 @@ const CustomTableCell = ({ row, name, onChange }) => {
 
 function CreateApplicationForm() {
 
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [aptitudeTest, setaptitudeTest] = useState([]);
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
   const handleSubmit = async (event) => {
@@ -52,43 +53,30 @@ function CreateApplicationForm() {
     //convert myRows to json
     JSON.stringify(myRows);
 
-   //retrieving the data
-   const data = new FormData(document.getElementById("formData"));
-   data.forEach((value,key) => (data[key] = value));
-   const json = JSON.stringify(data);
-   const myObj = JSON.parse(json);
-   myObj.desiredSkills = myRows; 
-   delete myObj.skillValue; 
-   console.log({
-    "jobName" : myObj.jobName, 
-    "jobDescription": myObj.jobDescription, 
-    "desiredSkills": myObj.desiredSkills, 
-    "minGPA": myObj.minGPA, 
-    "location": myObj.location, 
-    "pastExperiences": {
-      "pastExperience1": 5,
-      "pastExperience2": 7
-    }, 
-    "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-    "company":myObj.company, 
-    "createdBy": "placeholder_createdBy"
-  })
-  const { id } = await postJobApplication({
-    "jobName" : myObj.jobName, 
-    "jobDescription": myObj.jobDescription, 
-    "desiredSkills": myObj.desiredSkills, 
-    "minGPA": myObj.minGPA, 
-    "location": myObj.location, 
-    "pastExperiences": {
-      "pastExperience1": 5,
-      "pastExperience2": 7
-    }, 
-    "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-    "company":myObj.company, 
-    "createdBy": "placeholder_createdBy"
-  })
+    //retrieving the data
+    const data = new FormData(document.getElementById("formData"));
+    data.forEach((value,key) => (data[key] = value));
+    const json = JSON.stringify(data);
+    const myObj = JSON.parse(json);
+    myObj.desiredSkills = myRows; 
+    delete myObj.skillValue; 
+    const { id } = await postJobApplication({
+      "jobName" : myObj.jobName, 
+      "jobDescription": myObj.jobDescription, 
+      "desiredSkills": myObj.desiredSkills, 
+      "minGPA": myObj.minGPA, 
+      "location": myObj.location, 
+      "pastExperiences": {
+        "pastExperience1": 5,
+        "pastExperience2": 7
+      }, 
+      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+      "company":myObj.company, 
+      "createdBy": uid,
+      "aptitudeTest": aptitudeTest,
+    })
   
-   navigate(`/jobPosting/${id}`);
+    navigate(`/jobPosting/${id}`);
  }
 
   const displayData = () => {
@@ -97,7 +85,7 @@ function CreateApplicationForm() {
   const myRows = {}
 
   rows.filter((element) => {
-    const{skillname, weightedValue} = element; 
+    const { skillname, weightedValue } = element; 
     myRows[skillname] = weightedValue; 
   })
   
@@ -108,12 +96,10 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    
-    console.log(myObj.date);
-    
+
   }
 
-  const [previous, setPrevious] = React.useState({});
+  const [previous, setPrevious] = useState({});
 
   const onToggleEditMode = id => {
     setRows(state => {
@@ -165,12 +151,14 @@ function CreateApplicationForm() {
     setRows([...rows, createData(text, value)]);
   }
 
+  const handleModal = () => setOpen(!open)
+
   useEffect(() => {
     if(uid == ''){
       navigate('/login');
     }
   },[])
-
+  console.log(aptitudeTest)
   return (
     <Grid2 container xs={10} xsOffset={1} sx={{ marginBottom:'3vh'}}>
       <Card >
@@ -213,6 +201,23 @@ function CreateApplicationForm() {
                   >
                       Add
                   </Button> 
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    style={{ width: "10%", marginLeft:'1vw' }}
+                    onClick={handleModal}
+                  >
+                    Personality Test
+                  </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleModal}
+                  >
+                      <Box sx={{backgroundColor:'white', display:'flex', maxWidth:'85vw', borderRadius:'5px', margin:'auto', marginTop:'5vh'}}>
+                          <CreateTest setTest={setaptitudeTest} questions={aptitudeTest} isOpen={setOpen} />
+                      </Box>
+                      
+                  </Modal>
               </Grid2>
               <>
               <Grid2 xs = {12} item>
@@ -222,7 +227,7 @@ function CreateApplicationForm() {
                     label = 'Skill Name'
                     variant = 'outlined'>
                   </TextField>
-                  <TextField
+                  <TextField 
                     id='skillValue'
                     name='skillValue'
                     label = 'Skill Value'
@@ -279,12 +284,7 @@ function CreateApplicationForm() {
                 </TableBody>
                
               </Table>
-             
-              <Grid2 xs = {12} item>
-                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='date' id='date'>
-                </TextField>
-              </Grid2>
-              <Grid2 xs = {12} item>
+              <Grid2 xs={12} item>
                 <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
                   Submit
                 </Button>
