@@ -5,7 +5,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { NAV_HEADINGS } from './constants'
 import { useRecoilState } from 'recoil'
-import { DEFAULT_USERSTATE, userState } from '../utils/firebase/recoil/atoms/user/user'
+import { DEFAULT_USERSTATE, userState } from '../utils/recoil/atoms/user/user'
 import { logout } from '../utils/firebase/firebase'
 
 function Footer() {

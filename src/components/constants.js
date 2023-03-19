@@ -18,3 +18,33 @@ export const carouselResponsiveValues = {
       items: 1
     }
   };
+
+  export const getDateDistance = (date) => {
+    const today = new Date();
+    const datePosted = new Date(date);
+    const diffTime = Math.abs(today - datePosted);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+    if(diffDays === 1){
+      return 'Today';
+    }
+    else if(diffDays === 2){
+      return 'Yesterday';
+    }
+    else if(diffDays < 7){
+      return diffDays + ' days ago';
+    }
+    else if(diffDays < 30){
+      var diffWeeks = Math.floor(diffDays/7);
+      if(diffWeeks === 1){
+        return '1 week ago';
+      }
+      return Math.floor(diffDays/7) + ' weeks ago';
+    }
+    else if(diffDays < 365){
+      return Math.floor(diffDays/30) + ' months ago';
+    }
+    else{
+      return Math.floor(diffDays/365) + ' years ago';
+    }
+  }

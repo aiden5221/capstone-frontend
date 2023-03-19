@@ -1,14 +1,11 @@
-import { React, useState } from 'react'
+import { useState } from 'react'
 import { Typography, Button, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
-// import aptitudeInfo from '/src/utils/aptitudeInfo.json'
-import './aptitudeTestStyle.css'
-
 
 var totalScore = 0
 var answers = []
 var UserAnswers = []
 
-export const aptitudeTest = () => {
+export const AptitudeTest = () => {
 
     const testInfo = {
         "Questions" : [
@@ -67,7 +64,7 @@ export const aptitudeTest = () => {
     const displayTest = testInfo.Questions.map((Question, index) =>
         <div key={index} style={{borderTop:"solid", borderTopWidth:"thin", marginTop:"5vh", width:"80vw", textAlign:"center", marginBottom:"-4vh"}}>
             <FormControl> 
-                <FormLabel style={{textAlign:"center", fontSize:"3em", alignSelf:"center", marginTop:"6vh", marginBottom:"3vh"}}> {Question.question} </FormLabel>
+                <FormLabel style={{textAlign:"center", fontSize:"2em", alignSelf:"center", marginTop:"6vh", marginBottom:"3vh"}}> {Question.question} </FormLabel>
                 <RadioGroup
                     name={index}
                     row
@@ -76,7 +73,6 @@ export const aptitudeTest = () => {
                     
                 >
                     <FormControlLabel value="Strongly Agree" 
-                        
                         control={<Radio value="Strongly Agree" sx={{
                         '& .MuiSvgIcon-root': {
                             fontSize: 60,
@@ -128,7 +124,7 @@ export const aptitudeTest = () => {
     
     return(
         <div style={{marginLeft:"10vw", overflowY:"hidden"}}>
-            <Typography style={{textAlign:"center", marginTop:"7vh", marginRight:"9vw", marginBottom:"7vh", fontSize:"5em"}}>Complete Aptitude Test</Typography>
+            <Typography style={{textAlign:"center", marginTop:"7vh", marginRight:"9vw", marginBottom:"7vh"}} variant='h3'>Complete Aptitude Test</Typography>
             {displayTest}
             <Button variant="filled" onClick={getAnswers} style={{backgroundColor:"#5f4c4c", color:"white", height:"5vh", marginLeft:"75vw", marginBottom:"5vh", marginTop:"4vh"}}>Submit Test</Button>
         </div>    
@@ -138,7 +134,7 @@ export const aptitudeTest = () => {
     
 }  
 
-export default aptitudeTest
+export default AptitudeTest
 
 
 

@@ -4,9 +4,9 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './styles.css'
 import { Typography } from '@mui/material';
-import { createUser } from '../../utils/firebase/firebase';
+import { createUser } from '../../../utils/firebase/firebase';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../utils/firebase/recoil/atoms/user/user';
+import { userState } from '../../../utils/recoil/atoms/user/user';
 
 const defaultFormFields = {
     email: '',
@@ -33,7 +33,7 @@ const Signup = () => {
             const { user: { uid, displayName}} = await createUser(formFields)
             setUser({uid: uid, displayName: displayName})
             console.log(uid, displayName)
-            navigate('/home')
+            navigate('/')
         } catch (e) {
             setError(e.message)
             console.log(e.message)
@@ -63,14 +63,13 @@ const Signup = () => {
                 onClick={handleSubmit}
             >Sign Up</Button>
 
-            <p 
-            style={{fontSize:"1.3em"}}>
-                Already have an account? 
-                <Link to='/Login' className='underline'>Sign in.</Link>
+            <p>
+                Already have an account?
+                <Link to='/Login' className='underline' style={{marginLeft:'0.2rem'}} >Sign in.</Link>
             </p>
         </form>
     </div>
   )
 }
 
-export default Signup
+export default Signup;

@@ -6,7 +6,7 @@ import Logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
 import MobileNavbar from './MobileNavbar'
 import { NAV_HEADINGS } from '../constants'
-import { DEFAULT_USERSTATE, userState } from '../../utils/firebase/recoil/atoms/user/user'
+import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user'
 import { useRecoilState } from 'recoil';
 import '../../index.css';
 import { logout } from '../../utils/firebase/firebase'
@@ -72,7 +72,7 @@ function Navbar() {
             xs={7}
             >
                 <Link
-                    to={ '/home' }
+                    to={ '/' }
                     style={{ textDecoration:'none', display:'flex', alignItems:'center', width:'30%', whiteSpace:'nowrap' }}>
                     <img src={Logo} alt='Logo img' />
                     <Typography
@@ -103,10 +103,10 @@ function Navbar() {
 
                                     // Used to remove whitespace in heading for url
                                     const urlText = heading.replaceAll(' ','')
-
+                                    console.log(urlText)
                                     return (
                                         <Link
-                                            to={heading == 'Logout' ? 'Home' : heading}
+                                            to={urlText == 'Logout' || urlText == 'Home' ? '/' : urlText}
                                             style={LinkStyling}
                                             // If statement to make the logout button work on navbar
                                             onClick={(e) => {

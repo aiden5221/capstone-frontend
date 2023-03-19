@@ -1,7 +1,6 @@
 import { React, useState } from 'react'
-import { Typography, TextField, Button, InputLabel, Select, MenuItem, FormControl} from '@mui/material'
+import { Typography, TextField, Button, InputLabel, Select, MenuItem, FormControl } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import './createTestStyle.css'
 
 //Temporary variable to hold answer
