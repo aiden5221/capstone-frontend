@@ -38,7 +38,7 @@ function CreateApplicationForm() {
 
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
-  const [personalityTest, setPersonalityTest] = useState([]);
+  const [aptitudeTest, setaptitudeTest] = useState([]);
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
   const handleSubmit = async (event) => {
@@ -72,7 +72,8 @@ function CreateApplicationForm() {
       }, 
       "aptitudeResultsMin":myObj.aptitudeResultsMin, 
       "company":myObj.company, 
-      "createdBy": "placeholder_createdBy"
+      "createdBy": uid,
+      "aptitudeTest": aptitudeTest,
     })
   
     navigate(`/jobPosting/${id}`);
@@ -157,7 +158,7 @@ function CreateApplicationForm() {
       navigate('/login');
     }
   },[])
-
+  console.log(aptitudeTest)
   return (
     <Grid2 container xs={10} xsOffset={1} sx={{ marginBottom:'3vh'}}>
       <Card >
@@ -213,7 +214,7 @@ function CreateApplicationForm() {
                     onClose={handleModal}
                   >
                       <Box sx={{backgroundColor:'white', display:'flex', maxWidth:'85vw', borderRadius:'5px', margin:'auto', marginTop:'5vh'}}>
-                          <CreateTest setTest={setPersonalityTest} questions={personalityTest} isOpen={setOpen} />
+                          <CreateTest setTest={setaptitudeTest} questions={aptitudeTest} isOpen={setOpen} />
                       </Box>
                       
                   </Modal>
@@ -283,12 +284,7 @@ function CreateApplicationForm() {
                 </TableBody>
                
               </Table>
-             
-              <Grid2 xs = {12} item>
-                <TextField type = "date"  placeholder='Enter Application Deadline here' variant='outlined' fullWidth name='date' id='date'>
-                </TextField>
-              </Grid2>
-              <Grid2 xs = {12} item>
+              <Grid2 xs={12} item>
                 <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
                   Submit
                 </Button>

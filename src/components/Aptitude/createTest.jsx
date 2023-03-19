@@ -45,7 +45,7 @@ function CreateTest({ setTest, questions=[], isOpen }) {
   const deleteQuestion = (id) => {
     let newQuestions = question.filter( question => question.id !== id )
     setQuestion(newQuestions)
-    testInfo.Questions.pop(id)
+    testInfo.Questions.splice(id, 1)
     delete answersArray[id]
   }
 
