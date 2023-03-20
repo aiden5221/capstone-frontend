@@ -21,7 +21,7 @@ const CreatedPostings = () => {
     }
   }
   return (
-    <Grid2 container xsOffset={1} >
+    <Grid2 container >
       <Grid2 item xs={11}>
         <Typography variant='h4' align='center' mt={5} >Created postings</Typography>
       </Grid2>

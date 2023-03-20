@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { userState } from '../../../utils/recoil/atoms/user/user'
 
-const CreatedPosting = ({jobPosting}) => {
+const CreatedPosting = ({ jobPosting }) => {
     const [jobPostings, setjobPostings] = useState([]); 
     const { uid } = useRecoilValue(userState);
     const navigate = useNavigate();
