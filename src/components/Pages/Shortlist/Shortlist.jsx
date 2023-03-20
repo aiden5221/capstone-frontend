@@ -23,7 +23,6 @@ function Shortlist() {
     const handleShortlist = async () => {
         const { shortlist } = await getShortlist(id, shortlistLength);
         setShortlist(shortlist);
-        console.log(shortlist)
     }
 
   return ( 

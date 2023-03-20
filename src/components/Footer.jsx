@@ -30,7 +30,6 @@ function Footer() {
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
 
     const logoutHandler = () => {
-        console.log('hi')
         setUser(DEFAULT_USERSTATE)
         logout()
     }

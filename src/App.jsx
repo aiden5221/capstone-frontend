@@ -12,7 +12,8 @@ import './App.css'
 import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
 import Shortlist from './components/Pages/Shortlist/Shortlist'
 import AptitudeTest from './components/Aptitude/aptitudeTest'
-import CreatedPostings from './components/Pages/CreatedPostings/CreatedPosting'
+import TakeAptitudeTest from './components/Pages/TakeAptitudeTest/TakeAptitudeTest'
+import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
 function App() {
 
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='yourPostings' element={<CreatedPostings />} />
         <Route path='shortlist/:id' element={<Shortlist />} />
         <Route path='test' element={<AptitudeTest />} />
+        <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
       </Route>
     </Routes>
   )

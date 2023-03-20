@@ -50,7 +50,6 @@ function MobileNavbar({ user }) {
                                     // Used to remove whitespace in heading for url
                                     const urlText = heading.replaceAll(' ','')
 
-
                                     return(
                                     <ListItem
                                         disablePadding

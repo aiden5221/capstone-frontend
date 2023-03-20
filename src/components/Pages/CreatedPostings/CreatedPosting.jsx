@@ -5,8 +5,8 @@ import { useState,useEffect } from 'react'
 import { getCreatedJobPostings } from '../../../utils/backend/requests'
 import JobPosting from '../JobPostings/JobPosting'
 import { useRecoilValue } from 'recoil'
-import { userState } from '../../../utils/recoil/atoms/user/user'
 import { useNavigate } from 'react-router-dom'
+import { userState } from '../../../utils/recoil/atoms/user/user'
 
 const CreatedPosting = ({ jobPosting }) => {
     const [jobPostings, setjobPostings] = useState([]); 
@@ -31,7 +31,6 @@ const CreatedPosting = ({ jobPosting }) => {
             try{
                 const data = await getCreatedJobPostings(uid);
                 setjobPostings(data);
-                console.log(data);
             }
             catch (err){
                 console.log(err)

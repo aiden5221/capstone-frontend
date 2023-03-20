@@ -23,7 +23,6 @@ const Account = () => {
       await logout()
       setUser(DEFAULT_USERSTATE)
       navigate('/')
-      console.log('You are logged out')
     } catch (e) {
       console.log(e.message)
     }

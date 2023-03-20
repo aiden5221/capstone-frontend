@@ -22,7 +22,6 @@ const Signup = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormFields({ ...formFields, [name]: value })
-        console.log(formFields)
     }
 
     const handleSubmit = async (e) => {
@@ -32,7 +31,6 @@ const Signup = () => {
         try{
             const { user: { uid, displayName}} = await createUser(formFields)
             setUser({uid: uid, displayName: displayName})
-            console.log(uid, displayName)
             navigate('/')
         } catch (e) {
             setError(e.message)
