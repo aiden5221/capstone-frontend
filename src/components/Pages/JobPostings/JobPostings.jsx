@@ -35,14 +35,11 @@ export const JobPostings = () => {
       try{
         if(search){
           search = search.replace(/\s+/g, '-');
-          console.log(search)
           const data = await getJobApplicationByName(search);
           setjobPostings(data);
-          console.log(jobPostings);
         }else{
           const data = await getJobApplications();
           setjobPostings(data);
-          console.log(data);
         }
         
       }

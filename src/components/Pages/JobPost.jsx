@@ -26,7 +26,6 @@ function JobPost(){
     useEffect(() =>{
         async function fetchJob(){
           try{
-            console.log('hi')
             const data = await getJobApplicationById(id);
             setjobPosting(data);
           }

@@ -8,8 +8,9 @@ import InputForm from './InputForm';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../../../utils/recoil/atoms/user/user';
+import { applicantState } from '../../../utils/recoil/atoms/applicant/applicant';
 
 function ApplicantForm() {   
 
@@ -30,32 +31,24 @@ function ApplicantForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { uid } = useRecoilValue(userState);
+    const [jobApplicant, setJobApplicant] = useRecoilState(applicantState)
 
     const submitJobPosting = async () => {
         event.preventDefault(); // Prevent the form from reloading the page
         const locationStr = locationData.address1 + " " + locationData.address2 + "," + locationData.city
             + "," + locationData.province + "," + locationData.country;
-        console.log('hi')
-        await postPotentialEmployee({
-            "jobApplication": id,
-            "name": resumeData.name,
-            "skills": resumeData.skills.split(","),
-            "GPA": locationData.gpa,
-            "location": locationStr,
-            "pastExperiences": [
-                "pastExperience1",
-                "pastExperience2",
-                "pastExperience3"
-            ],
-            "aptitudeResults": "6.5",
-            "email": resumeData.email,
-            "phoneNumber": resumeData.mobile
+        setJobApplicant({
+            jobApplication: id,
+            name: resumeData.name,
+            skills: resumeData.skills.split(","),
+            GPA: locationData.gpa,
+            location: locationStr,
+            email: resumeData.email,
+            phoneNumber: resumeData.mobile
         })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch(console.error());
-        navigate('/');
+        
+        navigate(`/aptitudeTest/${id}/`);
+
     }
 
     const handleFileUpload = async (event) => {
@@ -91,8 +84,8 @@ function ApplicantForm() {
 
     return (
         // <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
-        <Grid2 container mdOffset={1} smOffset={1}>
-            <form onSubmit={submitJobPosting}>
+        <Grid2 container xsOffset={1} xs={9} sx={{backgroundColor:'rgba(252, 251, 255,0.8)', borderRadius:'10px', display:'flex', padding:'2vw'}}>
+            <form onSubmit={submitJobPosting} >
                 <Box sx={{ flexGrow: 1 }} >
                     <Grid container spacing={2} >
                         <Grid container item spacing={1} >

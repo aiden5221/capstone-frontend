@@ -30,7 +30,7 @@ const Signin = () => {
             navigate('/Account')
         } catch (e) {
             setError(e.message)
-            console.log(e.message)
+            console.log(e.mssage)
         }
     }
 
@@ -44,7 +44,6 @@ const Signin = () => {
         try {
             const { user: { uid, displayName, email }} = await googleSignIn()
             setUser({uid: uid, displayName: displayName, email: email})
-            console.log(uid, displayName, email)
             navigate('/Account')
         } catch (error) {
             console.log(error)

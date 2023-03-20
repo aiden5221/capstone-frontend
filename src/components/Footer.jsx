@@ -30,7 +30,6 @@ function Footer() {
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
 
     const logoutHandler = () => {
-        console.log('hi')
         setUser(DEFAULT_USERSTATE)
         logout()
     }
@@ -58,7 +57,6 @@ function Footer() {
 
                                         // Used to remove whitespace in heading for url
                                         const urlText = heading.replaceAll(' ','')
-                                        console.log(urlText)
 
                                         return (
                                             <Link

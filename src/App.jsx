@@ -34,7 +34,7 @@ function App() {
         <Route path='yourPostings' element={<CreatedPostings />} />
         <Route path='shortlist/:id' element={<Shortlist />} />
         <Route path='test' element={<AptitudeTest />} />
-        <Route path='aptitudeTest' element={<TakeAptitudeTest />} />
+        <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
       </Route>
     </Routes>
   )
