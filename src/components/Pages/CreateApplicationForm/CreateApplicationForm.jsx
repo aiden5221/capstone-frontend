@@ -191,19 +191,11 @@ function CreateApplicationForm() {
                 <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin'>
                 </TextField>
               </Grid2>
-              <Grid2 xs = {12} item>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    style={{ width: "10%" }}
-                    onClick = {handleAddClick}
-                  >
-                      Add
-                  </Button> 
+              <Grid2 xs = {12} item> 
                   <Button
                     variant='contained'
                     color='primary'
-                    style={{ width: "10%", marginLeft:'1vw' }}
+                    style={{ width: "10%" }}
                     onClick={handleModal}
                   >
                     Personality Test
@@ -219,70 +211,88 @@ function CreateApplicationForm() {
                   </Modal>
               </Grid2>
               <>
-              <Grid2 xs = {12} item>
-                  <TextField
-                    id='desiredSkills'
-                    name='desiredSkills'
-                    label = 'Skill Name'
-                    variant = 'outlined'>
-                  </TextField>
-                  <TextField 
-                    id='skillValue'
-                    name='skillValue'
-                    label = 'Skill Value'
-                    variant = 'outlined'>
-                  </TextField>
+              <Grid2 xs = {12} container justify="flex-end" alignItems="center">
+
+                  <Button
+                        variant='contained'
+                        color='primary'
+                        style={{ width: "10%", marginRight: "3vw"}}
+                        onClick = {handleAddClick}
+                      >
+                          Add
+                  </Button>
+                  
+                  
+                  <Grid2 item>
+                    <TextField
+                      id='desiredSkills'
+                      name='desiredSkills'
+                      label = 'Skill Name'
+                      variant = 'outlined'>
+                    </TextField>
+                  </Grid2>
+
+                  <Grid2 item>
+                    <TextField 
+                      id='skillValue'
+                      name='skillValue'
+                      label = 'Skill Value'
+                      variant = 'outlined'>
+                    </TextField>
+                  </Grid2>
               </Grid2>
               </>
-              <Table>
-                <caption>Weighted Skills</caption>
-                <TableHead>
-                  <TableRow>
-                  <TableCell>
-                      
-                  </TableCell>
-                  <TableCell align="left">Skill Name</TableCell>
-                  <TableCell align="left">Weighted Value</TableCell>
-                  </TableRow>
-                </TableHead>
+              <Grid2 xs = {12} container sx={{backgroundColor:'#ECEEF2'}}>
+                <Table>
+                  <caption>Weighted Skills</caption>
+                  <TableHead>
+                    <TableRow>
+                    <TableCell>
+                        
+                    </TableCell>
+                    <TableCell align="left">Skill Name</TableCell>
+                    <TableCell align="left">Weighted Value</TableCell>
+                    </TableRow>
+                  </TableHead>
 
-                <TableBody>
-                  {rows.map((row, index) => (
-                    <TableRow key={row.id}>
-                      <TableCell>
-                        {row.isEditMode ? (
-                          <>
+                  <TableBody>
+                    {rows.map((row, index) => (
+                      <TableRow key={row.id}>
+                        <TableCell>
+                          {row.isEditMode ? (
+                            <>
+                              <IconButton
+                                aria-label="done"
+                                onClick={() => onToggleEditMode(row.id)}
+                              >
+                                <DoneIcon />
+                              </IconButton>
+                              <IconButton
+                                aria-label="revert"
+                                onClick={() => {onRevert(index)}}
+                              >
+                                <CancelIcon />
+                              </IconButton>
+                            </>
+                          ) : (
+                            
                             <IconButton
-                              aria-label="done"
+                              aria-label="delete"
                               onClick={() => onToggleEditMode(row.id)}
                             >
-                              <DoneIcon />
+                              <EditIcon />
                             </IconButton>
-                            <IconButton
-                              aria-label="revert"
-                              onClick={() => {onRevert(index)}}
-                            >
-                              <CancelIcon />
-                            </IconButton>
-                          </>
-                        ) : (
-                          
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => onToggleEditMode(row.id)}
-                          >
-                            <EditIcon />
-                          </IconButton>
- 
-                        )}
-                      </TableCell>
-                      <CustomTableCell {...{ row, name: "skillname", onChange }} />
-                      <CustomTableCell {...{ row, name: "weightedValue", onChange }} /> 
-                    </TableRow>
-                  ))}
-                </TableBody>
-               
-              </Table>
+  
+                          )}
+                        </TableCell>
+                        <CustomTableCell {...{ row, name: "skillname", onChange }} />
+                        <CustomTableCell {...{ row, name: "weightedValue", onChange }} /> 
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                
+                </Table>
+              </Grid2>
               <Grid2 xs={12} item>
                 <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
                   Submit
