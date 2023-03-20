@@ -8,14 +8,13 @@ import { useRecoilValue } from 'recoil'
 import { userState } from '../../../utils/recoil/atoms/user/user'
 import { useNavigate } from 'react-router-dom'
 
-const CreatedPosting = ({jobPosting}) => {
+const CreatedPosting = ({ jobPosting }) => {
     const [jobPostings, setjobPostings] = useState([]); 
     const { uid } = useRecoilValue(userState);
     const navigate = useNavigate();
     
     const jobPostingsContainer = { 
         p: 1,
-        cursor:'pointer',
         marginBottom:'3vh'
     }
 
@@ -48,7 +47,7 @@ const CreatedPosting = ({jobPosting}) => {
         onClick={() => posting_handler(id)}
         > 
            {
-                jobPostings ?
+                jobPostings.length != 0 ?
                 jobPostings.map((jobPosting) => {
                     return (
                         <JobPosting jobPosting={jobPosting} isCreatedPostings={true}/>
