@@ -47,9 +47,9 @@ export const AptitudeTest = ({ questions }) => {
     const submitApplication = async () => {
         var score = getAnswers()
         var potentialEmployee = applicant
-        potentialEmployee.aptitudeResults = score
-        potentialEmployee.uid = uid
-        await postPotentialEmployee(potentialEmployee)
+        const req = Object.assign({aptitudeResults: score, uid: uid}, potentialEmployee)
+
+        await postPotentialEmployee(req)
         navigate('/')
     }
     
