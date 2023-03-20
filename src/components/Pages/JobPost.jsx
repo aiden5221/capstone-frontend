@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getJobApplicationById } from '../../utils/backend/requests'
+import { deleteJobApplication, getJobApplicationById } from '../../utils/backend/requests'
 import { useRecoilValue } from 'recoil'
 import { userState } from '../../utils/recoil/atoms/user/user'
 
@@ -22,6 +22,17 @@ function JobPost(){
             navigate(`/apply/${id}`)
         }
     }
+
+    const handleDelete = async () => {
+        try{
+            await deleteJobApplication(id);
+            navigate('/postings')
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+
 
     useEffect(() =>{
         async function fetchJob(){
@@ -83,17 +94,33 @@ function JobPost(){
                         
                     </Typography>
                 </div>
-            <Button
-                variant="contained"
-                onClick={handleRedirect}
-            >
-                {
-                    jobPosting.createdBy == uid ?
-                    "Shortlist" 
-                    : 
-                    "Apply"
-                }
-            </Button>
+                <div style={{display:'flex'}}>
+                    <Button
+                        variant="contained"
+                        onClick={handleRedirect}
+                    >
+                        {
+                            jobPosting.createdBy == uid ?
+                            "Shortlist" 
+                            : 
+                            "Apply"
+                        }
+                    </Button>
+
+                    {
+                        jobPosting.createdBy == uid ?
+                        <Button
+                        variant="contained"
+                        onClick={handleDelete}
+                        color='error'
+                        style={{marginLeft:"2vh"}}
+                        >
+                            Delete
+                        </Button>
+                        : null
+                    }
+                   
+                </div>
             </div>
         </Grid2>
     )

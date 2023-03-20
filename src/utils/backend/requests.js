@@ -78,3 +78,14 @@ export const getShortlist = async (id, length) => {
             console.log(err);
         })
 }
+
+export const deleteJobApplication = async (id) => {
+    return axios.delete(`${BACKEND_URL}/jobapplication/${id}`)
+        .then(res => {
+            const { data } = res;
+            return data;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}

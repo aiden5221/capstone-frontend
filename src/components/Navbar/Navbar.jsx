@@ -103,7 +103,7 @@ function Navbar() {
 
                                     // Used to remove whitespace in heading for url
                                     const urlText = heading.replaceAll(' ','')
-                                    console.log(urlText)
+
                                     return (
                                         <Link
                                             to={urlText == 'Logout' || urlText == 'Home' ? '/' : urlText}
