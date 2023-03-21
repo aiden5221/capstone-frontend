@@ -5,7 +5,7 @@ import { useState } from "react"
 
 function TableItem({ row }) {
     const [open, setOpen] = useState(false)
-    const { name, score, correspondingSkills, location, email } = row;
+    const { name, score, correspondingSkills, location, email, aptitudeResults } = row;
     console.log(row)
     return (
         <>
@@ -28,6 +28,9 @@ function TableItem({ row }) {
                 </TableCell>
                 <TableCell component='th' scope='row'>
                     {email}
+                </TableCell>
+                <TableCell component='th' scope='row'>
+                    {aptitudeResults}
                 </TableCell>
             </TableRow>
             <TableRow>

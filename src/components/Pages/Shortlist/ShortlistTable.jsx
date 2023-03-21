@@ -9,6 +9,7 @@ function ShortlistTable({ shortlist }) {
                     <TableCell/>
                     <TableCell sx={{fontWeight:'700'}}>Name</TableCell>
                     <TableCell sx={{fontWeight:'700'}}>Score</TableCell>
+                    <TableCell sx={{fontWeight:'700'}}>Personality Score</TableCell>
                     <TableCell sx={{fontWeight:'700'}}>Location</TableCell>
                     <TableCell sx={{fontWeight:'700'}}>Email</TableCell>
                 </TableHead>

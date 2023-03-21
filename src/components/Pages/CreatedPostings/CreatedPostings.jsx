@@ -5,6 +5,7 @@ import CreatedPosting from './CreatedPosting'
 
 const CreatedPostings = () => {
   const containerStyling = {
+    marginTop:'2vh',
     maxHeight:'70vh' , 
     display:'flex',
     overflow:'auto',
@@ -25,7 +26,7 @@ const CreatedPostings = () => {
       <Grid2 item xs={11}>
         <Typography variant='h4' align='center' mt={5} >Created postings</Typography>
       </Grid2>
-      <Grid2 xs={11} sx={containerStyling}>
+      <Grid2 xs={10} xsOffset={1} sx={containerStyling}>
         <CreatedPosting />
       </Grid2>
     </Grid2>
