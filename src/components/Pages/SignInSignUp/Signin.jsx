@@ -32,7 +32,6 @@ const Signin = () => {
 
         e.preventDefault()
         try {
-            console.log(formFields)
             const { user: { uid, displayName, email }} = await signIn(formFields)
             assignUser(uid, displayName, email)
             setSnackbar({active: true, message: 'Successfully logged in', isError: false})
