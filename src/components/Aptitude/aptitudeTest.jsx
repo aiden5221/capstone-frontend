@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { userState } from '../../utils/recoil/atoms/user/user'
 import { useState } from 'react'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
+import { activePageState } from '../../utils/recoil/atoms/navbar/activePage'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
 var totalScore = 0
 var answers = []
@@ -17,6 +19,8 @@ export const AptitudeTest = ({ questions }) => {
 
     const [score, setScore] = useState('')
     const [applicant, setApplicant] = useRecoilState(applicantState)
+    const [activePage, setActivePage] = useRecoilState(activePageState)
+    const [snackbar, setSnackbar] = useRecoilState(snackbarState)
     const { uid } = useRecoilValue(userState)
 
     const navigate = useNavigate()
@@ -48,8 +52,15 @@ export const AptitudeTest = ({ questions }) => {
         var score = getAnswers()
         var potentialEmployee = applicant
         const req = Object.assign({aptitudeResults: score, uid: uid}, potentialEmployee)
-        await postPotentialEmployee(req)
-        navigate('/')
+        try {
+            await postPotentialEmployee(req)
+            setSnackbar({active: true, message: 'Successfully submitted application', isError: false})
+            setActivePage('Home')
+            navigate('/')
+        } catch (error) {    
+            console.log(error)
+        }
+
     }
     
 

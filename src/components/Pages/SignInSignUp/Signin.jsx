@@ -7,7 +7,8 @@ import { GoogleButton } from 'react-google-button';
 import { googleSignIn, signIn } from '../../../utils/firebase/firebase';
 import { useRecoilState } from 'recoil'
 import { userState } from '../../../utils/recoil/atoms/user/user';
-
+import { snackbarState } from '../../../utils/recoil/atoms/snackbar/snackbar';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
 import './styles.css'
 
 const defaultFormFields = {
@@ -17,20 +18,28 @@ const defaultFormFields = {
 
 const Signin = () => {
     const [formFields, setFormFields] = useState(defaultFormFields)
-    const [error, setError] = useState('');
     const [user, setUser] = useRecoilState(userState)
-
+    const [snackbar, setSnackbar] = useRecoilState(snackbarState);
+    const [activePage, setActivePage] = useRecoilState(activePageState);
     const navigate = useNavigate()
+
+    const assignUser = (uid, displayName, email) => {
+        setUser({uid: uid, displayName: displayName, email: email})
+    }
+
 
     const handleSubmit = async (e) => {
 
         e.preventDefault()
         try {
-            await signIn(formFields)
-            navigate('/Account')
+            console.log(formFields)
+            const { user: { uid, displayName, email }} = await signIn(formFields)
+            assignUser(uid, displayName, email)
+            setSnackbar({active: true, message: 'Successfully logged in', isError: false})
+            setActivePage('Home')
+            navigate('/')
         } catch (e) {
-            setError(e.message)
-            console.log(e.mssage)
+            console.log(e)
         }
     }
 
@@ -43,22 +52,16 @@ const Signin = () => {
 
         try {
             const { user: { uid, displayName, email }} = await googleSignIn()
-            setUser({uid: uid, displayName: displayName, email: email})
-            navigate('/Account')
+            assignUser(uid, displayName, email)
+            setSnackbar({active: true, message: 'Successfully logged in', isError: false})
+            setActivePage('Home')
+            navigate('/')
         } catch (error) {
             console.log(error)
         }
 
     }
 
-    
-
-    // useEffect(() => {
-    //     if(user != null) {
-    //         navigate('/Account')
-    //     }
-    // }, [user])
-    
   return (
     <div className="form" style= {{ marginTop:"10vh" }}>
             <div>
@@ -66,11 +69,11 @@ const Signin = () => {
             </div>
             <form onSubmit={handleSubmit}>
                 <div >
-                    <TextField id="outlined-basic" label="Email Address" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="email" />
+                    <TextField id="outlined-basic" label="Email Address" name='email' variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="email" />
                 </div>
 
                 <div>
-                    <TextField id="outlined-basic" label="Password" variant="outlined" size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="password" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined" name='password' size="small" margin="normal" style= {{width:"50vh", maxWidth:'70vw', backgroundColor:"white"}} onChange={handleChange} className='border p-3' type="password" />
                 </div>
 
                 <Button variant="contained" style={{

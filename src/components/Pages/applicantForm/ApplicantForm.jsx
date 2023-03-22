@@ -34,12 +34,13 @@ function ApplicantForm() {
     const { uid } = useRecoilValue(userState);
     const [jobApplicant, setJobApplicant] = useRecoilState(applicantState)
     const [activePage, setActivePage] = useRecoilState(activePageState)
+
     const MAX_FILE_SIZE = 2621440
 
     const submitJobPosting = async () => {
         event.preventDefault(); // Prevent the form from reloading the page
-            
-        const addressArray = Object.entries(addressObj)
+        
+        const addressArray = Object.entries(locationData)
             .filter(([key, value]) => value !== undefined && value !== null && value !== '')
             .map(([key, value]) => value);
 

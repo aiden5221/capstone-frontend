@@ -14,9 +14,18 @@ import Shortlist from './components/Pages/Shortlist/Shortlist'
 import AptitudeTest from './components/Aptitude/aptitudeTest'
 import TakeAptitudeTest from './components/Pages/TakeAptitudeTest/TakeAptitudeTest'
 import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
+import { Alert, Snackbar } from '@mui/material'
+import { useRecoilState } from 'recoil'
+import { DEFAULT_SNACKBARSTATE, snackbarState } from './utils/recoil/atoms/snackbar/snackbar'
 function App() {
+  const [snackbar, setSnackBar] = useRecoilState(snackbarState)
+
+  const resetSnackbar = () => {
+    setSnackBar(DEFAULT_SNACKBARSTATE)
+  }
 
   return (
+    <>
     <Routes>
       <Route path='/' element={<NavbarWithCarousel />}>
           <Route index element={<Homepage />}/>
@@ -37,6 +46,15 @@ function App() {
         <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
       </Route>
     </Routes>
+      {
+        snackbar &&
+            <Snackbar open={snackbar.active} onClose={resetSnackbar} autoHideDuration={3000} >
+                <Alert open={snackbar.active} onClose={resetSnackbar} severity={snackbar.isError ? 'error' : 'success'}> 
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+      }
+    </>
   )
 
 }

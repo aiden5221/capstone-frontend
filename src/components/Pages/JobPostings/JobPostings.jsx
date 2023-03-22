@@ -53,7 +53,7 @@ export const JobPostings = () => {
 
   return (
     <div style={{overflow:'hidden'}}>
-      <Typography variant='h4' paddingTop={4} paddingLeft={25} >Job Postings</Typography>
+      <Typography variant='h4' paddingTop={4} align='center'>Job Postings</Typography>
       <Grid2 container xsOffset={1} sx={containerStyling}>
       {
         jobPostings ?

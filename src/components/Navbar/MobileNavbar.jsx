@@ -7,10 +7,12 @@ import { NAV_HEADINGS } from '../constants'
 import { logout } from '../../utils/firebase/firebase'
 import { useRecoilState } from 'recoil'
 import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
 function MobileNavbar() {
     const [showSidebar, setShowSidebar] = useState(false)
     const [user, setUser] = useRecoilState(userState)
+    const [snackbar, setSnackBar] = useRecoilState(snackbarState)
     
     const sideBarHandler = () => {
         setShowSidebar(!showSidebar)
@@ -36,6 +38,7 @@ function MobileNavbar() {
     const logoutHandler = () => {
         setUser(DEFAULT_USERSTATE)
         logout()
+        setSnackBar({active: true, message: 'Successfully logged out', isError: false})
     }
 
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''

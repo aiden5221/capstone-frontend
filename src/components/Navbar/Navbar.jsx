@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery } from '@mui/material'
+import { Alert, Snackbar, Typography, useMediaQuery } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
 import React, { useState } from 'react'
@@ -11,13 +11,14 @@ import { useRecoilState } from 'recoil';
 import '../../index.css';
 import { logout } from '../../utils/firebase/firebase'
 import { activePageState } from '../../utils/recoil/atoms/navbar/activePage'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
 function Navbar() {
 
     const [user, setUser] = useRecoilState(userState)
-
     const [activePage, setActivePage] = useRecoilState(activePageState);
-    
+    const [snackbar, setSnackBar] = useRecoilState(snackbarState);
+
     const mobile = useMediaQuery('(max-width:1450px)')
     
     const activePageHandler = (e) => {
@@ -27,6 +28,7 @@ function Navbar() {
     const logoutHandler = () => {
         setUser(DEFAULT_USERSTATE)
         logout()
+        setSnackBar({active: true, message: 'Successfully logged out', isError: false})
     }
 
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
@@ -58,6 +60,7 @@ function Navbar() {
             bottom: '-10px',
         }
     }
+
   return (
     
     <Grid2 
@@ -124,7 +127,6 @@ function Navbar() {
                     </Stack>
                 </Grid2>
         }
-    
     </Grid2>
 
   )

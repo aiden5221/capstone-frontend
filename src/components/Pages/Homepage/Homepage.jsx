@@ -2,13 +2,14 @@ import { Button, FormControl, Stack, TextField, Typography, useMediaQuery, useTh
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import { getJobApplicationByName, getJobApplications } from '../../../utils/backend/requests'
 import { useNavigate } from 'react-router-dom'
-import JobCarousel from '../../JobCarousel/JobCarousel'
+import { useRecoilState } from 'recoil'
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage'
 
 function Homepage() {
     const [search, setSearch] = useState('')
-    const theme = useTheme()
+    const [activePage, setActivePage] = useRecoilState(activePageState)
+    const theme = useTheme() 
 
     const isMedium = useMediaQuery(theme.breakpoints.down('md'))
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -22,11 +23,17 @@ function Homepage() {
     const submitSearch = async () => {
         if(search){
             navigate(`postings/${search}`)
+            setActivePage('Postings')
         }else{
             navigate('postings')
+            setActivePage('Postings')
         }
         
         
+    }
+
+    const resetSnackbar = () => {
+        setSetSnackbar(DEFAULT_SNACKBARSTATE)
     }
 
   return (
@@ -77,6 +84,7 @@ function Homepage() {
                 variant='contained'
             >Search</Button>    
         </Grid2>
+        
     </Grid2>
   )
 }

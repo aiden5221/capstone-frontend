@@ -4,6 +4,7 @@ import React from 'react'
 import CreatedPosting from './CreatedPosting'
 
 const CreatedPostings = () => {
+  
   const containerStyling = {
     marginTop:'2vh',
     maxHeight:'70vh' , 
@@ -21,6 +22,7 @@ const CreatedPostings = () => {
       webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
     }
   }
+
   return (
     <Grid2 container >
       <Grid2 item xs={12}>
