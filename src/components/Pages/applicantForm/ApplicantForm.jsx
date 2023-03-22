@@ -33,16 +33,25 @@ function ApplicantForm() {
     const { uid } = useRecoilValue(userState);
     const [jobApplicant, setJobApplicant] = useRecoilState(applicantState)
 
+    const MAX_FILE_SIZE = 2621440
+
     const submitJobPosting = async () => {
         event.preventDefault(); // Prevent the form from reloading the page
-        const locationStr = locationData.address1 + " " + locationData.address2 + "," + locationData.city
-            + "," + locationData.province + "," + locationData.country;
+            
+        const addressArray = Object.entries(addressObj)
+            .filter(([key, value]) => value !== undefined && value !== null && value !== '')
+            .map(([key, value]) => value);
+
+        const locationString = addressArray.join(', ');
+
+            
+
         setJobApplicant({
             jobApplication: id,
             name: resumeData.name,
             skills: resumeData.skills.split(","),
             GPA: locationData.gpa,
-            location: locationStr,
+            location: locationString,
             email: resumeData.email,
             phoneNumber: resumeData.mobile
         })
@@ -53,7 +62,8 @@ function ApplicantForm() {
 
     const handleFileUpload = async (event) => {
         // event.preventDefault(); // Prevent the form from reloading the page
-        if (event.target.files[0].size <= 2621440) {
+        
+        if (event.target.files[0].size <= MAX_FILE_SIZE) {
             const formData = new FormData();
             formData.append('resume_parse', event.target.files[0]);
             // alert(event.target.files[0].size);

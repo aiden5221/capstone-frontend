@@ -60,7 +60,7 @@ const Signin = () => {
     // }, [user])
     
   return (
-    <div className="form" style= {{ marginTop:"20vh" }}>
+    <div className="form" style= {{ marginTop:"10vh" }}>
             <div>
                 <Typography variant='h2'style= {{ marginBottom:"3vh" }}>Login</Typography>
             </div>

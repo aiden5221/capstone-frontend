@@ -84,7 +84,7 @@ function Navbar() {
         </Grid2>
         {
             mobile ?  
-                <MobileNavbar user={user} />
+                <MobileNavbar />
             :
             <Grid2 
                 lg={2}

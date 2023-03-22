@@ -39,7 +39,7 @@ const Signup = () => {
     }
 
   return (
-    <div className='form' style= {{marginTop:"20vh"}}>
+    <div className='form' style= {{marginTop:"10vh"}}>
         <div>
             <Typography variant='h2'>Register</Typography>
         </div>

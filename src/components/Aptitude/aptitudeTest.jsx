@@ -48,7 +48,6 @@ export const AptitudeTest = ({ questions }) => {
         var score = getAnswers()
         var potentialEmployee = applicant
         const req = Object.assign({aptitudeResults: score, uid: uid}, potentialEmployee)
-
         await postPotentialEmployee(req)
         navigate('/')
     }

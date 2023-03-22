@@ -34,7 +34,8 @@ export const JobPostings = () => {
     async function fetchJobs(){
       try{
         if(search){
-          search = search.replace(/\s+/g, '-');
+          console.log(search)
+
           const data = await getJobApplicationByName(search);
           setjobPostings(data);
         }else{

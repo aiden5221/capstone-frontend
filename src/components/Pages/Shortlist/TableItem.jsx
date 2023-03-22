@@ -20,9 +20,7 @@ function TableItem({ row }) {
                 <TableCell component='th' scope='row'>
                     {name}
                 </TableCell>
-                <TableCell component='th' scope='row'>
-                    {score}%
-                </TableCell>
+                
                 <TableCell component='th' scope='row'>
                     {location}
                 </TableCell>
@@ -30,7 +28,10 @@ function TableItem({ row }) {
                     {email}
                 </TableCell>
                 <TableCell component='th' scope='row'>
-                    {aptitudeResults}
+                    {score}%
+                </TableCell>
+                <TableCell component='th' scope='row'>
+                    {aptitudeResults}%
                 </TableCell>
             </TableRow>
             <TableRow>

@@ -13,8 +13,12 @@ export const getJobApplications = async () => {
         })
 }
 
-export const getJobApplicationByName = async (name) => {
-    return axios.get(`${BACKEND_URL}/jobapplicationSearch/${name}`)
+export const getJobApplicationByName = async (jobName) => {
+    return axios.get(`${BACKEND_URL}/jobapplicationSearch/`, {
+        params: {
+            name: jobName
+        }
+    })
         .then(res => {
             const { data } = res;
             return data;

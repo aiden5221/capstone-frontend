@@ -14,6 +14,7 @@ function Homepage() {
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
     const isVerySmall = useMediaQuery(theme.breakpoints.down('xs'))
     const navigate = useNavigate();
+    
     const searchHandler = (e) => {
         setSearch(e.target.value);
     }
