@@ -5,17 +5,16 @@ import { useState,useEffect } from 'react'
 import { getCreatedJobPostings } from '../../../utils/backend/requests'
 import JobPosting from '../JobPostings/JobPosting'
 import { useRecoilValue } from 'recoil'
-import { userState } from '../../../utils/recoil/atoms/user/user'
 import { useNavigate } from 'react-router-dom'
+import { userState } from '../../../utils/recoil/atoms/user/user'
 
-const CreatedPosting = ({jobPosting}) => {
+const CreatedPosting = ({ jobPosting }) => {
     const [jobPostings, setjobPostings] = useState([]); 
     const { uid } = useRecoilValue(userState);
     const navigate = useNavigate();
     
     const jobPostingsContainer = { 
         p: 1,
-        cursor:'pointer',
         marginBottom:'3vh'
     }
 
@@ -32,7 +31,6 @@ const CreatedPosting = ({jobPosting}) => {
             try{
                 const data = await getCreatedJobPostings(uid);
                 setjobPostings(data);
-                console.log(data);
             }
             catch (err){
                 console.log(err)
@@ -48,7 +46,7 @@ const CreatedPosting = ({jobPosting}) => {
         onClick={() => posting_handler(id)}
         > 
            {
-                jobPostings ?
+                jobPostings.length != 0 ?
                 jobPostings.map((jobPosting) => {
                     return (
                         <JobPosting jobPosting={jobPosting} isCreatedPostings={true}/>
