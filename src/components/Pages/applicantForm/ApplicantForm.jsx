@@ -46,8 +46,6 @@ function ApplicantForm() {
 
         const locationString = addressArray.join(', ');
 
-            
-
         setJobApplicant({
             jobApplication: id,
             name: resumeData.name,
@@ -96,8 +94,7 @@ function ApplicantForm() {
     }, [])
 
     return (
-        // <Box className='ApplicantForm' sx={{ border: 1, maxWidth: 'lg', p: 2 }} marginLeft="10.5rem" marginTop="4vh">
-        <Grid2 container xsOffset={1} xs={9} sx={{backgroundColor:'rgba(252, 251, 255,0.8)', borderRadius:'10px', display:'flex', padding:'2vw'}}>
+        <Grid2 container xsOffset={1} xs={9} sx={{backgroundColor:'rgba(252, 251, 255,0.8)', borderRadius:'10px', display:'flex', padding:'2vw', marginBottom:'1vh'}}>
             <form onSubmit={submitJobPosting} >
                 <Box sx={{ flexGrow: 1 }} >
                     <Grid container spacing={2} >
