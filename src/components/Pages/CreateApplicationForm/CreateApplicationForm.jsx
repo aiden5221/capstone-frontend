@@ -39,6 +39,10 @@ function CreateApplicationForm() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [aptitudeTest, setaptitudeTest] = useState([]);
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+  const [skillName, setSkillName] = useState('');
+  const [weightedValue, setWeightedValue] = useState('');
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
   const handleSubmit = async (event) => {
@@ -75,29 +79,21 @@ function CreateApplicationForm() {
       "createdBy": uid,
       "aptitudeTest": aptitudeTest,
     })
-  
-    navigate(`/jobPosting/${id}`);
- }
 
-  const displayData = () => {
+    if (!/^\d+(\.\d+)?$/.test(value)) {
+      setError('Input value must be a decimal number');
+    } else {
+      navigate(`/jobPosting/${id}`);
+      // handle form submission here
+      console.log('Form submitted successfully');
+    }
+    
+ };
 
-    //manipulating the rows
-  const myRows = {}
-
-  rows.filter((element) => {
-    const { skillname, weightedValue } = element; 
-    myRows[skillname] = weightedValue; 
-  })
-  
-    //retrieving the data
-    const data = new FormData(document.getElementById("formData"));
-    data.forEach((value,key) => (data[key] = value));
-    const json = JSON.stringify(data);
-    const myObj = JSON.parse(json);
-    myObj.desiredSkills = myRows; 
-    delete myObj.skillValue; 
-
-  }
+ const handleChange = (event) => {
+  setValue(event.target.value);
+  setError('');
+};
 
   const [previous, setPrevious] = useState({});
 
@@ -126,7 +122,6 @@ function CreateApplicationForm() {
       return row;
     });
     setRows(newRows);
-
   };
 
   const onRevert = (index) => {
@@ -146,9 +141,16 @@ function CreateApplicationForm() {
   }
 
   const handleAddClick = () => {
-    let text = getSkillName();
-    let value = getSkillValue();
-    setRows([...rows, createData(text, value)]);
+    if(weightedValue <= 10 && weightedValue >= 0) {
+      let text = getSkillName();
+      let value = getSkillValue();
+      setRows([...rows, createData(text, value)]);
+      setSkillName('');
+      setWeightedValue('');
+    }
+    else {
+      alert("Please enter a positive value or a value less than 10.");
+    }
   }
 
   const handleModal = () => setOpen(!open)
@@ -165,30 +167,31 @@ function CreateApplicationForm() {
         <Typography variant='h4' gutterBottom marginTop={2} marginLeft={2} style={{textAlign:'center'}}>
           Create Job Application Form
         </Typography>
-          <form id = 'formData'>
+          <form id = 'formData' onSubmit={handleSubmit}>
             <Grid2 container spacing={1}>
               <Grid2 xs = {12} item>
-                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobName' id='jobName'>
+                <TextField label = "Job Title" placeholder='Enter Job Title here' variant='outlined' fullWidth name='jobName' id='jobName' required>
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='company' id='company'>
+                <TextField label = "Company Name" placeholder='Enter Company Name here' variant='outlined' fullWidth name='company' id='company' required>
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField label = "Job Description" placeholder='Enter Job Description here' variant='outlined' multiline fullWidth rows={4} name='jobDescription' id='jobDescription'>
+                <TextField label = "Job Description" placeholder='Enter Job Description here' variant='outlined' multiline fullWidth rows={4} name='jobDescription' id='jobDescription' required>
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField label = "Address Line 1" placeholder='Enter Company Address here' variant='outlined' fullWidth name='location' id='location'>
+                <TextField label = "Address Line 1" placeholder='Enter Company Address here' variant='outlined' fullWidth name='location' id='location' required>
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField type = "number" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA'>
+                <TextField type = "text" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA' value={value} onChange = {handleChange} required>
                 </TextField>
+                {error && <div style={{ color: 'red' }}>{error}</div>}
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin'>
+                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin' required>
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item> 
@@ -228,7 +231,9 @@ function CreateApplicationForm() {
                       id='desiredSkills'
                       name='desiredSkills'
                       label = 'Skill Name'
-                      variant = 'outlined'>
+                      variant = 'outlined'
+                      value={skillName}
+                      onChange={(e) => setSkillName(e.target.value)}>
                     </TextField>
                   </Grid2>
 
@@ -237,7 +242,9 @@ function CreateApplicationForm() {
                       id='skillValue'
                       name='skillValue'
                       label = 'Skill Value'
-                      variant = 'outlined'>
+                      variant = 'outlined'
+                      value = {weightedValue}
+                      onChange={(e) => setWeightedValue(e.target.value)}>
                     </TextField>
                   </Grid2>
               </Grid2>
@@ -294,7 +301,7 @@ function CreateApplicationForm() {
                 </Table>
               </Grid2>
               <Grid2 xs={12} item>
-                <Button variant='contained' color='primary' fullWidth type='submit' onClick={handleSubmit}>
+                <Button variant='contained' color='primary' fullWidth type='submit'>
                   Submit
                 </Button>
               </Grid2>
