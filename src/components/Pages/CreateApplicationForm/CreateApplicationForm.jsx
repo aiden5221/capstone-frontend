@@ -8,7 +8,9 @@ import CreateTest from '../../Aptitude/CreateTest';
 import { useNavigate } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { userState } from '../../../utils/recoil/atoms/user/user';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
+import { snackbarState } from '../../../utils/recoil/atoms/snackbar/snackbar';
 
 const createData = (skillname, weightedValue) => ({
   id: skillname.replace(" ", "_"),
@@ -39,15 +41,19 @@ function CreateApplicationForm() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [aptitudeTest, setaptitudeTest] = useState([]);
+
   const [minGPAValue, setMinGPAValue] = useState('');
   const [error, setError] = useState('');
   const [minAptitudeResults, setMinAptitudeResults] = useState('');
   const [minAptitudeResultsError, setMinAptitudeResultsError] = useState('');
   const [skillName, setSkillName] = useState('');
   const [weightedValue, setWeightedValue] = useState('');
-  const navigate = useNavigate();
-  const { uid } = useRecoilValue(userState);
+  const [activePage, setActivePage] = useRecoilState(activePageState);
+  const [snackbar, setSnackBar] = useRecoilState(snackbarState);
 
+  const { uid } = useRecoilValue(userState);
+  const navigate = useNavigate();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     //manipulating the rows
@@ -67,7 +73,7 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-
+    
     if (!isNumberBetween0And4(minGPAValue) && !isPositiveNumberAndWholeNumber(minAptitudeResults)) {
       setError('The input value must be positive and less than or equal to 4.');
       setMinAptitudeResultsError('The minimum aptitude Results must be a whole number and a positive value');
@@ -81,25 +87,23 @@ function CreateApplicationForm() {
       return; 
     }
     else{
-      const { id } = await postJobApplication({
-        "jobName" : myObj.jobName, 
-        "jobDescription": myObj.jobDescription, 
-        "desiredSkills": myObj.desiredSkills, 
-        "minGPA": myObj.minGPA, 
-        "location": myObj.location, 
-        "pastExperiences": {
-          "pastExperience1": 5,
-          "pastExperience2": 7
-        }, 
-        "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-        "company":myObj.company, 
-        "createdBy": uid,
-        "aptitudeTest": aptitudeTest,
-      })
-      navigate(`/jobPosting/${id}`);
-      console.log('Form submitted successfully');
+      try {
+        const { id } = await postJobApplication({
+          "jobName" : myObj.jobName, 
+          "jobDescription": myObj.jobDescription, 
+          "desiredSkills": myObj.desiredSkills, 
+          "minGPA": myObj.minGPA, 
+          "location": myObj.location, 
+          "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+          "company":myObj.company, 
+          "createdBy": uid,
+          "aptitudeTest": aptitudeTest,
+        })
+        setSnackBar({active: true, message: 'Job Application created!', isError: false})
+        navigate(`/jobPosting/${id}`);
+    } catch (error) {
+      
     }
-    
  };
 
  const isNumberBetween0And4 = (num) => {
@@ -183,6 +187,7 @@ function CreateApplicationForm() {
   useEffect(() => {
     if(uid == ''){
       navigate('/login');
+      setActivePage('Login')
     }
   },[])
   return (

@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { deleteJobApplication, getJobApplicationById } from '../../utils/backend/requests'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { userState } from '../../utils/recoil/atoms/user/user'
-
+import { activePageState } from '../../utils/recoil/atoms/navbar/activePage'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
 function JobPost(){
     const { id } = useParams();   
     const [jobPosting, setjobPosting] = useState({});
+    const [activePage, setActivePage] = useRecoilState(activePageState)
+    const [snackbar, setSnackbar] = useRecoilState(snackbarState)
     const { uid } = useRecoilValue(userState)
     const navigate = useNavigate();
 
@@ -26,6 +29,8 @@ function JobPost(){
     const handleDelete = async () => {
         try{
             await deleteJobApplication(id);
+            setActivePage('Postings')
+            setSnackbar({active: true, message: 'Successfully deleted job posting', isError: false})
             navigate('/postings')
         }
         catch (err){

@@ -7,6 +7,8 @@ import { Typography } from '@mui/material';
 import { createUser } from '../../../utils/firebase/firebase';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../utils/recoil/atoms/user/user';
+import { snackbarState } from '../../../utils/recoil/atoms/snackbar/snackbar';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
 
 const defaultFormFields = {
     email: '',
@@ -17,6 +19,9 @@ const Signup = () => {
     const [formFields, setFormFields] = useState(defaultFormFields)
     const [error, setError] = useState('')
     const [user, setUser] = useRecoilState(userState)
+    const [snackbar, setSnackbar] = useRecoilState(snackbarState);
+    const [activePage, setActivePage] = useRecoilState(activePageState);
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -31,15 +36,16 @@ const Signup = () => {
         try{
             const { user: { uid, displayName}} = await createUser(formFields)
             setUser({uid: uid, displayName: displayName})
+            setSnackbar({active: true, message: 'Successfully logged in', isError: false})
+            setActivePage('Home')
             navigate('/')
         } catch (e) {
-            setError(e.message)
-            console.log(e.message)
+            console.log(e)
         }
     }
 
   return (
-    <div className='form' style= {{marginTop:"20vh"}}>
+    <div className='form' style= {{marginTop:"10vh"}}>
         <div>
             <Typography variant='h2'>Register</Typography>
         </div>

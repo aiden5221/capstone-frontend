@@ -65,7 +65,8 @@ function Shortlist() {
                     variant="filled"
                     size="small"
                     label='Shortlist Length'
-                    onChange={(e) => setShortlistLength(e.target.value)}>
+                    onChange={(e) => setShortlistLength(e.target.value)}
+                    type='number'>
                 </TextField>    
                 <Button variant='contained' onClick={handleShortlist} sx={{marginLeft:'1vw'}}>
                     Submit

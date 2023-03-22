@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery } from '@mui/material'
+import { Alert, Snackbar, Typography, useMediaQuery } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { Stack } from '@mui/system'
 import React, { useState } from 'react'
@@ -10,24 +10,25 @@ import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user
 import { useRecoilState } from 'recoil';
 import '../../index.css';
 import { logout } from '../../utils/firebase/firebase'
+import { activePageState } from '../../utils/recoil/atoms/navbar/activePage'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
 function Navbar() {
 
     const [user, setUser] = useRecoilState(userState)
+    const [activePage, setActivePage] = useRecoilState(activePageState);
+    const [snackbar, setSnackBar] = useRecoilState(snackbarState);
 
-    const [activePage, setActivePage] = useState('Home');
-    
     const mobile = useMediaQuery('(max-width:1450px)')
     
-    const activePageHandler = async (e) => {
-        // Check if the current page is logout then set the active page to home
-        // Do this becuase logout page isnt actually a page and redirects user to home
+    const activePageHandler = (e) => {
         e.target.innerHTML == 'Logout' ? setActivePage('Home') : setActivePage(e.target.innerHTML)
     }
 
     const logoutHandler = () => {
         setUser(DEFAULT_USERSTATE)
         logout()
+        setSnackBar({active: true, message: 'Successfully logged out', isError: false})
     }
 
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
@@ -59,6 +60,7 @@ function Navbar() {
             bottom: '-10px',
         }
     }
+
   return (
     
     <Grid2 
@@ -84,7 +86,7 @@ function Navbar() {
         </Grid2>
         {
             mobile ?  
-                <MobileNavbar user={user} />
+                <MobileNavbar />
             :
             <Grid2 
                 lg={2}
@@ -125,7 +127,6 @@ function Navbar() {
                     </Stack>
                 </Grid2>
         }
-    
     </Grid2>
 
   )

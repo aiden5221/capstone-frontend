@@ -4,10 +4,15 @@ import React, { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { NAV_HEADINGS } from '../constants'
+import { logout } from '../../utils/firebase/firebase'
+import { useRecoilState } from 'recoil'
+import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user'
+import { snackbarState } from '../../utils/recoil/atoms/snackbar/snackbar'
 
-
-function MobileNavbar({ user }) {
+function MobileNavbar() {
     const [showSidebar, setShowSidebar] = useState(false)
+    const [user, setUser] = useRecoilState(userState)
+    const [snackbar, setSnackBar] = useRecoilState(snackbarState)
     
     const sideBarHandler = () => {
         setShowSidebar(!showSidebar)
@@ -28,6 +33,12 @@ function MobileNavbar({ user }) {
         textDecoration:'none',
         width:'100%'
         
+    }
+
+    const logoutHandler = () => {
+        setUser(DEFAULT_USERSTATE)
+        logout()
+        setSnackBar({active: true, message: 'Successfully logged out', isError: false})
     }
 
     const checkIfLoggedIn = (heading) => heading == 'Login' && user.uid != '' || heading == 'Logout' && !user.uid != ''
@@ -56,8 +67,9 @@ function MobileNavbar({ user }) {
                                         divider
                                         key={index}>
                                         <Link
-                                            to={urlText}
-                                            style={LinkStyling}>
+                                            to={urlText == 'Logout' || urlText == 'Home' ? '/' : urlText}
+                                            style={LinkStyling}
+                                            onClick={heading == 'Logout' && user.uid != '' ? logoutHandler : null}>
                                             <ListItemButton>
                                                 <ListItemText primary={ <Typography sx={ TextStyling } variant='h5'>{heading}</Typography> }>
                                                 </ListItemText>

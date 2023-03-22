@@ -4,13 +4,15 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { useState,useEffect } from 'react'
 import { getCreatedJobPostings } from '../../../utils/backend/requests'
 import JobPosting from '../JobPostings/JobPosting'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { userState } from '../../../utils/recoil/atoms/user/user'
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage'
 
 const CreatedPosting = ({ jobPosting }) => {
     const [jobPostings, setjobPostings] = useState([]); 
     const { uid } = useRecoilValue(userState);
+    const [activePage, setActivePage] = useRecoilState(activePageState)
     const navigate = useNavigate();
     
     const jobPostingsContainer = { 
@@ -25,6 +27,7 @@ const CreatedPosting = ({ jobPosting }) => {
     useEffect(() =>{
         if(uid == ''){
             navigate('/login')
+            setActivePage('Login')
         }
 
         async function fetchJobs(){

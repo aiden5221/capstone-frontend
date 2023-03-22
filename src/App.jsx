@@ -8,15 +8,25 @@ import NavbarWithCarousel from './components/Layouts/NavbarFooterWithCarousel'
 import JobPost from './components/Pages/JobPost'
 import SignUp from './components/Pages/SignInSignUp/Signup'
 import { JobPostings } from './components/Pages/JobPostings/JobPostings'
-import './App.css'
 import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
 import Shortlist from './components/Pages/Shortlist/Shortlist'
 import AptitudeTest from './components/Aptitude/aptitudeTest'
 import TakeAptitudeTest from './components/Pages/TakeAptitudeTest/TakeAptitudeTest'
 import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
+import { Alert, Snackbar } from '@mui/material'
+import { useRecoilState } from 'recoil'
+import { DEFAULT_SNACKBARSTATE, snackbarState } from './utils/recoil/atoms/snackbar/snackbar'
+import './App.css'
+
 function App() {
+  const [snackbar, setSnackBar] = useRecoilState(snackbarState)
+
+  const resetSnackbar = () => {
+    setSnackBar(DEFAULT_SNACKBARSTATE)
+  }
 
   return (
+    <>
     <Routes>
       <Route path='/' element={<NavbarWithCarousel />}>
           <Route index element={<Homepage />}/>
@@ -37,6 +47,15 @@ function App() {
         <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
       </Route>
     </Routes>
+      {
+        snackbar &&
+            <Snackbar open={snackbar.active} onClose={resetSnackbar} autoHideDuration={3000} >
+                <Alert open={snackbar.active} onClose={resetSnackbar} severity={snackbar.isError ? 'error' : 'success'} variant='filled'> 
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+      }
+    </>
   )
 
 }
