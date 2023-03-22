@@ -37,12 +37,14 @@ function JobItem({ job }) {
             <Typography sx={TextStyling} variant='h6'>
                 {jobName}
             </Typography>
-            <Typography sx={[TextStyling, { float:'left', color:'gray'}]} variant='subtitle1'>
-                {company}
-            </Typography>
-            <Typography sx={[TextStyling, { float:'right', color:'gray'}]} variant='subtitle1'>
-                {jobDate}
-            </Typography>
+            <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
+                <Typography sx={[TextStyling, { color:'gray'}]} variant='subtitle1'>
+                    {company}
+                </Typography>
+                <Typography sx={[TextStyling, { color:'gray'}]} variant='subtitle1'>
+                    {jobDate}
+                </Typography>
+            </div>
         </CardContent>
     </Card>
   )

@@ -8,7 +8,9 @@ import CreateTest from '../../Aptitude/CreateTest';
 import { useNavigate } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { userState } from '../../../utils/recoil/atoms/user/user';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
+import { snackbarState } from '../../../utils/recoil/atoms/snackbar/snackbar';
 
 const createData = (skillname, weightedValue) => ({
   id: skillname.replace(" ", "_"),
@@ -39,8 +41,11 @@ function CreateApplicationForm() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [aptitudeTest, setaptitudeTest] = useState([]);
-  const navigate = useNavigate();
+  const [activePage, setActivePage] = useRecoilState(activePageState);
+  const [snackbar, setSnackBar] = useRecoilState(snackbarState);
   const { uid } = useRecoilValue(userState);
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     //manipulating the rows
@@ -60,23 +65,30 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    const { id } = await postJobApplication({
-      "jobName" : myObj.jobName, 
-      "jobDescription": myObj.jobDescription, 
-      "desiredSkills": myObj.desiredSkills, 
-      "minGPA": myObj.minGPA, 
-      "location": myObj.location, 
-      "pastExperiences": {
-        "pastExperience1": 5,
-        "pastExperience2": 7
-      }, 
-      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-      "company":myObj.company, 
-      "createdBy": uid,
-      "aptitudeTest": aptitudeTest,
-    })
+    try {
+      const { id } = await postJobApplication({
+        "jobName" : myObj.jobName, 
+        "jobDescription": myObj.jobDescription, 
+        "desiredSkills": myObj.desiredSkills, 
+        "minGPA": myObj.minGPA, 
+        "location": myObj.location, 
+        "pastExperiences": {
+          "pastExperience1": 5,
+          "pastExperience2": 7
+        }, 
+        "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+        "company":myObj.company, 
+        "createdBy": uid,
+        "aptitudeTest": aptitudeTest,
+      })
+      setSnackBar({active: true, message: 'Job Application created!', isError: false})
+      navigate(`/jobPosting/${id}`);
+    } catch (error) {
+      
+    }
+   
   
-    navigate(`/jobPosting/${id}`);
+    
  }
 
   const displayData = () => {
@@ -87,7 +99,7 @@ function CreateApplicationForm() {
   rows.filter((element) => {
     const { skillname, weightedValue } = element; 
     myRows[skillname] = weightedValue; 
-  })
+  }) 
   
     //retrieving the data
     const data = new FormData(document.getElementById("formData"));
@@ -156,6 +168,7 @@ function CreateApplicationForm() {
   useEffect(() => {
     if(uid == ''){
       navigate('/login');
+      setActivePage('Login')
     }
   },[])
   return (
