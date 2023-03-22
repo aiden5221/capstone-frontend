@@ -45,6 +45,7 @@ function CreateApplicationForm() {
   const [weightedValue, setWeightedValue] = useState('');
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     //manipulating the rows
@@ -186,13 +187,14 @@ function CreateApplicationForm() {
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField type = "text" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA' value={value} onChange = {handleChange} required>
+                <TextField type = "text" sx={{marginRight:'2px'}} label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA' value={value} onChange = {handleChange} required>
+                </TextField>
+                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin' required>
                 </TextField>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin' required>
-                </TextField>
+                
               </Grid2>
               <Grid2 xs = {12} item> 
                   <Button
@@ -249,7 +251,7 @@ function CreateApplicationForm() {
                   </Grid2>
               </Grid2>
               </>
-              <Grid2 xs = {12} container sx={{backgroundColor:'#ECEEF2'}}>
+              <Grid2 xs = {12} container sx={{backgroundColor:'#ECEEF2', marginTop:'1vh'}}>
                 <Table>
                   <caption>Weighted Skills</caption>
                   <TableHead>
@@ -257,8 +259,8 @@ function CreateApplicationForm() {
                     <TableCell>
                         
                     </TableCell>
-                    <TableCell align="left">Skill Name</TableCell>
-                    <TableCell align="left">Weighted Value</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="left">Skill Name</TableCell>
+                    <TableCell  sx={{fontWeight:'bold'}} align="left">Weighted Value</TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -300,7 +302,7 @@ function CreateApplicationForm() {
                 
                 </Table>
               </Grid2>
-              <Grid2 xs={12} item>
+              <Grid2 xs={12} sx={{marginTop:'1vh'}}  item>
                 <Button variant='contained' color='primary' fullWidth type='submit'>
                   Submit
                 </Button>
