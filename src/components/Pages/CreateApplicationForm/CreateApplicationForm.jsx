@@ -39,8 +39,10 @@ function CreateApplicationForm() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [aptitudeTest, setaptitudeTest] = useState([]);
-  const [value, setValue] = useState('');
+  const [minGPAValue, setMinGPAValue] = useState('');
   const [error, setError] = useState('');
+  const [minAptitudeResults, setMinAptitudeResults] = useState('');
+  const [minAptitudeResultsError, setMinAptitudeResultsError] = useState('');
   const [skillName, setSkillName] = useState('');
   const [weightedValue, setWeightedValue] = useState('');
   const navigate = useNavigate();
@@ -65,36 +67,58 @@ function CreateApplicationForm() {
     const myObj = JSON.parse(json);
     myObj.desiredSkills = myRows; 
     delete myObj.skillValue; 
-    const { id } = await postJobApplication({
-      "jobName" : myObj.jobName, 
-      "jobDescription": myObj.jobDescription, 
-      "desiredSkills": myObj.desiredSkills, 
-      "minGPA": myObj.minGPA, 
-      "location": myObj.location, 
-      "pastExperiences": {
-        "pastExperience1": 5,
-        "pastExperience2": 7
-      }, 
-      "aptitudeResultsMin":myObj.aptitudeResultsMin, 
-      "company":myObj.company, 
-      "createdBy": uid,
-      "aptitudeTest": aptitudeTest,
-    })
 
-    if (!/^\d+(\.\d+)?$/.test(value)) {
-      setError('Input value must be a decimal number');
-    } else {
+    if (!isNumberBetween0And4(minGPAValue) && !isPositiveNumberAndWholeNumber(minAptitudeResults)) {
+      setError('The input value must be positive and less than or equal to 4.');
+      setMinAptitudeResultsError('The minimum aptitude Results must be a whole number and a positive value');
+      return; 
+    } else  if (!isPositiveNumberAndWholeNumber(minAptitudeResults)){
+      setMinAptitudeResultsError('The minimum aptitude Results must be a whole number and a positive value');
+      return;
+    }
+    else  if (!isNumberBetween0And4(minGPAValue)) {
+      setError('The input value must be positive and less than or equal to 4.');
+      return; 
+    }
+    else{
+      const { id } = await postJobApplication({
+        "jobName" : myObj.jobName, 
+        "jobDescription": myObj.jobDescription, 
+        "desiredSkills": myObj.desiredSkills, 
+        "minGPA": myObj.minGPA, 
+        "location": myObj.location, 
+        "pastExperiences": {
+          "pastExperience1": 5,
+          "pastExperience2": 7
+        }, 
+        "aptitudeResultsMin":myObj.aptitudeResultsMin, 
+        "company":myObj.company, 
+        "createdBy": uid,
+        "aptitudeTest": aptitudeTest,
+      })
       navigate(`/jobPosting/${id}`);
-      // handle form submission here
       console.log('Form submitted successfully');
     }
     
  };
 
+ const isNumberBetween0And4 = (num) => {
+  return num > 0 && num <= 4;
+ }
+
+ const isPositiveNumberAndWholeNumber = (num) => {
+  return num > 0 && (!(num%1)); 
+ }
+
  const handleChange = (event) => {
-  setValue(event.target.value);
+  setMinGPAValue(event.target.value);
   setError('');
 };
+
+  const handleMinAptitudeResultsChange = (event) => {
+    setMinAptitudeResults(event.target.value);
+    setMinAptitudeResultsError('');
+  };
 
   const [previous, setPrevious] = useState({});
 
@@ -187,20 +211,20 @@ function CreateApplicationForm() {
                 </TextField>
               </Grid2>
               <Grid2 xs = {12} item>
-                <TextField type = "text" sx={{marginRight:'2px'}} label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA' value={value} onChange = {handleChange} required>
-                </TextField>
-                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin' required>
+                <TextField type = "text" label = "Minimum GPA" placeholder='Minimum GPA required for the job' variant='outlined' name='minGPA' id='minGPA' value={minGPAValue} onChange = {handleChange} required>
                 </TextField>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
               </Grid2>
               <Grid2 xs = {12} item>
-                
+                <TextField type = "number" label = "Minimum Aptitude Results" placeholder='Minimum Aptitude Score required for the job' variant='outlined' name='aptitudeResultsMin' id='aptitudeResultsMin' value={minAptitudeResults} onChange = {handleMinAptitudeResultsChange} required>
+                </TextField>
+                {minAptitudeResultsError && <div style={{ color: 'red' }}>{minAptitudeResultsError}</div>}
               </Grid2>
               <Grid2 xs = {12} item> 
                   <Button
                     variant='contained'
                     color='primary'
-                    style={{ width: "10%" }}
+                    style={{ width: "10%", minWidth: "150px"}}
                     onClick={handleModal}
                   >
                     Personality Test
@@ -221,7 +245,7 @@ function CreateApplicationForm() {
                   <Button
                         variant='contained'
                         color='primary'
-                        style={{ width: "10%", marginRight: "3vw"}}
+                        style={{ width: "10%", marginRight: "3vw", minWidth: "150px"}}
                         onClick = {handleAddClick}
                       >
                           Add
@@ -251,7 +275,7 @@ function CreateApplicationForm() {
                   </Grid2>
               </Grid2>
               </>
-              <Grid2 xs = {12} container sx={{backgroundColor:'#ECEEF2', marginTop:'1vh'}}>
+              <Grid2 xs = {12} container sx={{backgroundColor:'#ECEEF2', marginBottom: "3vh"}}>
                 <Table>
                   <caption>Weighted Skills</caption>
                   <TableHead>
