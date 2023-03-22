@@ -8,7 +8,8 @@ import CreateTest from '../../Aptitude/CreateTest';
 import { useNavigate } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { userState } from '../../../utils/recoil/atoms/user/user';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
 
 const createData = (skillname, weightedValue) => ({
   id: skillname.replace(" ", "_"),
@@ -41,6 +42,8 @@ function CreateApplicationForm() {
   const [aptitudeTest, setaptitudeTest] = useState([]);
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
+  const [activePage, setActivePage] = useRecoilState(activePageState);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     //manipulating the rows
@@ -87,7 +90,7 @@ function CreateApplicationForm() {
   rows.filter((element) => {
     const { skillname, weightedValue } = element; 
     myRows[skillname] = weightedValue; 
-  })
+  }) 
   
     //retrieving the data
     const data = new FormData(document.getElementById("formData"));
@@ -156,6 +159,7 @@ function CreateApplicationForm() {
   useEffect(() => {
     if(uid == ''){
       navigate('/login');
+      setActivePage('Login')
     }
   },[])
   return (

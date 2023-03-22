@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../../../utils/recoil/atoms/user/user';
 import { applicantState } from '../../../utils/recoil/atoms/applicant/applicant';
+import { activePageState } from '../../../utils/recoil/atoms/navbar/activePage';
 
 function ApplicantForm() {   
 
@@ -32,7 +33,7 @@ function ApplicantForm() {
     const navigate = useNavigate();
     const { uid } = useRecoilValue(userState);
     const [jobApplicant, setJobApplicant] = useRecoilState(applicantState)
-
+    const [activePage, setActivePage] = useRecoilState(activePageState)
     const MAX_FILE_SIZE = 2621440
 
     const submitJobPosting = async () => {
@@ -89,6 +90,7 @@ function ApplicantForm() {
     useEffect(() => {
         if (uid === '') {
             navigate('/login');
+            setActivePage('Login')
         }
     }, [])
 

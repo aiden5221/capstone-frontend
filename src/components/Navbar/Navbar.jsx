@@ -10,18 +10,17 @@ import { DEFAULT_USERSTATE, userState } from '../../utils/recoil/atoms/user/user
 import { useRecoilState } from 'recoil';
 import '../../index.css';
 import { logout } from '../../utils/firebase/firebase'
+import { activePageState } from '../../utils/recoil/atoms/navbar/activePage'
 
 function Navbar() {
 
     const [user, setUser] = useRecoilState(userState)
 
-    const [activePage, setActivePage] = useState('Home');
+    const [activePage, setActivePage] = useRecoilState(activePageState);
     
     const mobile = useMediaQuery('(max-width:1450px)')
     
-    const activePageHandler = async (e) => {
-        // Check if the current page is logout then set the active page to home
-        // Do this becuase logout page isnt actually a page and redirects user to home
+    const activePageHandler = (e) => {
         e.target.innerHTML == 'Logout' ? setActivePage('Home') : setActivePage(e.target.innerHTML)
     }
 
