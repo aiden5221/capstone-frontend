@@ -8,7 +8,6 @@ import NavbarWithCarousel from './components/Layouts/NavbarFooterWithCarousel'
 import JobPost from './components/Pages/JobPost'
 import SignUp from './components/Pages/SignInSignUp/Signup'
 import { JobPostings } from './components/Pages/JobPostings/JobPostings'
-import './App.css'
 import CreateApplicationForm from './components/Pages/CreateApplicationForm/CreateApplicationForm'
 import Shortlist from './components/Pages/Shortlist/Shortlist'
 import AptitudeTest from './components/Aptitude/aptitudeTest'
@@ -17,6 +16,8 @@ import CreatedPostings from './components/Pages/CreatedPostings/CreatedPostings'
 import { Alert, Snackbar } from '@mui/material'
 import { useRecoilState } from 'recoil'
 import { DEFAULT_SNACKBARSTATE, snackbarState } from './utils/recoil/atoms/snackbar/snackbar'
+import './App.css'
+
 function App() {
   const [snackbar, setSnackBar] = useRecoilState(snackbarState)
 
@@ -49,7 +50,7 @@ function App() {
       {
         snackbar &&
             <Snackbar open={snackbar.active} onClose={resetSnackbar} autoHideDuration={3000} >
-                <Alert open={snackbar.active} onClose={resetSnackbar} severity={snackbar.isError ? 'error' : 'success'}> 
+                <Alert open={snackbar.active} onClose={resetSnackbar} severity={snackbar.isError ? 'error' : 'success'} variant='filled'> 
                     {snackbar.message}
                 </Alert>
             </Snackbar>
