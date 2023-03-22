@@ -47,6 +47,7 @@ function CreateApplicationForm() {
   const [weightedValue, setWeightedValue] = useState('');
   const navigate = useNavigate();
   const { uid } = useRecoilValue(userState);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     //manipulating the rows
@@ -282,8 +283,8 @@ function CreateApplicationForm() {
                     <TableCell>
                         
                     </TableCell>
-                    <TableCell align="left">Skill Name</TableCell>
-                    <TableCell align="left">Weighted Value</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="left">Skill Name</TableCell>
+                    <TableCell  sx={{fontWeight:'bold'}} align="left">Weighted Value</TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -325,7 +326,7 @@ function CreateApplicationForm() {
                 
                 </Table>
               </Grid2>
-              <Grid2 xs={12} item>
+              <Grid2 xs={12} sx={{marginTop:'1vh'}}  item>
                 <Button variant='contained' color='primary' fullWidth type='submit'>
                   Submit
                 </Button>
