@@ -1,7 +1,7 @@
 
 import { Typography, Button, RadioGroup, FormControlLabel, FormLabel, FormControl, Radio } from '@mui/material'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { applicantState } from '../../utils/recoil/atoms/applicant/applicant'
+import { applicantState, DEFAULT_APPLICANTSTATE } from '../../utils/recoil/atoms/applicant/applicant'
 import { postPotentialEmployee } from '../../utils/backend/requests'
 import { useNavigate } from 'react-router-dom'
 import { userState } from '../../utils/recoil/atoms/user/user'
@@ -54,6 +54,7 @@ export const AptitudeTest = ({ questions }) => {
         const req = Object.assign({aptitudeResults: score, uid: uid}, potentialEmployee)
         try {
             await postPotentialEmployee(req)
+            setApplicant(DEFAULT_APPLICANTSTATE)
             setSnackbar({active: true, message: 'Successfully submitted application', isError: false})
             setActivePage('Home')
             navigate('/')

@@ -17,6 +17,7 @@ import { Alert, Snackbar } from '@mui/material'
 import { useRecoilState } from 'recoil'
 import { DEFAULT_SNACKBARSTATE, snackbarState } from './utils/recoil/atoms/snackbar/snackbar'
 import './App.css'
+import ShortlistJobs from './components/Pages/ShortlistJobs/ShortlistJobs'
 
 function App() {
   const [snackbar, setSnackBar] = useRecoilState(snackbarState)
@@ -45,6 +46,7 @@ function App() {
         <Route path='shortlist/:id' element={<Shortlist />} />
         <Route path='test' element={<AptitudeTest />} />
         <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
+        <Route path='shortlistJobs' element={<ShortlistJobs />} />
       </Route>
     </Routes>
       {

@@ -3,7 +3,6 @@ import { Typography, Grid, Box} from '@mui/material'
 import Button from '@mui/material/Button';
 import { FaFilePdf, FaBars } from 'react-icons/fa';
 import axios from 'axios';
-import { postPotentialEmployee } from '../../../utils/backend/requests'
 import InputForm from './InputForm';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +46,7 @@ function ApplicantForm() {
         const locationString = addressArray.join(', ');
 
         setJobApplicant({
-            jobApplication: id,
+            jobApplication: id || null,
             name: resumeData.name,
             skills: resumeData.skills.split(","),
             GPA: locationData.gpa,
@@ -55,8 +54,10 @@ function ApplicantForm() {
             email: resumeData.email,
             phoneNumber: resumeData.mobile
         })
+
+        // Put this check in so that it can be used in the shortlist jobs page
+        id != '' ? navigate(`/aptitudeTest/${id}/`) : null
         
-        navigate(`/aptitudeTest/${id}/`);
 
     }
 
@@ -66,7 +67,7 @@ function ApplicantForm() {
         if (event.target.files[0].size <= MAX_FILE_SIZE) {
             const formData = new FormData();
             formData.append('resume_parse', event.target.files[0]);
-            // alert(event.target.files[0].size);
+
             axios.post('http://localhost:8000/parseResume/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
