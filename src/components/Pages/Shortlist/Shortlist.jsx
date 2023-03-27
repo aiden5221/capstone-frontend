@@ -12,7 +12,7 @@ function Shortlist() {
     const [jobPosting, setJobPosting] = useState({})
     const { id } = useParams()
     const { jobName, location, date, company, applicants } = jobPosting;
-
+    const tableHeadings = ['Name', 'Location', 'Email', 'Score', 'Personality Score']
     useEffect(() => {
         const fetchJobData = async () => {
             setJobPosting(await getJobApplicationById(id))
@@ -73,7 +73,7 @@ function Shortlist() {
                 </Button>
             </Grid2>
             <Grid2 xs={10} sx={{width:'100%', marginBottom:'2vh'}}>
-                <ShortlistTable shortlist={shortlist}/>
+                <ShortlistTable shortlist={shortlist} headings={tableHeadings}/>
             </Grid2>
         </Grid2>
     </Grid2>

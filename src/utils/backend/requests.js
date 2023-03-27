@@ -95,7 +95,7 @@ export const deleteJobApplication = async (id) => {
 }
 
 export const getJobShortlist = async (jobApplicant, length) => {
-    return axios.post(`${BACKEND_URL}potentialemployees/shortlist/${length}`, jobApplicant)
+    return axios.post(`${BACKEND_URL}/potentialemployees/shortlist/${length}`, jobApplicant)
         .then(res => {
             const { data } = res;
             console.log(data)

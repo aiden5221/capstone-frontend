@@ -56,7 +56,7 @@ function ApplicantForm() {
         })
 
         // Put this check in so that it can be used in the shortlist jobs page
-        id != '' ? navigate(`/aptitudeTest/${id}/`) : null
+        id != undefined ? navigate(`/aptitudeTest/${id}/`) : null
         
 
     }
