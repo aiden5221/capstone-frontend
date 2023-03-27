@@ -17,6 +17,7 @@ import { useRecoilState } from 'recoil'
 import { DEFAULT_SNACKBARSTATE, snackbarState } from './utils/recoil/atoms/snackbar/snackbar'
 import './App.css'
 import ShortlistJobs from './components/Pages/ShortlistJobs/ShortlistJobs'
+import NotFound from './components/Pages/NotFound/NotFound'
 
 function App() {
   const [snackbar, setSnackBar] = useRecoilState(snackbarState)
@@ -45,6 +46,7 @@ function App() {
         <Route path='test' element={<AptitudeTest />} />
         <Route path='aptitudeTest/:id' element={<TakeAptitudeTest />} />
         <Route path='shortlistJobs' element={<ShortlistJobs />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
       {
