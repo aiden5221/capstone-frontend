@@ -4,7 +4,7 @@ import { postJobApplication } from '../../../utils/backend/requests';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelIcon from '@mui/icons-material/Cancel';
-import CreateTest from '../../Aptitude/CreateTest';
+import CreateTest from '../../Aptitude/createTest';
 import { useNavigate } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { userState } from '../../../utils/recoil/atoms/user/user';
